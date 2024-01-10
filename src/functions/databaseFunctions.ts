@@ -16,6 +16,7 @@ export function getData<ResponseDataType>(sql_statement: string, ...params: any[
     const data: ResponseDataType = db.prepare(sql_statement).get(...params) as ResponseDataType;
     return { isSuccessful: true, data };
   } catch (err) {
+    console.log(err);
     return { isSuccessful: false, data: null };
   }
 }
@@ -25,6 +26,7 @@ export function getAllData<ResponseDataType>(sql_statement: string, ...params: a
     const data: ResponseDataType = db.prepare(sql_statement).all(...params) as ResponseDataType;
     return { isSuccessful: true, data };
   } catch (err) {
+    console.log(err);
     return { isSuccessful: false, data: null };
   }
 }
