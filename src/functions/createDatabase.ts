@@ -1,4 +1,4 @@
-import { executeRawStatement } from "./databaseFunctions";
+import { createTransactionStatement, executeRawStatement } from "./databaseFunctions";
 
 export function createDatabase() {
   console.log("# Creating Database...");
@@ -16,10 +16,10 @@ export function createDatabase() {
 
   console.log("+ Inserting Keys into gid_info");
   {
-    const info_insert = `INSERT INTO gid_info (key, value) VALUES (?, ?)`;
-    executeRawStatement(info_insert, "version", "0.1.0");
-    executeRawStatement(info_insert, "installation_timestamp", Date.now().toString());
-    executeRawStatement(info_insert, "last_startup_timestamp", Date.now().toString());
+    const statement = createTransactionStatement(`INSERT INTO gid_info (key, value) VALUES (?, ?)`);
+    statement.run("version", "0.1.0");
+    statement.run("installation_timestamp", Date.now().toString());
+    statement.run("last_startup_timestamp", Date.now().toString());
   }
 
   console.log("# Finished Creating Database");
