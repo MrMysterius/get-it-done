@@ -1,5 +1,10 @@
 import Express from "express";
 import Morgan from "morgan";
+import dotenv from "dotenv";
+
+// Config / Environment
+
+dotenv.config();
 
 export const app = Express();
 
