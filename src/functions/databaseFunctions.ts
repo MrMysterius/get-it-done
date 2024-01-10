@@ -28,3 +28,18 @@ export function getAllData<ResponseDataType>(sql_statement: string, ...params: a
     return { isSuccessful: false, data: null };
   }
 }
+
+export function createTransactionStatement(sql_statement: string) {
+  const statement = db.prepare(sql_statement);
+  return {
+    run: (...params: any[]) => {
+      try {
+        const res = statement.run(...params);
+        return { isSuccessful: true, data: res };
+      } catch (err) {
+        console.log(err);
+        return { isSuccessful: false, data: null };
+      }
+    },
+  };
+}
