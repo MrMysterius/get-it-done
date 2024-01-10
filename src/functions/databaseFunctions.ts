@@ -10,3 +10,12 @@ export function executeRawStatement(sql_statement: string, ...params: any[]): Re
     return { isSuccessful: false, data: null };
   }
 }
+
+export function getData<ResponseDataType>(sql_statement: string, ...params: any[]): Responses.Database<ResponseDataType | null> {
+  try {
+    const data: ResponseDataType = db.prepare(sql_statement).get(...params) as ResponseDataType;
+    return { isSuccessful: true, data };
+  } catch (err) {
+    return { isSuccessful: false, data: null };
+  }
+}
