@@ -1,3 +1,4 @@
+import { APIRouter } from "./api/APIRouter";
 import Express from "express";
 import Morgan from "morgan";
 import { checkEnvironment } from "./functions/checkEnvironment";
@@ -13,6 +14,8 @@ export const app = Express();
 // Middleware
 
 app.use(Morgan("dev")); // Logger Middleware
+
+app.use("/api", APIRouter);
 
 // Application Start
 
