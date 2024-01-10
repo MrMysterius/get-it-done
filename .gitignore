@@ -1,2 +1,6 @@
 # Node
 /node_modules/
+
+# Get It Done - Data
+/.env
+/gid_data.db
