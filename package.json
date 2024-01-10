@@ -9,5 +9,10 @@
   },
   "keywords": [],
   "author": "Mr Mysterius",
-  "license": "LGPL-3.0-or-later"
+  "license": "LGPL-3.0-or-later",
+  "dependencies": {
+    "@types/node": "^20.10.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
 }
