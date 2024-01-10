@@ -1,10 +1,12 @@
 import Express from "express";
 import Morgan from "morgan";
+import { checkEnvironment } from "./functions/checkEnvironment";
 import dotenv from "dotenv";
 
 // Config / Environment
 
 dotenv.config();
+checkEnvironment();
 
 export const app = Express();
 
