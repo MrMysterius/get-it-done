@@ -1,0 +1,13 @@
+{
+  "name": "get-it-done",
+  "version": "0.1.0",
+  "description": "Taskmanaging Application with the GTD Principal in Mind",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo \"Error: no start defined\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Mr Mysterius",
+  "license": "LGPL-3.0-or-later"
+}
