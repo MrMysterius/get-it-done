@@ -10,23 +10,29 @@ import sqlite from "better-sqlite3";
 
 // Config / Environment
 
+console.log("# Loading Environment Config");
 dotenv.config();
 checkEnvironment();
 
 export const app = Express();
 export const db = sqlite(path.join(__dirname, "../gid_data.db"));
 
+console.log("# Initializing Database");
 const db_version = getDatabaseInfo("version");
 if (!db_version && db_version != "0.1.0") {
   createDatabase();
 }
+console.log("# Initialized Database");
 
 // Middleware
 
 app.use(Morgan("dev")); // Logger Middleware
 
+// Routes
+
 app.use("/api", APIRouter);
 
 // Application Start
 
+console.log("# Listening on port:", process.env.APP_PORT || 3500);
 app.listen(process.env.APP_PORT || 3500);
