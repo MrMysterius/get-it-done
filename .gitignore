@@ -4,3 +4,4 @@
 # Get It Done - Data
 /.env
 /gid_data.db
+/gid_data.db-journal
