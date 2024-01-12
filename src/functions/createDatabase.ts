@@ -136,6 +136,19 @@ export function createDatabase() {
     );`
   );
 
+  console.log("+ Table comments");
+  executeRawStatement(
+    `CREATE TABLE "comments" (
+      "comment_id"	INTEGER,
+      "task_id"	INTEGER,
+      "user_id"	INTEGER,
+      "comment"	TEXT NOT NULL,
+      FOREIGN KEY("task_id") REFERENCES "tasks"("task_id") ON UPDATE CASCADE ON DELETE CASCADE,
+      FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE,
+      PRIMARY KEY("comment_id" AUTOINCREMENT)
+    );`
+  );
+
   console.log("# Finished Creating Database");
   console.log("----------------------------");
   return true;
