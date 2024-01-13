@@ -44,7 +44,10 @@ export function createDatabase() {
     const statement = createTransactionStatement(
       `INSERT INTO users (user_name, user_password_hash, user_displayname, user_last_action_timestamp, user_active) VALUE (?, ?, ? ,? ,?)`
     );
-    statement.run("admin", generatePasswordHash("admin"), "Admin", Date.now().toString(), 1).isSuccessful ? "OK" : process.exit(101);
+    statement.run(process.env.ADMIN_USERNAME || "admin", generatePasswordHash(process.env.ADMIN_PASSWORD || "admin"), "Admin", Date.now().toString(), 1)
+      .isSuccessful
+      ? "OK"
+      : process.exit(101);
   }
 
   console.log("+ Table groups");
