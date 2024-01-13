@@ -27,7 +27,7 @@ console.log("# Initialized Database");
 
 // Middleware
 
-app.use(Morgan("dev")); // Logger Middleware
+app.use(Morgan(":method :url :status :response-time ms - :res[content-length] :remote-addr")); // Logger Middleware
 app.use(cookie(process.env.COOKIE_SECRET));
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
