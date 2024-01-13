@@ -5,6 +5,7 @@
 | Name           | Description                                                | Default |
 | -------------- | ---------------------------------------------------------- | ------- |
 | COOKIE_SECRET  | **IMPORTANT** - Used for signing auth cookie with a secret | -       |
+| TOKEN_SECRET   | **IMPORTANT** - Used for signing the Auth Tokens           | -       |
 | PORT           | Used for changing the Port on which the App listens        | 3500    |
 | ADMIN_USERNAME | The default admins username                                | admin   |
 | ADMIN_PASSWORD | The default admins password                                | admin   |
