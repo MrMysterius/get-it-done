@@ -29,6 +29,12 @@ declare interface Error {
   status?: number;
 }
 
+declare namespace Express {
+  interface Request {
+    isAuthed?: boolean;
+  }
+}
+
 interface TokenUser {
   user_id: number;
   username: string;
