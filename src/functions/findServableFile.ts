@@ -14,7 +14,7 @@ export function findServableFile(start_path: string, req: Express.Request) {
     throw error;
   }
 
-  logger.info(resource);
+  logger.debug(resource);
 
   if (req.isAuthed) {
     const basicAuthedPath = path.join(start_path, `${resource.groups?.parent}`, `authed.`, `${resource.groups?.resource}`);
