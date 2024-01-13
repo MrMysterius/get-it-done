@@ -163,6 +163,18 @@ export function createDatabase() {
     );`
   );
 
+  console.log("+ Table inbox_codes");
+  executeRawStatement(
+    `CREATE TABLE "inbox_codes" (
+      "inbox_id"	INTEGER,
+      "inbox_owner"	INTEGER NOT NULL,
+      "inbox_code"	TEXT NOT NULL,
+      "inbox_extras"	TEXT DEFAULT '{}',
+      PRIMARY KEY("inbox_id" AUTOINCREMENT),
+      FOREIGN KEY("inbox_owner") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE
+    );`
+  );
+
   console.log("# Finished Creating Database");
   console.log("----------------------------");
   return true;
