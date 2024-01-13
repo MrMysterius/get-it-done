@@ -36,6 +36,17 @@ app.use(Express.urlencoded());
 
 app.use("/api", APIRouter);
 
+// Error Catch
+
+app.use((error: Error, req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
+  res.status(error.status || 500);
+  console.log(error.message);
+  res.json({
+    status: error.status || 500,
+    message: error.message || "Internal Server Error",
+  });
+});
+
 // Application Start
 
 console.log("# Listening on port:", process.env.APP_PORT || 3500);

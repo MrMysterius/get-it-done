@@ -11,3 +11,7 @@ declare namespace Responses {
     data: ResponseDataType;
   }
 }
+
+declare interface Error {
+  status?: number;
+}
