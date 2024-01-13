@@ -38,6 +38,12 @@ app.use("/api", APIRouter);
 
 // Error Catch
 
+app.all("/*", (req, res) => {
+  const error = new Error("Route or Method not Found");
+  error.status = 404;
+  throw error;
+});
+
 app.use((error: Error, req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
   res.status(error.status || 500);
   console.log(error.message);
