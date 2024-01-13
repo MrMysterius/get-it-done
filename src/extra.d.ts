@@ -4,6 +4,17 @@ declare namespace GIDData {
     value: any;
   }
 
+  interface user {
+    user_id: number;
+    user_name: string;
+    user_password_hash: string;
+    user_displayname: string;
+    user_role: user_role;
+    user_last_action_timestamp: string;
+    user_active: boolean;
+    user_invited_from: number | null;
+  }
+
   type user_role = "admin" | "user";
 }
 
