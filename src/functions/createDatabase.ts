@@ -43,10 +43,16 @@ export function createDatabase() {
   console.log("+ Inserting Default Admin User - admin:admin");
   {
     const statement = createTransactionStatement(
-      `INSERT INTO users (user_name, user_password_hash, user_displayname, user_last_action_timestamp, user_active) VALUES (?, ?, ? ,? ,?)`
+      `INSERT INTO users (user_name, user_password_hash, user_role, user_displayname, user_last_action_timestamp, user_active) VALUES (?, ?, ?, ? ,? ,?)`
     );
-    statement.run(process.env.ADMIN_USERNAME || "admin", generatePasswordHash(process.env.ADMIN_PASSWORD || "admin"), "Admin", Date.now().toString(), 1)
-      .isSuccessful
+    statement.run(
+      process.env.ADMIN_USERNAME || "admin",
+      generatePasswordHash(process.env.ADMIN_PASSWORD || "admin"),
+      "admin",
+      "Admin",
+      Date.now().toString(),
+      1
+    ).isSuccessful
       ? "OK"
       : process.exit(101);
   }
