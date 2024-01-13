@@ -50,4 +50,4 @@ app.use((error: Error, req: Express.Request, res: Express.Response, next: Expres
 // Application Start
 
 console.log("# Listening on port:", process.env.APP_PORT || 3500);
-app.listen(process.env.APP_PORT || 3500);
+app.listen(process.env.PORT || 3500);
