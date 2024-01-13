@@ -1,4 +1,5 @@
 import { APIRouter } from "./api/APIRouter";
+import { AuthRouter } from "./auth";
 import Express from "express";
 import Morgan from "morgan";
 import { checkEnvironment } from "./functions/checkEnvironment";
@@ -35,6 +36,7 @@ app.use(Express.urlencoded({ extended: true }));
 // Routes
 
 app.use("/api", APIRouter);
+app.use("/auth", AuthRouter);
 
 // Error Catch
 
