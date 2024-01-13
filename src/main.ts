@@ -5,6 +5,7 @@ import Morgan from "morgan";
 import { checkEnvironment } from "./functions/checkEnvironment";
 import cookie from "cookie-parser";
 import { createDatabase } from "./functions/createDatabase";
+import { createLogger } from "./logger";
 import dotenv from "dotenv";
 import { getDatabaseInfo } from "./functions/getDatabaseInfo";
 import path from "path";
@@ -18,13 +19,14 @@ checkEnvironment();
 
 export const app = Express();
 export const db = sqlite(path.join(__dirname, "../gid_data.db"));
+export const logger = createLogger();
 
-console.log("# Initializing Database");
+logger.info("# Initializing Database");
 const db_version = getDatabaseInfo("version");
 if (!db_version && db_version != "0.1.0") {
   createDatabase();
 }
-console.log("# Initialized Database");
+logger.info("# Initialized Database");
 
 // Middleware
 
@@ -48,7 +50,7 @@ app.all("/*", (req, res) => {
 
 app.use((error: Error, req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
   res.status(error.status || 500);
-  console.log(error.message);
+  logger.error(error.message);
   res.json({
     status: error.status || 500,
     message: error.message || "Internal Server Error",
@@ -57,5 +59,5 @@ app.use((error: Error, req: Express.Request, res: Express.Response, next: Expres
 
 // Application Start
 
-console.log("# Listening on port:", process.env.APP_PORT || 3500);
+logger.info("# Listening on port:", process.env.APP_PORT || 3500);
 app.listen(process.env.PORT || 3500);
