@@ -31,6 +31,7 @@ export function createDatabase() {
       "user_name"	TEXT NOT NULL UNIQUE,
       "user_password_hash"	TEXT NOT NULL,
       "user_displayname"	TEXT NOT NULL,
+      "user_role"	TEXT NOT NULL DEFAULT 'user',
       "user_last_action_timestamp"	TEXT,
       "user_active"	INTEGER NOT NULL,
       "user_invited_from"	INTEGER DEFAULT NULL,
