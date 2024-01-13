@@ -2,6 +2,7 @@ import { APIRouter } from "./api/APIRouter";
 import Express from "express";
 import Morgan from "morgan";
 import { checkEnvironment } from "./functions/checkEnvironment";
+import cookie from "cookie-parser";
 import { createDatabase } from "./functions/createDatabase";
 import dotenv from "dotenv";
 import { getDatabaseInfo } from "./functions/getDatabaseInfo";
@@ -27,6 +28,7 @@ console.log("# Initialized Database");
 // Middleware
 
 app.use(Morgan("dev")); // Logger Middleware
+app.use(cookie(process.env.COOKIE_SECRET));
 
 // Routes
 
