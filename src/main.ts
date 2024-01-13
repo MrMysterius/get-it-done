@@ -2,6 +2,7 @@ import { APIRouter } from "./api/APIRouter";
 import { AuthRouter } from "./auth";
 import Express from "express";
 import Morgan from "morgan";
+import { ServeRouter } from "./serve";
 import { checkEnvironment } from "./functions/checkEnvironment";
 import cookie from "cookie-parser";
 import { createDatabase } from "./functions/createDatabase";
@@ -39,6 +40,7 @@ app.use(Express.urlencoded({ extended: true }));
 
 app.use("/api", APIRouter);
 app.use("/auth", AuthRouter);
+app.use("/*", ServeRouter);
 
 // Error Catch
 
