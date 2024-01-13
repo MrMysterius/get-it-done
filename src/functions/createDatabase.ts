@@ -27,11 +27,13 @@ export function createDatabase() {
     `CREATE TABLE "users" (
       "user_id"	INTEGER,
       "user_name"	TEXT NOT NULL UNIQUE,
-      "user_password_hash" TEXT NOT NULL,
+      "user_password_hash"	TEXT NOT NULL,
       "user_displayname"	TEXT NOT NULL,
       "user_last_action_timestamp"	TEXT,
       "user_active"	INTEGER NOT NULL,
-      PRIMARY KEY("user_id" AUTOINCREMENT)
+      "user_invited_from"	INTEGER DEFAULT NULL,
+      PRIMARY KEY("user_id" AUTOINCREMENT),
+      FOREIGN KEY("user_invited_from") REFERENCES "users"("user_id")
     );`
   );
 
@@ -146,6 +148,18 @@ export function createDatabase() {
       FOREIGN KEY("task_id") REFERENCES "tasks"("task_id") ON UPDATE CASCADE ON DELETE CASCADE,
       FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE,
       PRIMARY KEY("comment_id" AUTOINCREMENT)
+    );`
+  );
+
+  console.log("+ Table invites");
+  executeRawStatement(
+    `CREATE TABLE "invites" (
+      "invite_id"	INTEGER,
+      "user_id"	INTEGER NOT NULL,
+      "invite_code"	TEXT NOT NULL UNIQUE,
+      "invite_limit"	INTEGER NOT NULL DEFAULT 1,
+      FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE,
+      PRIMARY KEY("invite_id" AUTOINCREMENT)
     );`
   );
 
