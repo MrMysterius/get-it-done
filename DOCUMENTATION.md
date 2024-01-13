@@ -9,6 +9,7 @@
 | PORT           | Used for changing the Port on which the App listens        | 3500    |
 | ADMIN_USERNAME | The default admins username                                | admin   |
 | ADMIN_PASSWORD | The default admins password                                | admin   |
+| LOG_LEVEL      | The level of logs to be displayed                          | info    |
 
 ## Error Codes
 

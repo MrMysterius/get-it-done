@@ -5,3 +5,4 @@
 /.env
 /gid_data.db
 /gid_data.db-journal
+/gid.log
