@@ -63,10 +63,10 @@ export function createDatabase() {
   executeRawStatement(
     `CREATE TABLE "filters" (
       "filter_id"	INTEGER,
-      "user_id"	INTEGER NOT NULL,
-      "filter_data"	TEXT NOT NULL,
+      "filter_creator"	INTEGER,
+      "filter_data"	TEXT NOT NULL DEFAULT '{}',
       PRIMARY KEY("filter_id" AUTOINCREMENT),
-      FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE
+      FOREIGN KEY("filter_creator") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
   );
 
