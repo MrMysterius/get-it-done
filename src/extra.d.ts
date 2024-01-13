@@ -3,6 +3,8 @@ declare namespace GIDData {
     key: string;
     value: any;
   }
+
+  type user_role = "admin" | "user";
 }
 
 declare namespace Responses {
@@ -14,4 +16,10 @@ declare namespace Responses {
 
 declare interface Error {
   status?: number;
+}
+
+interface TokenUser {
+  user_id: number;
+  username: string;
+  role: GIDData.user_role;
 }
