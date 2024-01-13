@@ -1,11 +1,12 @@
 import { createTransactionStatement, executeRawStatement } from "./databaseFunctions";
 
 import { generatePasswordHash } from "./generatePasswordHash";
+import { logger } from "../main";
 
 export function createDatabase() {
-  console.log("# Creating Database...");
+  logger.info("# Creating Database...");
 
-  console.log("+ Table gid_info");
+  logger.info("+ Table gid_info");
   executeRawStatement(
     `CREATE TABLE "gid_info" (
       "key"	TEXT NOT NULL,
@@ -16,7 +17,7 @@ export function createDatabase() {
     ? "OK"
     : process.exit(100);
 
-  console.log("+ Inserting Keys into gid_info");
+  logger.info("+ Inserting Keys into gid_info");
   {
     const statement = createTransactionStatement(`INSERT INTO gid_info (key, value) VALUES (?, ?)`);
     statement.run("version", "0.1.0");
@@ -24,7 +25,7 @@ export function createDatabase() {
     statement.run("last_startup_timestamp", Date.now().toString());
   }
 
-  console.log("+ Table users");
+  logger.info("+ Table users");
   executeRawStatement(
     `CREATE TABLE "users" (
       "user_id"	INTEGER,
@@ -40,7 +41,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("+ Inserting Default Admin User - admin:admin");
+  logger.info("+ Inserting Default Admin User - admin:admin");
   {
     const statement = createTransactionStatement(
       `INSERT INTO users (user_name, user_password_hash, user_role, user_displayname, user_last_action_timestamp, user_active) VALUES (?, ?, ?, ? ,? ,?)`
@@ -57,7 +58,7 @@ export function createDatabase() {
       : process.exit(101);
   }
 
-  console.log("+ Table groups");
+  logger.info("+ Table groups");
   executeRawStatement(
     `CREATE TABLE "groups" (
       "group_id"	INTEGER,
@@ -68,7 +69,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("+ Table group_members");
+  logger.info("+ Table group_members");
   executeRawStatement(
     `CREATE TABLE "group_members" (
       "group_id"	INTEGER NOT NULL,
@@ -79,7 +80,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("+ Table filters");
+  logger.info("+ Table filters");
   executeRawStatement(
     `CREATE TABLE "filters" (
       "filter_id"	INTEGER,
@@ -90,7 +91,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("+ Table states");
+  logger.info("+ Table states");
   executeRawStatement(
     `CREATE TABLE "states" (
       "state_id"	INTEGER,
@@ -104,7 +105,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("+ Table tags");
+  logger.info("+ Table tags");
   executeRawStatement(
     `CREATE TABLE "tags" (
       "tag_id"	INTEGER,
@@ -119,7 +120,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("+ Table tasks");
+  logger.info("+ Table tasks");
   executeRawStatement(
     `CREATE TABLE "tasks" (
       "task_id"	INTEGER,
@@ -136,7 +137,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("+ Table task_tags");
+  logger.info("+ Table task_tags");
   executeRawStatement(
     `CREATE TABLE "task_tags" (
       "task_id"	INTEGER NOT NULL,
@@ -147,7 +148,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("+ Table task_state");
+  logger.info("+ Table task_state");
   executeRawStatement(
     `CREATE TABLE "task_state" (
       "task_id"	INTEGER NOT NULL UNIQUE,
@@ -158,7 +159,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("+ Table comments");
+  logger.info("+ Table comments");
   executeRawStatement(
     `CREATE TABLE "comments" (
       "comment_id"	INTEGER,
@@ -171,7 +172,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("+ Table invites");
+  logger.info("+ Table invites");
   executeRawStatement(
     `CREATE TABLE "invites" (
       "invite_id"	INTEGER,
@@ -183,7 +184,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("+ Table inbox_codes");
+  logger.info("+ Table inbox_codes");
   executeRawStatement(
     `CREATE TABLE "inbox_codes" (
       "inbox_id"	INTEGER,
@@ -195,7 +196,7 @@ export function createDatabase() {
     );`
   );
 
-  console.log("# Finished Creating Database");
-  console.log("----------------------------");
+  logger.info("# Finished Creating Database");
+  logger.info("----------------------------");
   return true;
 }
