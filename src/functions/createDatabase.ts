@@ -1,5 +1,7 @@
 import { createTransactionStatement, executeRawStatement } from "./databaseFunctions";
 
+import { generatePasswordHash } from "./generatePasswordHash";
+
 export function createDatabase() {
   console.log("# Creating Database...");
 
@@ -11,7 +13,7 @@ export function createDatabase() {
       PRIMARY KEY("key")
     );`
   ).isSuccessful
-    ? null
+    ? "OK"
     : process.exit(100);
 
   console.log("+ Inserting Keys into gid_info");
@@ -36,6 +38,14 @@ export function createDatabase() {
       FOREIGN KEY("user_invited_from") REFERENCES "users"("user_id")
     );`
   );
+
+  console.log("+ Inserting Default Admin User - admin:admin");
+  {
+    const statement = createTransactionStatement(
+      `INSERT INTO users (user_name, user_password_hash, user_displayname, user_last_action_timestamp, user_active) VALUE (?, ?, ? ,? ,?)`
+    );
+    statement.run("admin", generatePasswordHash("admin"), "Admin", Date.now().toString(), 1).isSuccessful ? "OK" : process.exit(101);
+  }
 
   console.log("+ Table groups");
   executeRawStatement(
