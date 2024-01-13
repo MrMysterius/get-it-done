@@ -42,20 +42,20 @@ export function createDatabase() {
     `CREATE TABLE "groups" (
       "group_id"	INTEGER,
       "group_name"	TEXT NOT NULL,
-      "group_owner"	INTEGER,
-      FOREIGN KEY("group_owner") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      PRIMARY KEY("group_id" AUTOINCREMENT)
+      "group_owner"	INTEGER NOT NULL,
+      PRIMARY KEY("group_id" AUTOINCREMENT),
+      FOREIGN KEY("group_owner") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
   );
 
   console.log("+ Table group_members");
   executeRawStatement(
     `CREATE TABLE "group_members" (
-      "group_id"	INTEGER,
-      "user_id"	INTEGER,
+      "group_id"	INTEGER NOT NULL,
+      "user_id"	INTEGER NOT NULL,
+      PRIMARY KEY("group_id","user_id"),
       FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      FOREIGN KEY("group_id") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      PRIMARY KEY("group_id","user_id")
+      FOREIGN KEY("group_id") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
   );
 
@@ -63,10 +63,10 @@ export function createDatabase() {
   executeRawStatement(
     `CREATE TABLE "filters" (
       "filter_id"	INTEGER,
-      "user_id"	INTEGER,
+      "user_id"	INTEGER NOT NULL,
       "filter_data"	TEXT NOT NULL,
-      FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      PRIMARY KEY("filter_id" AUTOINCREMENT)
+      PRIMARY KEY("filter_id" AUTOINCREMENT),
+      FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
   );
 
@@ -74,13 +74,13 @@ export function createDatabase() {
   executeRawStatement(
     `CREATE TABLE "states" (
       "state_id"	INTEGER,
-      "group_id"	INTEGER,
+      "state_creator"	INTEGER NOT NULL,
       "state_name"	TEXT NOT NULL,
       "state_description"	TEXT DEFAULT '',
       "state_colour_text"	TEXT NOT NULL DEFAULT '#000000',
       "state_colour_background"	TEXT NOT NULL DEFAULT '#262626',
-      FOREIGN KEY("group_id") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      PRIMARY KEY("state_id" AUTOINCREMENT)
+      PRIMARY KEY("state_id" AUTOINCREMENT),
+      FOREIGN KEY("state_creator") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
   );
 
@@ -88,13 +88,13 @@ export function createDatabase() {
   executeRawStatement(
     `CREATE TABLE "tags" (
       "tag_id"	INTEGER,
-      "group_id"	INTEGER,
+      "tag_creator"	INTEGER NOT NULL,
       "tag_name"	TEXT NOT NULL,
       "tag_description"	TEXT DEFAULT '',
       "tag_type"	TEXT NOT NULL,
       "tag_colour_text"	TEXT NOT NULL DEFAULT '#000000',
       "tag_colour_background"	TEXT NOT NULL DEFAULT '#66a3ff',
-      FOREIGN KEY("group_id") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE,
+      FOREIGN KEY("tag_creator") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE,
       PRIMARY KEY("tag_id" AUTOINCREMENT)
     );`
   );
@@ -103,7 +103,7 @@ export function createDatabase() {
   executeRawStatement(
     `CREATE TABLE "tasks" (
       "task_id"	INTEGER,
-      "group_id"	INTEGER,
+      "task_creator"	INTEGER NOT NULL,
       "task_title"	TEXT,
       "task_description"	TEXT,
       "task_date_start"	TEXT,
@@ -111,30 +111,30 @@ export function createDatabase() {
       "task_time_estimate"	INTEGER,
       "task_time_needed"	INTEGER,
       "task_archived"	INTEGER NOT NULL DEFAULT 0,
-      FOREIGN KEY("group_id") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      PRIMARY KEY("task_id" AUTOINCREMENT)
+      PRIMARY KEY("task_id" AUTOINCREMENT),
+      FOREIGN KEY("task_creator") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
   );
 
   console.log("+ Table task_tags");
   executeRawStatement(
     `CREATE TABLE "task_tags" (
-      "task_id"	INTEGER,
-      "tag_id"	INTEGER,
+      "task_id"	INTEGER NOT NULL,
+      "tag_id"	INTEGER NOT NULL,
+      PRIMARY KEY("task_id","tag_id"),
       FOREIGN KEY("tag_id") REFERENCES "tags"("tag_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      FOREIGN KEY("task_id") REFERENCES "tasks"("task_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      PRIMARY KEY("task_id","tag_id")
+      FOREIGN KEY("task_id") REFERENCES "tasks"("task_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
   );
 
   console.log("+ Table task_state");
   executeRawStatement(
     `CREATE TABLE "task_state" (
-      "task_id"	INTEGER UNIQUE,
-      "state_id"	INTEGER,
+      "task_id"	INTEGER NOT NULL UNIQUE,
+      "state_id"	INTEGER NOT NULL,
+      PRIMARY KEY("task_id","state_id"),
       FOREIGN KEY("state_id") REFERENCES "states"("state_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      FOREIGN KEY("task_id") REFERENCES "tasks"("task_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      PRIMARY KEY("task_id","state_id")
+      FOREIGN KEY("task_id") REFERENCES "tasks"("task_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
   );
 
@@ -142,12 +142,12 @@ export function createDatabase() {
   executeRawStatement(
     `CREATE TABLE "comments" (
       "comment_id"	INTEGER,
-      "task_id"	INTEGER,
-      "user_id"	INTEGER,
+      "task_id"	INTEGER NOT NULL,
+      "user_id"	INTEGER NOT NULL,
       "comment"	TEXT NOT NULL,
+      PRIMARY KEY("comment_id" AUTOINCREMENT),
       FOREIGN KEY("task_id") REFERENCES "tasks"("task_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE,
-      PRIMARY KEY("comment_id" AUTOINCREMENT)
+      FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
   );
 
@@ -155,10 +155,10 @@ export function createDatabase() {
   executeRawStatement(
     `CREATE TABLE "invites" (
       "invite_id"	INTEGER,
-      "user_id"	INTEGER NOT NULL,
+      "invite_creator"	INTEGER NOT NULL,
       "invite_code"	TEXT NOT NULL UNIQUE,
       "invite_limit"	INTEGER NOT NULL DEFAULT 1,
-      FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE,
+      FOREIGN KEY("invite_creator") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE,
       PRIMARY KEY("invite_id" AUTOINCREMENT)
     );`
   );
