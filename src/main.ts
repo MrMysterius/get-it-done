@@ -11,6 +11,7 @@ import dotenv from "dotenv";
 import { getDatabaseInfo } from "./functions/getDatabaseInfo";
 import path from "path";
 import sqlite from "better-sqlite3";
+import { validateAuth } from "./functions/validateAuth";
 
 // Config / Environment
 
@@ -38,8 +39,9 @@ app.use(Express.urlencoded({ extended: true }));
 
 // Routes
 
-app.use("/api", APIRouter);
 app.use("/auth", AuthRouter);
+app.use(validateAuth);
+app.use("/api", APIRouter);
 app.use("/*", ServeRouter);
 
 // Error Catch

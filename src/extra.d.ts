@@ -32,6 +32,7 @@ declare interface Error {
 declare namespace Express {
   interface Request {
     isAuthed?: boolean;
+    authedUser?: AuthedUser | null;
   }
 }
 
@@ -39,4 +40,13 @@ interface TokenUser {
   user_id: number;
   username: string;
   role: GIDData.user_role;
+}
+
+interface AuthedUser {
+  user_id: number;
+  user_name: string;
+  user_displayname: string;
+  user_role: GIDData.user_role;
+  user_active: boolean;
+  user_invited_from: number | null;
 }
