@@ -159,6 +159,17 @@ export function createDatabase() {
     );`
   );
 
+  logger.info("+ Table task_asignees");
+  executeRawStatement(
+    `CREATE TABLE "task_asignees" (
+      "task_id"	INTEGER,
+      "user_id"	INTEGER,
+      FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE,
+      FOREIGN KEY("task_id") REFERENCES "tasks"("task_id") ON UPDATE CASCADE ON DELETE CASCADE,
+      PRIMARY KEY("task_id","user_id")
+    );`
+  );
+
   logger.info("+ Table comments");
   executeRawStatement(
     `CREATE TABLE "comments" (
