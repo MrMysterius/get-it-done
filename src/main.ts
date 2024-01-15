@@ -8,6 +8,7 @@ import cookie from "cookie-parser";
 import { createDatabase } from "./functions/createDatabase";
 import { createLogger } from "./logger";
 import dotenv from "dotenv";
+import { generateErrorWithStatus } from "./functions/generateErrorWithStatus";
 import { getDatabaseInfo } from "./functions/getDatabaseInfo";
 import path from "path";
 import sqlite from "better-sqlite3";
@@ -45,9 +46,7 @@ app.use("/*", ServeRouter);
 // Error Catch
 
 app.all("/*", (req, res) => {
-  const error = new Error("Route or Method not Found");
-  error.status = 404;
-  throw error;
+  throw generateErrorWithStatus("Route or Method not found", 404);
 });
 
 app.use((error: Error, req: Express.Request, res: Express.Response, next: Express.NextFunction) => {

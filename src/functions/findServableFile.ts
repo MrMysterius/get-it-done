@@ -1,5 +1,6 @@
 import Express from "express";
 import fs from "fs";
+import { generateErrorWithStatus } from "./generateErrorWithStatus";
 import { logger } from "../main";
 import path from "path";
 
@@ -8,11 +9,7 @@ export function findServableFile(start_path: string, req: Express.Request) {
   const resource = req.path.match(/(?<parent>^.*\/)(?<resource>[^\/]*$)/);
   const potentialFilePaths: Array<string> = [];
 
-  if (!resource) {
-    const error = new Error("Couldn't filter out resource");
-    error.status = 500;
-    throw error;
-  }
+  if (!resource) throw generateErrorWithStatus("Couldn't filter out ressource", 500);
 
   logger.debug(resource);
 
