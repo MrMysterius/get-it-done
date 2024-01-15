@@ -22,9 +22,9 @@ export function getData<ResponseDataType>(sql_statement: string, ...params: any[
   }
 }
 
-export function getAllData<ResponseDataType>(sql_statement: string, ...params: any[]): Responses.Database<ResponseDataType | null> {
+export function getAllData<ResponseDataType>(sql_statement: string, ...params: any[]): Responses.Database<Array<ResponseDataType> | null> {
   try {
-    const data: ResponseDataType = db.prepare(sql_statement).all(...params) as ResponseDataType;
+    const data: Array<ResponseDataType> = db.prepare(sql_statement).all(...params) as Array<ResponseDataType>;
     return { isSuccessful: true, data };
   } catch (err: any) {
     logger.error(err.stack);

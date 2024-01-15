@@ -6,6 +6,6 @@ export function getDatabaseInfo<ResponseType>(info: string): ResponseType | null
 }
 
 export function getAllDatabaseInfo(): GIDData.gid_info[] | null {
-  const res = getAllData<GIDData.gid_info[]>(`SELECT * FROM gid_info`);
+  const res = getAllData<GIDData.gid_info>(`SELECT * FROM gid_info`);
   return res.data;
 }
