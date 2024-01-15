@@ -4,8 +4,8 @@ import { logger } from "../main";
 import path from "path";
 
 export function findServableFile(start_path: string, req: Express.Request) {
-  const literalPath = path.join(start_path, req.path);
-  const resource = req.path.match(/(?<parent>.*\/)(?<resource>[^\/]*$)/);
+  const literalPath = path.join(start_path, req.baseUrl);
+  const resource = req.path.match(/(?<parent>^.*\/)(?<resource>[^\/]*$)/);
   const potentialFilePaths: Array<string> = [];
 
   if (!resource) {
