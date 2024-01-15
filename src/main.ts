@@ -51,12 +51,17 @@ app.all("/*", (req, res) => {
 });
 
 app.use((error: Error, req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
-  res.status(error.status || 500);
-  logger.error(error.message);
-  res.json({
+  if (error.status == 500) logger.error(error.message);
+  else logger.warn(error.message);
+
+  const response: ErrorResponse = {
     status: error.status || 500,
     message: error.message || "Internal Server Error",
-  });
+  };
+  if (error.details) response.details = error.details;
+
+  res.status(error.status || 500);
+  res.json(response);
 });
 
 // Application Start

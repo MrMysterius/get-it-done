@@ -27,6 +27,13 @@ declare namespace Responses {
 
 declare interface Error {
   status?: number;
+  details?: any;
+}
+
+declare interface ErrorResponse {
+  status: number;
+  message: any;
+  details?: any;
 }
 
 declare namespace Express {
