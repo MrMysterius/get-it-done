@@ -12,11 +12,11 @@ AuthRouter.post("/", (req, res) => {
   const username = req.body.username?.trim() || null;
   const password = req.body.password?.trim() || null;
 
-  if (!username || !password) throw generateErrorWithStatus("Missing username or password", 401);
+  if (!username || !password) throw generateErrorWithStatus("Missing username or password", 400);
 
   const user_res = getData<GIDData.user>(`SELECT * FROM users WHERE user_name = ?`, username);
 
-  if (!user_res.data || !checkPassword(password, user_res.data.user_password_hash || "")) throw generateErrorWithStatus("Invalid username or password", 403);
+  if (!user_res.data || !checkPassword(password, user_res.data.user_password_hash || "")) throw generateErrorWithStatus("Invalid username or password", 401);
 
   const token = generateAuthToken({ username: user_res.data.user_name, user_id: user_res.data.user_id, role: user_res.data.user_role });
 

@@ -6,7 +6,7 @@ export function validateData(req: Express.Request, res: Express.Response, next: 
   const result = validationResult(req);
 
   if (!result.isEmpty()) {
-    throw generateErrorWithStatus("Bad Request", 401, { errors: result.array() });
+    throw generateErrorWithStatus("Bad Request", 400, { errors: result.array() });
   }
 
   next();
