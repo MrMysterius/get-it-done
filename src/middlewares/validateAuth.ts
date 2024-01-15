@@ -1,7 +1,7 @@
 import Express from "express";
 import JWT from "jsonwebtoken";
-import { getData } from "./databaseFunctions";
-import { updateLastActionTimestamp } from "./updateLastActionTimestamp";
+import { getData } from "../functions/databaseFunctions";
+import { updateLastActionTimestamp } from "../functions/updateLastActionTimestamp";
 
 export function validateAuth(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
   const token = req.headers.authorization || req.signedCookies.token || null;
