@@ -1,7 +1,7 @@
 import Express from "express";
 import { findServableFile } from "./functions/findServableFile";
 import path from "path";
-import { validateAuth } from "./functions/validateAuth";
+import { validateAuth } from "./middlewares/validateAuth";
 
 export const ServeRouter = Express.Router();
 
