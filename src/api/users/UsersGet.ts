@@ -36,6 +36,7 @@ UsersGetRouter.get("/", (req, res) => {
         user_displayname: u.user_displayname,
         user_role: u.user_role,
         last_action: u.user_last_action_timestamp,
+        user_active: u.user_active,
         invitee,
       };
     }) || []
@@ -70,6 +71,7 @@ UsersGetRouter.get("/:user_id", param("user_id").trim().isNumeric().notEmpty(), 
     user_displayname: user.data.user_displayname,
     user_role: user.data.user_role,
     last_action: user.data.user_last_action_timestamp,
+    user_active: user.data.user_active,
     invitee,
   });
 });
