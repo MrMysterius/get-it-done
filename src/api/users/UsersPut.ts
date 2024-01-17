@@ -100,7 +100,7 @@ UsersPutRouter.put(
       });
     }
 
-    if (req.authedUser.user_id != req.params.user_id) throw generateErrorWithStatus("Unauthorized Access", 403);
+    if (req.authedUser.user_id != originalUser.data.user_id) throw generateErrorWithStatus("Unauthorized Access", 403);
 
     const statement = createTransactionStatement(
       `UPDATE users SET user_name = @user_name, user_displayname = @user_displayname, user_password_hash = @user_password_hash WHERE user_id = @user_id`
