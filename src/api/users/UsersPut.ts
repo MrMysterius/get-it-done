@@ -60,6 +60,8 @@ UsersPutRouter.put(
     })
     .optional(),
 
+  body("is_active").trim().isIn([0, 1]).optional(),
+
   // DATA CHECK
   validateData,
 
@@ -74,7 +76,7 @@ UsersPutRouter.put(
 
     if (req.authedUser.user_role == "admin") {
       const statement = createTransactionStatement(
-        `UPDATE users SET user_name = @user_name, user_displayname = @user_displayname, user_password_hash = @user_password_hash, user_role = @user_role, user_invited_from = @user_invited_from WHERE user_id = @user_id`
+        `UPDATE users SET user_name = @user_name, user_displayname = @user_displayname, user_password_hash = @user_password_hash, user_role = @user_role, user_invited_from = @user_invited_from, user_active = @user_active WHERE user_id = @user_id`
       );
 
       const result = statement.run({
@@ -84,6 +86,7 @@ UsersPutRouter.put(
         user_displayname: req.body.user_displayname || originalUser.data.user_displayname,
         user_role: req.body.user_role || originalUser.data.user_role,
         user_invited_from: req.body.invitee_id || originalUser.data.user_invited_from,
+        user_active: req.body.is_active != undefined ? req.body.is_active : originalUser.data.user_active,
       });
 
       if (!result.isSuccessful || !result.data) throw new Error();
@@ -96,6 +99,7 @@ UsersPutRouter.put(
         user_displayname: req.body.user_displayname || originalUser.data.user_displayname,
         user_role: req.body.user_role || originalUser.data.user_role,
         user_invited_from: req.body.invitee_id || originalUser.data.user_invited_from,
+        user_active: req.body.is_active != undefined ? req.body.is_active : originalUser.data.user_active,
         changes_made: result.data.changes,
       });
       return;
