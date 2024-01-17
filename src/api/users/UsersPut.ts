@@ -98,6 +98,7 @@ UsersPutRouter.put(
         user_invited_from: req.body.invitee_id || originalUser.data.user_invited_from,
         changes_made: result.data.changes,
       });
+      return;
     }
 
     if (req.authedUser.user_id != originalUser.data.user_id) throw generateErrorWithStatus("Unauthorized Access", 403);
