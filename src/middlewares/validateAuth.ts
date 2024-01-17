@@ -25,7 +25,7 @@ export function validateAuth(req: Express.Request, res: Express.Response, next: 
 
   const user = getData<GIDData.user>(`SELECT * FROM users WHERE user_id = ?`, tokenPayload?.user_id || 0);
 
-  if (user.isSuccessful && user.data) {
+  if (user.isSuccessful && user.data && user.data.user_active) {
     req.isAuthed = true;
     req.authedUser = {
       user_id: user.data.user_id,
