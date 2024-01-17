@@ -27,7 +27,7 @@ UsersPostRouter.post(
 
   body("password").trim().notEmpty().isAscii().isLength({ max: 128 }),
 
-  body("user_displayname").trim().notEmpty().isAscii().isLength({ max: 40 }).optional(),
+  body("user_displayname").trim().escape().notEmpty().isAscii().isLength({ max: 40 }).optional(),
 
   body("user_role")
     .trim()
