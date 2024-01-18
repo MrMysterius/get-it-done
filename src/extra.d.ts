@@ -15,6 +15,13 @@ declare namespace GIDData {
     user_invited_from: number | null;
   }
 
+  interface invite {
+    invite_id: number;
+    invite_creator: number;
+    invite_code: string;
+    invite_limit: number;
+  }
+
   type user_role = "admin" | "user";
 }
 
