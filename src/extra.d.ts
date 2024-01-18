@@ -15,6 +15,14 @@ declare namespace GIDData {
     user_invited_from: number | null;
   }
 
+  type user_role = "admin" | "user";
+
+  interface group {
+    group_id: number;
+    group_name: string;
+    group_owner: number;
+  }
+
   interface invite {
     invite_id: number;
     invite_creator: number;
@@ -22,8 +30,6 @@ declare namespace GIDData {
     invite_limit: number;
     invite_used_amount: number;
   }
-
-  type user_role = "admin" | "user";
 }
 
 declare namespace Responses {

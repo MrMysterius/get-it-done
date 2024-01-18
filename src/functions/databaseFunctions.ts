@@ -46,3 +46,18 @@ export function createTransactionStatement(sql_statement: string) {
     },
   };
 }
+
+export function createTransactionStatementTyped<TransactionRequiredData>(sql_statement: string) {
+  const statement = db.prepare(sql_statement);
+  return {
+    run: (data: TransactionRequiredData) => {
+      try {
+        const res = statement.run(data);
+        return { isSuccessful: true, data: res };
+      } catch (err: any) {
+        logger.error(err.stack);
+        return { isSuccessful: false, data: null };
+      }
+    },
+  };
+}
