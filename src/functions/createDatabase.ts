@@ -190,6 +190,7 @@ export function createDatabase() {
       "invite_creator"	INTEGER NOT NULL,
       "invite_code"	TEXT NOT NULL UNIQUE,
       "invite_limit"	INTEGER NOT NULL DEFAULT 1,
+      "invite_used_amount"	INTEGER NOT NULL DEFAULT 0,
       FOREIGN KEY("invite_creator") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE,
       PRIMARY KEY("invite_id" AUTOINCREMENT)
     );`

@@ -20,6 +20,7 @@ declare namespace GIDData {
     invite_creator: number;
     invite_code: string;
     invite_limit: number;
+    invite_used_amount: number;
   }
 
   type user_role = "admin" | "user";
