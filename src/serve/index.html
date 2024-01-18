@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GetItDone</title>
+</head>
+<body>
+  <h1>GetItDone</h1>
+
+  <form action="/signup" method="post">
+    <label for="signup-username">Username</label>
+    <input type="text" name="username" id="signup-username">
+    <br>
+
+    <label for="signup-password">Password</label>
+    <input type="password" name="password" id="signup-password">
+    <br>
+
+    <label for="signup-invitecode">Invite Code</label>
+    <input type="text" name="invite_code" id="signup-invitecode">
+    <br>
+
+    <input type="text" name="redirect" id="signup-redirect" style="display: none;" value="/">
+
+    <button type="submit">Signup</button>
+  </form>
+
+  <br>
+
+  <form action="/auth" method="post">
+    <label for="signup-username">Username</label>
+    <input type="text" name="username" id="signup-username">
+    <br>
+
+    <label for="signup-password">Password</label>
+    <input type="password" name="password" id="signup-password">
+    <br>
+
+    <input type="text" name="redirect" id="signup-redirect" style="display: none;" value="/">
+
+    <button type="submit">Login</button>
+  </form>
+</body>
+</html>
