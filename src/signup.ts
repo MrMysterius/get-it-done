@@ -36,6 +36,17 @@ SignUpRouter.post(
 
   body("password").trim().notEmpty().isAscii().isLength({ max: 128 }),
 
+  body("redirect")
+    .trim()
+    .notEmpty()
+    .isAscii()
+    .customSanitizer((path: string | undefined) => {
+      const match = path?.match(/^\/[\w]*$/);
+      if (!match) path = undefined;
+      return path;
+    })
+    .optional(),
+
   // DATA CHECK
   validateData,
 
@@ -69,6 +80,11 @@ SignUpRouter.post(
     });
 
     if (!userResult.isSuccessful || !userResult.data) throw new Error();
+
+    if (req.body.redirect) {
+      res.redirect(302, req.body.redirect);
+      return;
+    }
 
     res.status(200);
     res.json({
