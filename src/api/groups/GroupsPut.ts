@@ -6,7 +6,7 @@ import { validateData } from "../../middlewares/validateData";
 
 export const GroupsPutRouter = Express.Router();
 
-GroupsPutRouter.post(
+GroupsPutRouter.put(
   "/:group_id",
 
   // REQUEST DATA REQUIREMENTS
