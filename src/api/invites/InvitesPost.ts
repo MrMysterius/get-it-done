@@ -62,13 +62,13 @@ InvitesPostRouter.post(
       insertObject = {
         invite_limit: req.body.invite_limit,
         invite_code: req.body.invite_code || code,
-        invite_creator: req.body.invite_creator || req.authedUser?.user_id || null,
+        invite_creator: parseInt(req.body.invite_creator || req.authedUser?.user_id || null),
       };
     } else {
       insertObject = {
         invite_limit: req.body.invite_limit,
         invite_code: code,
-        invite_creator: req.body.invite_creator || req.authedUser?.user_id || null,
+        invite_creator: req.authedUser?.user_id as number,
       };
     }
 
