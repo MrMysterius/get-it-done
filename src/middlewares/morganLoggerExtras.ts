@@ -15,6 +15,8 @@ export function statusColorRanges(status: string) {
     return chalk.yellow(s);
   } else if (s >= 500 && s <= 599) {
     return chalk.red(s);
+  } else if (s >= 300 && s <= 399) {
+    return chalk.blue(s);
   } else {
     return chalk.gray(s);
   }
