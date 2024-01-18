@@ -2,6 +2,7 @@ import { APIRouter } from "./api/APIRouter";
 import { AuthRouter } from "./auth";
 import Express from "express";
 import { ServeRouter } from "./serve";
+import { SignUpRouter } from "./signup";
 import { checkEnvironment } from "./functions/checkEnvironment";
 import cookie from "cookie-parser";
 import { createDatabase } from "./functions/createDatabase";
@@ -40,6 +41,7 @@ app.use(Express.urlencoded({ extended: true }));
 // Routes
 
 app.use("/auth", AuthRouter);
+app.use("/signup", SignUpRouter);
 app.use("/api", APIRouter);
 app.use("/*", ServeRouter);
 
