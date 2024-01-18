@@ -14,7 +14,7 @@ Work In Progress - Project
   - [X] Get
   - [X] Create
   - [ ] Update
-  - [ ] Delete
+  - [X] Delete
 - [ ] Sign Up Endpoint - With Invite Code
 - [ ] Groups
   - [ ] Get
