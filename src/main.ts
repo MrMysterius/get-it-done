@@ -1,12 +1,12 @@
 import { APIRouter } from "./api/APIRouter";
 import { AuthRouter } from "./auth";
 import Express from "express";
-import Morgan from "morgan";
 import { ServeRouter } from "./serve";
 import { checkEnvironment } from "./functions/checkEnvironment";
 import cookie from "cookie-parser";
 import { createDatabase } from "./functions/createDatabase";
 import { createLogger } from "./logger";
+import { createMorganLogger } from "./middlewares/morganLogger";
 import dotenv from "dotenv";
 import { generateErrorWithStatus } from "./functions/generateErrorWithStatus";
 import { getDatabaseInfo } from "./functions/getDatabaseInfo";
@@ -32,7 +32,7 @@ logger.info("# Initialized Database");
 
 // Middleware
 
-app.use(Morgan(":method :url :status :response-time ms - :res[content-length] :remote-addr")); // Logger Middleware
+app.use(createMorganLogger()); // Logger Middleware
 app.use(cookie(process.env.COOKIE_SECRET));
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
