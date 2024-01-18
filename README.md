@@ -10,10 +10,10 @@ Work In Progress - Project
 
 ## TODO
 
-- [ ] Invite Codes
+- [X] Invite Codes
   - [X] Get
   - [X] Create
-  - [ ] Update
+  - [X] Update
   - [X] Delete
 - [ ] Sign Up Endpoint - With Invite Code
 - [ ] Groups
