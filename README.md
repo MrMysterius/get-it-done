@@ -12,7 +12,7 @@ Work In Progress - Project
 
 - [ ] Invite Codes
   - [ ] Get
-  - [ ] Create
+  - [X] Create
   - [ ] Update
   - [ ] Delete
 - [ ] Sign Up Endpoint - With Invite Code
