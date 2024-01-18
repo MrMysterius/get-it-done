@@ -41,6 +41,10 @@ app.use(Express.urlencoded({ extended: true }));
 // Routes
 
 app.use("/auth", AuthRouter);
+app.use("/deauth", (req, res) => {
+  res.clearCookie("token");
+  res.redirect(307, "/");
+});
 app.use("/signup", SignUpRouter);
 app.use("/api", APIRouter);
 app.use("/*", ServeRouter);
