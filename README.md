@@ -11,7 +11,7 @@ Work In Progress - Project
 ## TODO
 
 - [ ] Invite Codes
-  - [ ] Get
+  - [X] Get
   - [X] Create
   - [ ] Update
   - [ ] Delete
