@@ -1,4 +1,4 @@
-import { createTransactionStatement, createTransactionStatementTyped, getData } from "../../../functions/databaseFunctions";
+import { createTransactionStatementTyped, getData } from "../../../functions/databaseFunctions";
 
 import Express from "express";
 import { body } from "express-validator";
