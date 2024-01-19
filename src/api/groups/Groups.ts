@@ -15,8 +15,10 @@ GroupsRouter.use("/", GroupsPostRouter);
 GroupsRouter.use("/", GroupsPutRouter);
 GroupsRouter.use("/", GroupsDeleteRouter);
 
+const GroupsSubRouter = Express.Router();
+
 GroupsRouter.use(
-  "/:group_id/members",
+  "/:group_id",
   param("group_id")
     .trim()
     .notEmpty()
@@ -46,5 +48,7 @@ GroupsRouter.use(
       return true;
     }),
   validateData,
-  MembersRouter
+  GroupsSubRouter
 );
+
+GroupsSubRouter.use("/members", MembersRouter);
