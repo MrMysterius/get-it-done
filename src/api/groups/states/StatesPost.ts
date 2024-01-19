@@ -7,7 +7,7 @@ import { validateData } from "../../../middlewares/validateData";
 export const StatesPostRouter = Express.Router();
 
 StatesPostRouter.post(
-  "",
+  "/",
 
   // REQUEST DATA REQUIREMENTS
   body("name")
