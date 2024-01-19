@@ -27,13 +27,13 @@ Work In Progress - Project
     - [X] Remove
   - [ ] Tags
     - [ ] Get
-    - [X] Create
+    - [ ] Create
     - [ ] Update
     - [ ] Delete
   - [ ] States
     - [ ] Get
-    - [ ] Create
-    - [ ] Update
+    - [X] Create
+    - [X] Update
     - [ ] Delete
   - [ ] Tasks
     - [ ] Get
