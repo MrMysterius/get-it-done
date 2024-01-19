@@ -22,7 +22,7 @@ Work In Progress - Project
   - [X] Update
   - [X] Delete
   - [ ] Members
-    - [ ] Get
+    - [X] Get
     - [X] Add
     - [ ] Remove
   - [ ] Tags
