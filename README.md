@@ -21,10 +21,10 @@ Work In Progress - Project
   - [X] Create
   - [X] Update
   - [X] Delete
-  - [ ] Members
+  - [X] Members
     - [X] Get
     - [X] Add
-    - [ ] Remove
+    - [X] Remove
   - [ ] Tags
     - [ ] Get
     - [ ] Create
