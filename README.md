@@ -27,7 +27,7 @@ Work In Progress - Project
     - [X] Remove
   - [ ] Tags
     - [ ] Get
-    - [ ] Create
+    - [X] Create
     - [ ] Update
     - [ ] Delete
   - [ ] States
