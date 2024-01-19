@@ -54,6 +54,12 @@ declare namespace Express {
   interface Request {
     isAuthed?: boolean;
     authedUser?: AuthedUser | null;
+    extra: {
+      params: {
+        [key: string]: any;
+      };
+      [key: string]: any;
+    };
   }
 }
 

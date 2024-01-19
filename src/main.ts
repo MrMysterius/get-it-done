@@ -37,6 +37,10 @@ app.use(createMorganLogger()); // Logger Middleware
 app.use(cookie(process.env.COOKIE_SECRET));
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  req.extra = { params: {} };
+  next();
+});
 
 // Routes
 
