@@ -30,11 +30,11 @@ Work In Progress - Project
     - [ ] Create
     - [ ] Update
     - [ ] Delete
-  - [ ] States
+  - [X] States
     - [X] Get
     - [X] Create
     - [X] Update
-    - [ ] Delete
+    - [X] Delete
   - [ ] Tasks
     - [ ] Get
     - [ ] Create
