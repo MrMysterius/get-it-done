@@ -20,7 +20,7 @@ Work In Progress - Project
   - [X] Get
   - [X] Create
   - [X] Update
-  - [ ] Delete
+  - [X] Delete
   - [ ] Members
     - [ ] Get
     - [ ] Add
