@@ -35,6 +35,15 @@ declare namespace GIDData {
     group_id: number;
     user_id: number;
   }
+
+  interface state {
+    state_id: number;
+    state_creator: number;
+    state_name: string;
+    state_description: string;
+    state_colour_text: string;
+    state_colour_background: string;
+  }
 }
 
 declare namespace Responses {
