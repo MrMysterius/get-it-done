@@ -30,6 +30,11 @@ declare namespace GIDData {
     invite_limit: number;
     invite_used_amount: number;
   }
+
+  interface group_member {
+    group_id: number;
+    user_id: number;
+  }
 }
 
 declare namespace Responses {
