@@ -6,6 +6,7 @@ import { GroupsPutRouter } from "./GroupsPut";
 import { MembersRouter } from "./members/Members";
 import { StatesRouter } from "./states/States";
 import { TagsRouter } from "./tags/Tags";
+import { TasksRouter } from "./tasks/Tasks";
 import { getData } from "../../functions/databaseFunctions";
 import { param } from "express-validator";
 import { validateData } from "../../middlewares/validateData";
@@ -56,3 +57,4 @@ GroupsRouter.use(
 GroupsSubRouter.use("/members", MembersRouter);
 GroupsSubRouter.use("/states", StatesRouter);
 GroupsSubRouter.use("/tags", TagsRouter);
+GroupsSubRouter.use("/tasks", TasksRouter);

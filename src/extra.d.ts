@@ -56,6 +56,18 @@ declare namespace GIDData {
   }
 
   type tag_type = "context" | "project" | "other";
+
+  interface task {
+    task_id: number;
+    task_creator: number;
+    task_title: string;
+    task_description: string;
+    task_date_start: string;
+    task_date_due: string;
+    task_time_estimate: number;
+    task_time_needed: number;
+    task_archived: boolean;
+  }
 }
 
 declare namespace Responses {
