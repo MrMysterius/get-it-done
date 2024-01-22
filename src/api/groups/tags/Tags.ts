@@ -5,3 +5,4 @@ import { TagsPutRouter } from "./TagsPut";
 export const TagsRouter = Express.Router();
 
 TagsRouter.use("/", TagsPostRouter);
+TagsRouter.use("/", TagsPutRouter);
