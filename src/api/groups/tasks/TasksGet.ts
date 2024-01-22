@@ -10,7 +10,33 @@ TasksGetRouter.get(
   "/",
 
   (req, res) => {
-    const tasks = getAllData<GIDData.task>(`SELECT * FROM tasks WHERE task_creator = ?`, req.extra.params.group_id);
+    const tasks = getAllData<GIDData.task>(`SELECT * FROM tasks WHERE task_creator = ? AND task_archived = 0`, req.extra.params.group_id);
+
+    if (!tasks.data) throw new Error("Couldn't get tasks");
+
+    res.status(200);
+    res.json(
+      tasks.data.map((task) => {
+        return {
+          id: task.task_id,
+          title: task.task_title,
+          description: task.task_description,
+          date_start: task.task_date_start,
+          date_due: task.task_date_due,
+          time_estimate: task.task_time_estimate,
+          time_needed: task.task_time_needed,
+          isArchived: task.task_archived,
+        };
+      })
+    );
+  }
+);
+
+TasksGetRouter.get(
+  "/archived",
+
+  (req, res) => {
+    const tasks = getAllData<GIDData.task>(`SELECT * FROM tasks WHERE task_creator = ? AND task_archived = 1`, req.extra.params.group_id);
 
     if (!tasks.data) throw new Error("Couldn't get tasks");
 
