@@ -25,11 +25,11 @@ Work In Progress - Project
     - [X] Get
     - [X] Add
     - [X] Remove
-  - [ ] Tags
-    - [ ] Get
+  - [X] Tags
+    - [X] Get
     - [X] Create
     - [X] Update
-    - [ ] Delete
+    - [X] Delete
   - [X] States
     - [X] Get
     - [X] Create
