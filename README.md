@@ -37,7 +37,7 @@ Work In Progress - Project
     - [X] Delete
   - [ ] Tasks
     - [ ] Get
-    - [ ] Create
+    - [X] Create
     - [ ] Update
     - [ ] Delete
     - [ ] Tasks
