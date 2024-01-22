@@ -44,6 +44,18 @@ declare namespace GIDData {
     state_colour_text: string;
     state_colour_background: string;
   }
+
+  interface tag {
+    tag_id: number;
+    tag_creator: number;
+    tag_name: string;
+    tag_description: string;
+    tag_type: tag_type;
+    tag_colour_text: string;
+    tag_colour_background: string;
+  }
+
+  type tag_type = "context" | "project" | "other";
 }
 
 declare namespace Responses {
