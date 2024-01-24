@@ -60,8 +60,8 @@ app.all("/*", (req, res) => {
 });
 
 app.use((error: Error, req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
-  if (error.status == 500) logger.error(error.message);
-  else logger.warn(error.message);
+  if (error.status == 500) logger.error(error.message, { stack: error.stack });
+  else logger.warn(error.message, { stack: error.stack });
 
   const response: ErrorResponse = {
     status: error.status || 500,

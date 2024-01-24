@@ -1,5 +1,7 @@
 import winston from "winston";
 
+const colorizer = winston.format.colorize({ colors: { error: "red", warn: "yellow", debug: "green", info: "blue" }, message: true });
+
 export function createLogger() {
   return winston.createLogger({
     levels: { error: 0, warn: 1, info: 2, debug: 3 },
@@ -8,10 +10,12 @@ export function createLogger() {
     transports: [
       new winston.transports.Console({
         format: winston.format.combine(
-          winston.format.colorize({ colors: { error: "red", warn: "yellow", debug: "green", info: "blue" }, all: true }),
+          colorizer,
           winston.format.timestamp(),
-          winston.format.printf(({ level, message, timestamp }) => {
-            return `${timestamp} ${level}: ${message}`;
+          winston.format.printf(({ level, message, timestamp, stack }) => {
+            if (stack && process.env.NODE_ENV === "dev")
+              return `${timestamp} ${colorizer.colorize(level, level.toUpperCase())}: ${message}\n${colorizer.colorize(level, stack)}`;
+            return `${timestamp} ${colorizer.colorize(level, level.toUpperCase())}: ${message}`;
           })
         ),
       }),

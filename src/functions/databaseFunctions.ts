@@ -7,7 +7,7 @@ export function executeRawStatement(sql_statement: string, ...params: any[]): Re
     const res = db.prepare(sql_statement).run(...params);
     return { isSuccessful: true, data: res };
   } catch (err: any) {
-    logger.error(err.stack);
+    logger.error(err.message, { stack: err.stack });
     return { isSuccessful: false, data: null };
   }
 }
@@ -17,7 +17,7 @@ export function getData<ResponseDataType>(sql_statement: string, ...params: any[
     const data: ResponseDataType = db.prepare(sql_statement).get(...params) as ResponseDataType;
     return { isSuccessful: true, data };
   } catch (err: any) {
-    logger.error(err.stack);
+    logger.error(err.message, { stack: err.stack });
     return { isSuccessful: false, data: null };
   }
 }
@@ -27,7 +27,7 @@ export function getAllData<ResponseDataType>(sql_statement: string, ...params: a
     const data: Array<ResponseDataType> = db.prepare(sql_statement).all(...params) as Array<ResponseDataType>;
     return { isSuccessful: true, data };
   } catch (err: any) {
-    logger.error(err.stack);
+    logger.error(err.message, { stack: err.stack });
     return { isSuccessful: false, data: null };
   }
 }
@@ -40,7 +40,7 @@ export function createTransactionStatement(sql_statement: string) {
         const res = statement.run(...params);
         return { isSuccessful: true, data: res };
       } catch (err: any) {
-        logger.error(err.stack);
+        logger.error(err.message, { stack: err.stack });
         return { isSuccessful: false, data: null };
       }
     },
@@ -55,7 +55,7 @@ export function createTransactionStatementTyped<TransactionRequiredData>(sql_sta
         const res = statement.run(data);
         return { isSuccessful: true, data: res };
       } catch (err: any) {
-        logger.error(err.stack);
+        logger.error(err.message, { stack: err.stack });
         return { isSuccessful: false, data: null };
       }
     },
