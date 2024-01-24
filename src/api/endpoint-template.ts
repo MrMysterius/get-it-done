@@ -1,5 +1,5 @@
 import Express from "express";
-import { validateData } from "../middlewares/validateData";
+import { validateData } from "@/middlewares/validateData";
 
 export const Router = Express.Router();
 
