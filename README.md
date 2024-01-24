@@ -41,7 +41,7 @@ Work In Progress - Project
     - [X] Update
     - [X] Delete
     - [ ] Tasks
-      - [ ] Add
+      - [X] Add
       - [ ] Remove
     - [ ] State
       - [ ] Get
