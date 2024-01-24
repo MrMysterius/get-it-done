@@ -3,6 +3,7 @@ import { TasksDeleteRouter } from "./TasksDelete";
 import { TasksGetRouter } from "./TasksGet";
 import { TasksPostRouter } from "./TasksPost";
 import { TasksPutRouter } from "./TasksPut";
+import { TasksTagsRouter } from "./tags/Tags";
 import { getData } from "@/functions/databaseFunctions";
 import { param } from "express-validator";
 
@@ -34,3 +35,5 @@ TasksRouter.use(
     }),
   TasksSubRouter
 );
+
+TasksSubRouter.use("/", TasksTagsRouter);

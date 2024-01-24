@@ -68,6 +68,11 @@ declare namespace GIDData {
     task_time_needed: number;
     task_archived: boolean;
   }
+
+  interface task_tag {
+    task_id: number;
+    tag_id: number;
+  }
 }
 
 declare namespace Responses {
