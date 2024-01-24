@@ -2,7 +2,7 @@ import { createTransactionStatementTyped, getData } from "../../../functions/dat
 
 import Express from "express";
 import { body } from "express-validator";
-import { tag_types } from "../../../types";
+import { tag_types } from "../../../types/types";
 import { validateData } from "../../../middlewares/validateData";
 
 export const TagsPostRouter = Express.Router();

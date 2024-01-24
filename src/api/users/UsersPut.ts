@@ -4,7 +4,7 @@ import { createTransactionStatement, getData } from "../../functions/databaseFun
 import Express from "express";
 import { generateErrorWithStatus } from "../../functions/generateErrorWithStatus";
 import { generatePasswordHash } from "../../functions/generatePasswordHash";
-import { user_roles } from "../../types";
+import { user_roles } from "../../types/types";
 import { validateData } from "../../middlewares/validateData";
 
 export const UsersPutRouter = Express.Router();

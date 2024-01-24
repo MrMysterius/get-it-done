@@ -4,7 +4,7 @@ import Express from "express";
 import { body } from "express-validator";
 import { generateErrorWithStatus } from "../../functions/generateErrorWithStatus";
 import { generatePasswordHash } from "../../functions/generatePasswordHash";
-import { user_roles } from "../../types";
+import { user_roles } from "../../types/types";
 import { validateData } from "../../middlewares/validateData";
 
 export const UsersPostRouter = Express.Router();
