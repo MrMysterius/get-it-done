@@ -43,9 +43,9 @@ Work In Progress - Project
     - [X] Tasks
       - [X] Add
       - [X] Remove
-    - [ ] State
-      - [ ] Get
-      - [ ] Set
+    - [X] State
+      - [X] Get
+      - [X] Set
     - [ ] Asignees
       - [ ] Add
       - [ ] Remove
