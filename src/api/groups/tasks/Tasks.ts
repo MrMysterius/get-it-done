@@ -26,7 +26,7 @@ TasksRouter.use(
     .custom((id: string, meta) => {
       const req = meta.req as Express.Request;
       const task = getData<GIDData.task>(`SELECT * FROM tasks WHERE task_id = ?`, id);
-      if (!task.data || task.data.task_creator != req.extra.params.group_id) throw new Error("Tag with that id doesn't exist");
+      if (!task.data || task.data.task_creator != req.extra.params.group_id) throw new Error("Task with that id doesn't exist");
 
       req.extra.params.task_id = task.data.task_id;
       req.extra.task = task.data;
