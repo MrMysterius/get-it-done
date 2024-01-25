@@ -36,4 +36,4 @@ TasksRouter.use(
   TasksSubRouter
 );
 
-TasksSubRouter.use("/", TasksTagsRouter);
+TasksSubRouter.use("/tags", TasksTagsRouter);
