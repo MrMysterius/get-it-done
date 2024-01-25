@@ -41,7 +41,9 @@ TaskTagsPostRouter.post(
         })
         .filter((tag) => tag.data)
         .filter((tag) => {
-          getData<GIDData.task_tag>(`SELECT * FROM task_tags WHERE task_id = ? AND tag_id = ?`, req.extra.params.task_id, tag.data.tag_id);
+          const task_tag = getData<GIDData.task_tag>(`SELECT * FROM task_tags WHERE task_id = ? AND tag_id = ?`, req.extra.params.task_id, tag.data.tag_id);
+          if (task_tag.data) return false;
+          return true;
         });
 
       return tags;
