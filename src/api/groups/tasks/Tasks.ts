@@ -1,4 +1,5 @@
 import Express from "express";
+import { TasksAsigneesRouter } from "./asignees/Asignees";
 import { TasksDeleteRouter } from "./TasksDelete";
 import { TasksGetRouter } from "./TasksGet";
 import { TasksPostRouter } from "./TasksPost";
@@ -39,3 +40,4 @@ TasksRouter.use(
 
 TasksSubRouter.use("/tags", TasksTagsRouter);
 TasksSubRouter.use("/state", TasksStateRouter);
+TasksSubRouter.use("/asignees", TasksAsigneesRouter);

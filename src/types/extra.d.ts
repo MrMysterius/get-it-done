@@ -78,6 +78,11 @@ declare namespace GIDData {
     task_id: number;
     state_id: number;
   }
+
+  interface task_asignee {
+    task_id: number;
+    user_id: number;
+  }
 }
 
 declare namespace Responses {
