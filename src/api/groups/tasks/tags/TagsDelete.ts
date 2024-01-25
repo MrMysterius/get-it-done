@@ -20,7 +20,7 @@ TaskTagsDeleteRouter.delete(
       return input;
     })
     .customSanitizer((input: Array<string | number>, meta) => {
-      if (!(input as Array<string | number>).map)
+      if (!(input as Array<string | number>)?.map)
         throw generateErrorWithStatus(`Provided an Object instead of String, Number or Array of String and Numbers`, 400);
       input = input.filter((v: any) => typeof v == "number" || typeof v == "string");
       const req = meta.req as Express.Request;
