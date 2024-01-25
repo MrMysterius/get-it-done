@@ -40,9 +40,9 @@ Work In Progress - Project
     - [X] Create
     - [X] Update
     - [X] Delete
-    - [ ] Tasks
+    - [X] Tasks
       - [X] Add
-      - [ ] Remove
+      - [X] Remove
     - [ ] State
       - [ ] Get
       - [ ] Set
