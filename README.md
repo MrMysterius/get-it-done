@@ -46,9 +46,9 @@ Work In Progress - Project
     - [X] State
       - [X] Get
       - [X] Set
-    - [ ] Asignees
-      - [ ] Add
-      - [ ] Remove
+    - [X] Asignees
+      - [X] Add
+      - [X] Remove
     - [ ] Comments
       - [ ] Get
       - [ ] Create
