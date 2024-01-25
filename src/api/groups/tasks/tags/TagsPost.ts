@@ -67,7 +67,7 @@ TaskTagsPostRouter.post(
 
     const resultTags = tags.map((tag) => {
       const result = insertTaskTag.run({ task_id: req.extra.params.task_id, tag_id: tag.data.tag_id });
-      // if (!result.data || !result.isSuccessful) throw new Error(`Couldn't add Tag to Task - ${tag.data.tag_id}#${tag.data.tag_name}`);
+      if (!result.data || !result.isSuccessful) throw new Error(`Couldn't add Tag to Task - ${tag.data.tag_id}#${tag.data.tag_name}`);
       return { tag, result };
     });
 
