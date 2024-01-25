@@ -14,9 +14,17 @@ TasksGetRouter.get(
 
     if (!tasks.data) throw new Error("Couldn't get tasks");
 
+    const aggregatedTasks = tasks.data.map((task) => {
+      const task_tags = getAllData<GIDData.task_tag & GIDData.tag>(
+        `SELECT * FROM task_tags LEFT JOIN tags ON task_tags.tag_id = tags.tag_id WHERE task_id = ?`,
+        task.task_id
+      );
+      return { tags: task_tags.data, task };
+    });
+
     res.status(200);
     res.json(
-      tasks.data.map((task) => {
+      aggregatedTasks.map(({ task, tags }) => {
         return {
           id: task.task_id,
           title: task.task_title,
@@ -26,6 +34,16 @@ TasksGetRouter.get(
           time_estimate: task.task_time_estimate,
           time_needed: task.task_time_needed,
           isArchived: task.task_archived,
+          tags: tags.map((tag) => {
+            return {
+              id: tag.tag_id,
+              name: tag.tag_name,
+              description: tag.tag_description,
+              type: tag.tag_type,
+              colour_text: tag.tag_colour_text,
+              colour_background: tag.tag_colour_background,
+            };
+          }),
         };
       })
     );
@@ -40,9 +58,17 @@ TasksGetRouter.get(
 
     if (!tasks.data) throw new Error("Couldn't get tasks");
 
+    const aggregatedTasks = tasks.data.map((task) => {
+      const task_tags = getAllData<GIDData.task_tag & GIDData.tag>(
+        `SELECT * FROM task_tags LEFT JOIN tags ON task_tags.tag_id = tags.tag_id WHERE task_id = ?`,
+        task.task_id
+      );
+      return { tags: task_tags.data, task };
+    });
+
     res.status(200);
     res.json(
-      tasks.data.map((task) => {
+      aggregatedTasks.map(({ task, tags }) => {
         return {
           id: task.task_id,
           title: task.task_title,
@@ -52,6 +78,16 @@ TasksGetRouter.get(
           time_estimate: task.task_time_estimate,
           time_needed: task.task_time_needed,
           isArchived: task.task_archived,
+          tags: tags.map((tag) => {
+            return {
+              id: tag.tag_id,
+              name: tag.tag_name,
+              description: tag.tag_description,
+              type: tag.tag_type,
+              colour_text: tag.tag_colour_text,
+              colour_background: tag.tag_colour_background,
+            };
+          }),
         };
       })
     );
@@ -80,6 +116,11 @@ TasksGetRouter.get(
 
     if (!task.data) throw new Error("Couldn't get task");
 
+    const task_tags = getAllData<GIDData.task_tag & GIDData.tag>(
+      `SELECT * FROM task_tags LEFT JOIN tags ON task_tags.tag_id = tags.tag_id WHERE task_id = ?`,
+      req.params.task_id
+    );
+
     res.status(200);
     res.json({
       id: task.data.task_id,
@@ -90,6 +131,16 @@ TasksGetRouter.get(
       time_estimate: task.data.task_time_estimate,
       time_needed: task.data.task_time_needed,
       isArchived: task.data.task_archived,
+      tags: task_tags.data.map((tag) => {
+        return {
+          id: tag.tag_id,
+          name: tag.tag_name,
+          description: tag.tag_description,
+          type: tag.tag_type,
+          colour_text: tag.tag_colour_text,
+          colour_background: tag.tag_colour_background,
+        };
+      }),
     });
   }
 );
