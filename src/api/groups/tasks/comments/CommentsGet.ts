@@ -34,7 +34,7 @@ CommentsGetRouter.get(
           comment_id: comment.comment_id,
           comment: comment.comment,
           last_changed: comment.comment_last_changed,
-          user: {
+          creator: {
             id: comment.user_id,
             name: comment.user_name,
           },
