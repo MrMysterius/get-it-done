@@ -61,7 +61,7 @@ Work In Progress - Project
     - [X] Delete
   - [ ] Filters
     - [ ] Get
-    - [ ] Create
+    - [X] Create
     - [ ] Update
     - [ ] Delete
 - [ ] Frontend
