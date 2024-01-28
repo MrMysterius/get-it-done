@@ -71,6 +71,7 @@ Work In Progress - Project
   - [ ] Dashboard
   - [ ] User Settings
   - [ ] Group Settings
+- [ ] Make Sure Inboxes and Filters don't allow malformed data
 
 ## Further Documentation
 
