@@ -177,6 +177,7 @@ export function createDatabase() {
       "task_id"	INTEGER NOT NULL,
       "user_id"	INTEGER NOT NULL,
       "comment"	TEXT NOT NULL,
+      "comment_last_changed"	TEXT NOT NULL,
       PRIMARY KEY("comment_id" AUTOINCREMENT),
       FOREIGN KEY("task_id") REFERENCES "tasks"("task_id") ON UPDATE CASCADE ON DELETE CASCADE,
       FOREIGN KEY("user_id") REFERENCES "users"("user_id") ON UPDATE CASCADE ON DELETE CASCADE
