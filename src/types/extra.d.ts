@@ -91,6 +91,13 @@ declare namespace GIDData {
     comment: string;
     comment_last_changed: string;
   }
+
+  interface inbox_code {
+    inbox_id: number;
+    inbox_owner: number;
+    inbox_code: string;
+    inbox_extras: string;
+  }
 }
 
 declare namespace Responses {
