@@ -50,7 +50,7 @@ Work In Progress - Project
       - [X] Add
       - [X] Remove
     - [ ] Comments
-      - [ ] Get
+      - [X] Get
       - [X] Create
       - [ ] Update
       - [ ] Delete
