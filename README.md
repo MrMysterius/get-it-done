@@ -52,7 +52,7 @@ Work In Progress - Project
     - [ ] Comments
       - [X] Get
       - [X] Create
-      - [ ] Update
+      - [X] Update
       - [ ] Delete
   - [ ] Inbox Codes
     - [ ] Get
