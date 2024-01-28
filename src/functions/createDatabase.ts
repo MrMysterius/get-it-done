@@ -85,6 +85,7 @@ export function createDatabase() {
     `CREATE TABLE "filters" (
       "filter_id"	INTEGER,
       "filter_creator"	INTEGER,
+      "filter_name"	TEXT,
       "filter_data"	TEXT NOT NULL DEFAULT '{}',
       PRIMARY KEY("filter_id" AUTOINCREMENT),
       FOREIGN KEY("filter_creator") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE
