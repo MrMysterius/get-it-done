@@ -49,11 +49,11 @@ Work In Progress - Project
     - [X] Asignees
       - [X] Add
       - [X] Remove
-    - [ ] Comments
+    - [X] Comments
       - [X] Get
       - [X] Create
       - [X] Update
-      - [ ] Delete
+      - [X] Delete
   - [ ] Inbox Codes
     - [ ] Get
     - [ ] Create
