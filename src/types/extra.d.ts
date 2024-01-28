@@ -83,6 +83,14 @@ declare namespace GIDData {
     task_id: number;
     user_id: number;
   }
+
+  interface comment {
+    comment_id: number;
+    task_id: number;
+    user_id: number;
+    comment: string;
+    comment_last_changed: string;
+  }
 }
 
 declare namespace Responses {

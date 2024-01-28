@@ -1,3 +1,4 @@
+import { CommentsRouter } from "./comments/Comments";
 import Express from "express";
 import { TasksAsigneesRouter } from "./asignees/Asignees";
 import { TasksDeleteRouter } from "./TasksDelete";
@@ -41,3 +42,4 @@ TasksRouter.use(
 TasksSubRouter.use("/tags", TasksTagsRouter);
 TasksSubRouter.use("/state", TasksStateRouter);
 TasksSubRouter.use("/asignees", TasksAsigneesRouter);
+TasksSubRouter.use("/comments", CommentsRouter);
