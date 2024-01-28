@@ -54,11 +54,11 @@ Work In Progress - Project
       - [X] Create
       - [X] Update
       - [X] Delete
-  - [ ] Inbox Codes
+  - [X] Inbox Codes
     - [X] Get
     - [X] Create
     - [X] Update
-    - [ ] Delete
+    - [X] Delete
   - [ ] Filters
     - [ ] Get
     - [ ] Create
