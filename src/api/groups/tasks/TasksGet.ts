@@ -20,17 +20,27 @@ TasksGetRouter.get(
         task.task_id
       );
 
-      const comments = getAllData<GIDData.comment & Pick<GIDData.user, "user_name">>(
-        `SELECT comments.*, users.user_name FROM comments LEFT JOIN users ON comments.user_id = users.user_id WHERE task_id = ?`,
+      const comments = getAllData<GIDData.comment & Pick<GIDData.user, "user_name" | "user_displayname">>(
+        `SELECT comments.*, users.user_name, users.user_displayname FROM comments LEFT JOIN users ON comments.user_id = users.user_id WHERE comments.task_id = ?`,
         task.task_id
       );
 
-      return { tags: task_tags.data, task, comments: comments.data };
+      const state = getData<GIDData.task_state & GIDData.state>(
+        `SELECT * FROM task_state LEFT JOIN states ON task_state.state_id = states.state_id WHERE task_state.task_id = ?`,
+        task.task_id
+      );
+
+      const asignees = getAllData<GIDData.task_asignee & Pick<GIDData.user, "user_id" | "user_name" | "user_displayname">>(
+        `SELECT task_asignees.*, users.user_id, users.user_name, users.user_displayname FROM task_asignees LEFT JOIN users ON task_asignees.user_id = users.user_id WHERE task_asignees.task_id = ?`,
+        task.task_id
+      );
+
+      return { tags: task_tags.data, task, comments: comments.data, state: state.data, asignees: asignees.data };
     });
 
     res.status(200);
     res.json(
-      aggregatedTasks.map(({ task, tags, comments }) => {
+      aggregatedTasks.map(({ task, tags, comments, state, asignees }) => {
         return {
           id: task.task_id,
           title: task.task_title,
@@ -40,6 +50,15 @@ TasksGetRouter.get(
           time_estimate: task.task_time_estimate,
           time_needed: task.task_time_needed,
           isArchived: task.task_archived,
+          state: state
+            ? {
+                id: state.state_id,
+                name: state.state_name,
+                description: state.state_description,
+                colour_text: state.state_colour_text,
+                colour_background: state.state_colour_background,
+              }
+            : null,
           tags: tags.map((tag) => {
             return {
               id: tag.tag_id,
@@ -59,6 +78,12 @@ TasksGetRouter.get(
                 id: comment.user_id,
                 name: comment.user_name,
               },
+            };
+          }),
+          asignees: asignees.map((asignee) => {
+            return {
+              name: asignee.user_name,
+              displayname: asignee.user_displayname,
             };
           }),
         };
@@ -81,17 +106,27 @@ TasksGetRouter.get(
         task.task_id
       );
 
-      const comments = getAllData<GIDData.comment & Pick<GIDData.user, "user_name">>(
-        `SELECT comments.*, users.user_name FROM comments LEFT JOIN users ON comments.user_id = users.user_id WHERE task_id = ?`,
+      const comments = getAllData<GIDData.comment & Pick<GIDData.user, "user_name" | "user_displayname">>(
+        `SELECT comments.*, users.user_name, users.user_displayname FROM comments LEFT JOIN users ON comments.user_id = users.user_id WHERE comments.task_id = ?`,
         task.task_id
       );
 
-      return { tags: task_tags.data, task, comments: comments.data };
+      const state = getData<GIDData.task_state & GIDData.state>(
+        `SELECT * FROM task_state LEFT JOIN states ON task_state.state_id = states.state_id WHERE task_state.task_id = ?`,
+        task.task_id
+      );
+
+      const asignees = getAllData<GIDData.task_asignee & Pick<GIDData.user, "user_id" | "user_name" | "user_displayname">>(
+        `SELECT task_asignees.*, users.user_id, users.user_name, users.user_displayname FROM task_asignees LEFT JOIN users ON task_asignees.user_id = users.user_id WHERE task_asignees.task_id = ?`,
+        task.task_id
+      );
+
+      return { tags: task_tags.data, task, comments: comments.data, state: state.data, asignees: asignees.data };
     });
 
     res.status(200);
     res.json(
-      aggregatedTasks.map(({ task, tags, comments }) => {
+      aggregatedTasks.map(({ task, tags, comments, state, asignees }) => {
         return {
           id: task.task_id,
           title: task.task_title,
@@ -101,6 +136,15 @@ TasksGetRouter.get(
           time_estimate: task.task_time_estimate,
           time_needed: task.task_time_needed,
           isArchived: task.task_archived,
+          state: state
+            ? {
+                id: state.state_id,
+                name: state.state_name,
+                description: state.state_description,
+                colour_text: state.state_colour_text,
+                colour_background: state.state_colour_background,
+              }
+            : null,
           tags: tags.map((tag) => {
             return {
               id: tag.tag_id,
@@ -120,6 +164,12 @@ TasksGetRouter.get(
                 id: comment.user_id,
                 name: comment.user_name,
               },
+            };
+          }),
+          asignees: asignees.map((asignee) => {
+            return {
+              name: asignee.user_name,
+              displayname: asignee.user_displayname,
             };
           }),
         };
@@ -160,6 +210,16 @@ TasksGetRouter.get(
       req.params.task_id
     );
 
+    const state = getData<GIDData.task_state & GIDData.state>(
+      `SELECT * FROM task_state LEFT JOIN states ON task_state.state_id = states.state_id WHERE task_state.task_id = ?`,
+      req.params.task_id
+    );
+
+    const asignees = getAllData<GIDData.task_asignee & Pick<GIDData.user, "user_id" | "user_name" | "user_displayname">>(
+      `SELECT task_asignees.*, users.user_id, users.user_name, users.user_displayname FROM task_asignees LEFT JOIN users ON task_asignees.user_id = users.user_id WHERE task_asignees.task_id = ?`,
+      req.params.task_id
+    );
+
     res.status(200);
     res.json({
       id: task.data.task_id,
@@ -170,6 +230,15 @@ TasksGetRouter.get(
       time_estimate: task.data.task_time_estimate,
       time_needed: task.data.task_time_needed,
       isArchived: task.data.task_archived,
+      state: state.data
+        ? {
+            id: state.data.state_id,
+            name: state.data.state_name,
+            description: state.data.state_description,
+            colour_text: state.data.state_colour_text,
+            colour_background: state.data.state_colour_background,
+          }
+        : null,
       tags: task_tags.data.map((tag) => {
         return {
           id: tag.tag_id,
@@ -189,6 +258,12 @@ TasksGetRouter.get(
             id: comment.user_id,
             name: comment.user_name,
           },
+        };
+      }),
+      asignees: asignees.data.map((asignee) => {
+        return {
+          name: asignee.user_name,
+          displayname: asignee.user_displayname,
         };
       }),
     });
