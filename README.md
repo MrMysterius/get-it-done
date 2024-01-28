@@ -16,7 +16,7 @@ Work In Progress - Project
   - [X] Update
   - [X] Delete
 - [X] Sign Up Endpoint - With Invite Code
-- [ ] Groups
+- [X] Groups
   - [X] Get
   - [X] Create
   - [X] Update
@@ -59,11 +59,11 @@ Work In Progress - Project
     - [X] Create
     - [X] Update
     - [X] Delete
-  - [ ] Filters
-    - [ ] Get
+  - [X] Filters
+    - [X] Get
     - [X] Create
-    - [ ] Update
-    - [ ] Delete
+    - [X] Update
+    - [X] Delete
 - [ ] Frontend
   - [ ] Start Page
   - [ ] Login
