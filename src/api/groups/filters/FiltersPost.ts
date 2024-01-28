@@ -14,6 +14,7 @@ FiltersPostRouter.post(
   body("filter")
     .default({})
     .notEmpty()
+    .isObject()
     .customSanitizer((obj: any) => {
       return { tags: obj?.tags || [] };
     }),
