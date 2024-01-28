@@ -1,6 +1,7 @@
 import { APIRouter } from "./api/APIRouter";
 import { AuthRouter } from "./auth";
 import Express from "express";
+import { InboxRouter } from "./inbox";
 import { ServeRouter } from "./serve";
 import { SignUpRouter } from "./signup";
 import { checkEnvironment } from "./functions/checkEnvironment";
@@ -51,6 +52,7 @@ app.use("/deauth", (req, res) => {
 });
 app.use("/signup", SignUpRouter);
 app.use("/api", APIRouter);
+app.use("/inbox", InboxRouter);
 app.use("/*", ServeRouter);
 
 // Error Catch
