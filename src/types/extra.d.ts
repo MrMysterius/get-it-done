@@ -98,6 +98,13 @@ declare namespace GIDData {
     inbox_code: string;
     inbox_extras: string;
   }
+
+  interface filter {
+    filter_id: number;
+    filter_creator: number;
+    filter_name: string;
+    filter_data: string;
+  }
 }
 
 declare namespace Responses {

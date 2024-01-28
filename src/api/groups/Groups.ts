@@ -1,4 +1,5 @@
 import Express from "express";
+import { FiltersRouter } from "./filters/Filters";
 import { GroupsDeleteRouter } from "./GroupsDelete";
 import { GroupsGetRouter } from "./GroupsGet";
 import { GroupsPostRouter } from "./GroupsPost";
@@ -60,3 +61,4 @@ GroupsSubRouter.use("/states", StatesRouter);
 GroupsSubRouter.use("/tags", TagsRouter);
 GroupsSubRouter.use("/tasks", TasksRouter);
 GroupsSubRouter.use("/inboxes", InboxesRouter);
+GroupsSubRouter.use("/filters", FiltersRouter);
