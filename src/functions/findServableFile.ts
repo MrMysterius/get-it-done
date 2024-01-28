@@ -6,7 +6,7 @@ import path from "path";
 
 export function findServableFile(start_path: string, req: Express.Request) {
   const literalPath = path.join(start_path, req.baseUrl);
-  const resource = req.path.match(/(?<parent>^.*\/)(?<resource>[^\/]*$)/);
+  const resource = req.baseUrl.match(/(?<parent>^.*\/)(?<resource>[^\/]*$)/);
   const potentialFilePaths: Array<string> = [];
 
   if (!resource) throw generateErrorWithStatus("Couldn't filter out ressource", 500);
@@ -14,7 +14,7 @@ export function findServableFile(start_path: string, req: Express.Request) {
   logger.debug(resource);
 
   if (req.isAuthed) {
-    const basicAuthedPath = path.join(start_path, `${resource.groups?.parent}`, `authed.`, `${resource.groups?.resource}`);
+    const basicAuthedPath = path.join(start_path, `${resource.groups?.parent}`, `authed.${resource.groups?.resource}`);
     if (resource.groups?.resource != "") {
       potentialFilePaths.push(basicAuthedPath, `${basicAuthedPath}.html`, `${basicAuthedPath}.md`);
     }
