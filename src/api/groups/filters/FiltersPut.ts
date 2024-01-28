@@ -60,7 +60,7 @@ FiltersPutRouter.put(
     res.json({
       filter_id: req.params.filter_id,
       filter_name: req.body.name || req.extra.filter.filter_name,
-      filter_data: JSON.stringify(req.body.filter || JSON.parse(req.extra.filter.filter_data)),
+      filter_data: req.body.filter || JSON.parse(req.extra.filter.filter_data),
     });
   }
 );
