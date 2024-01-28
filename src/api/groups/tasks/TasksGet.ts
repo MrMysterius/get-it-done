@@ -19,12 +19,18 @@ TasksGetRouter.get(
         `SELECT * FROM task_tags LEFT JOIN tags ON task_tags.tag_id = tags.tag_id WHERE task_id = ?`,
         task.task_id
       );
-      return { tags: task_tags.data, task };
+
+      const comments = getAllData<GIDData.comment & Pick<GIDData.user, "user_name">>(
+        `SELECT comments.*, users.user_name FROM comments LEFT JOIN users ON comments.user_id = users.user_id WHERE task_id = ?`,
+        task.task_id
+      );
+
+      return { tags: task_tags.data, task, comments: comments.data };
     });
 
     res.status(200);
     res.json(
-      aggregatedTasks.map(({ task, tags }) => {
+      aggregatedTasks.map(({ task, tags, comments }) => {
         return {
           id: task.task_id,
           title: task.task_title,
@@ -42,6 +48,17 @@ TasksGetRouter.get(
               type: tag.tag_type,
               colour_text: tag.tag_colour_text,
               colour_background: tag.tag_colour_background,
+            };
+          }),
+          comments: comments.map((comment) => {
+            return {
+              id: comment.comment_id,
+              comment: comment.comment,
+              last_changed: comment.comment_last_changed,
+              creator: {
+                id: comment.user_id,
+                name: comment.user_name,
+              },
             };
           }),
         };
@@ -63,12 +80,18 @@ TasksGetRouter.get(
         `SELECT * FROM task_tags LEFT JOIN tags ON task_tags.tag_id = tags.tag_id WHERE task_id = ?`,
         task.task_id
       );
-      return { tags: task_tags.data, task };
+
+      const comments = getAllData<GIDData.comment & Pick<GIDData.user, "user_name">>(
+        `SELECT comments.*, users.user_name FROM comments LEFT JOIN users ON comments.user_id = users.user_id WHERE task_id = ?`,
+        task.task_id
+      );
+
+      return { tags: task_tags.data, task, comments: comments.data };
     });
 
     res.status(200);
     res.json(
-      aggregatedTasks.map(({ task, tags }) => {
+      aggregatedTasks.map(({ task, tags, comments }) => {
         return {
           id: task.task_id,
           title: task.task_title,
@@ -86,6 +109,17 @@ TasksGetRouter.get(
               type: tag.tag_type,
               colour_text: tag.tag_colour_text,
               colour_background: tag.tag_colour_background,
+            };
+          }),
+          comments: comments.map((comment) => {
+            return {
+              id: comment.comment_id,
+              comment: comment.comment,
+              last_changed: comment.comment_last_changed,
+              creator: {
+                id: comment.user_id,
+                name: comment.user_name,
+              },
             };
           }),
         };
@@ -121,6 +155,11 @@ TasksGetRouter.get(
       req.params.task_id
     );
 
+    const comments = getAllData<GIDData.comment & Pick<GIDData.user, "user_name">>(
+      `SELECT comments.*, users.user_name FROM comments LEFT JOIN users ON comments.user_id = users.user_id WHERE task_id = ?`,
+      req.params.task_id
+    );
+
     res.status(200);
     res.json({
       id: task.data.task_id,
@@ -139,6 +178,17 @@ TasksGetRouter.get(
           type: tag.tag_type,
           colour_text: tag.tag_colour_text,
           colour_background: tag.tag_colour_background,
+        };
+      }),
+      comments: comments.data.map((comment) => {
+        return {
+          id: comment.comment_id,
+          comment: comment.comment,
+          last_changed: comment.comment_last_changed,
+          creator: {
+            id: comment.user_id,
+            name: comment.user_name,
+          },
         };
       }),
     });
