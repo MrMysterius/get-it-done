@@ -55,9 +55,9 @@ Work In Progress - Project
       - [X] Update
       - [X] Delete
   - [ ] Inbox Codes
-    - [ ] Get
-    - [ ] Create
-    - [ ] Update
+    - [X] Get
+    - [X] Create
+    - [X] Update
     - [ ] Delete
   - [ ] Filters
     - [ ] Get
