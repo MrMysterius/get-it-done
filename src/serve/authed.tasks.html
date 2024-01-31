@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tasks</title>
+
+    <script src="/libs/showdown.min.js"></script>
+    <script type="module" src="/scripts/authed.tasks.js"></script>
+
+    <link rel="stylesheet" href="/styles/general.css" />
+    <link rel="stylesheet" href="/styles/tasks.css" />
+    <link rel="stylesheet" href="/styles/groups.css">
+  </head>
+  <body>
+    <div id="tasks-wrapper">
+      <div id="tasks">
+        <input type="text" id="task-new-title" placeholder="New Task..." />
+      </div>
+    </div>
+
+    <div id="menu">
+      <h1>Tasks</h1>
+
+      <select id="group-selection"></select>
+
+      <br />
+      <a href="/deauth"><button>LOGOUT</button></a>
+    </div>
+
+    <div id="popup-container"></div>
+
+    <div id="notice-container"></div>
+
+    <template id="template-task">
+      <div class="task">
+        <h3 class="task-title"></h3>
+        <div class="task-tags"></div>
+      </div>
+    </template>
+
+    <template id="template-popup">
+      <div class="popup">
+        <div class="popup-content">
+          <div class="popup-close unselectable">X</div>
+        </div>
+      </div>
+    </template>
+
+    <template id="template-notice">
+      <div class="notice">
+        <p class="notice-text"></p>
+      </div>
+    </template>
+  </body>
+</html>
