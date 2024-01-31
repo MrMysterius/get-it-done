@@ -10,6 +10,17 @@ Work In Progress - Project
 
 ## TODO
 
+- [ ] Frontend
+  - [ ] Start Page
+  - [ ] Login
+  - [ ] Tasks View
+  - [ ] Dashboard
+  - [ ] User Settings
+  - [ ] Group Settings
+- [ ] Make Sure Inboxes and Filters don't allow malformed data
+
+## Finished Todo's
+
 - [X] Invite Codes
   - [X] Get
   - [X] Create
@@ -64,14 +75,6 @@ Work In Progress - Project
     - [X] Create
     - [X] Update
     - [X] Delete
-- [ ] Frontend
-  - [ ] Start Page
-  - [ ] Login
-  - [ ] Tasks View
-  - [ ] Dashboard
-  - [ ] User Settings
-  - [ ] Group Settings
-- [ ] Make Sure Inboxes and Filters don't allow malformed data
 
 ## Further Documentation
 
