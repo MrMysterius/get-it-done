@@ -57,6 +57,8 @@ div#tasks h1 {
   animation-name: TaskPopout;
   animation-duration: 500ms;
   animation-fill-mode: forwards;
+  pointer-events: none;
+  cursor: none;
 }
 
 .task .task-title {
