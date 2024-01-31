@@ -63,6 +63,13 @@ button:focus {
   background-color: #6e8abd;
 }
 
+input[type="text"],
+input[type="password"] {
+  color: white;
+  border: 1px solid white;
+  background-color: #6e8abd;
+}
+
 input:disabled,
 button:disabled {
   background-color: #191f2c !important;
@@ -99,7 +106,7 @@ button:disabled {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  
+
   align-items: center;
 }
 
@@ -261,7 +268,7 @@ button:disabled {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
   pointer-events: none;
 }
 
@@ -277,10 +284,10 @@ button:disabled {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
   pointer-events: all;
 
-  background-color: rgba(0, 0, 0, 0.7);  
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 #popup-container .popup .popup-content {
@@ -291,7 +298,7 @@ button:disabled {
 
   border-radius: 10px;
 
-  background-color: #36435c
+  background-color: #36435c;
 }
 
 #popup-container .popup .popup-content .popup-close {
