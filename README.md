@@ -12,7 +12,7 @@ Work In Progress - Project
 
 - [ ] Frontend
   - [ ] Start Page
-  - [ ] Login
+  - [X] Login
   - [ ] Tasks View
   - [ ] Dashboard
   - [ ] User Settings
