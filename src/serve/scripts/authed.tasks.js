@@ -38,6 +38,14 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
     toggleSidebar();
   });
 
+  document.querySelector("body").addEventListener("keypress", (ev) => {
+    const task_titleEl = document.querySelector("#task-new-title");
+    if (ev.key == "t" && task_titleEl !== document.activeElement) {
+      ev.preventDefault();
+      task_titleEl.focus();
+    }
+  });
+
   loop_interval_id = setInterval(mainLoop, 15000);
 });
 
