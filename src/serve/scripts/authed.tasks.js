@@ -2,8 +2,8 @@ import { getUrlParam, setUrlParam } from "./functions/authed.urlData.js";
 
 import { checkGroup } from "./functions/authed.checkGroup.js";
 import { createNewTask } from "./functions/authed.createNewTask.js";
-import { createNotice } from "./functions/authed.createNotice.js";
-import { createPopup } from "./functions/authed.createPopup.js";
+import { createNotice } from "./functions/createNotice.js";
+import { createPopup } from "./functions/createPopup.js";
 import { lockTaskCreator } from "./functions/authed.lockTaskCreation.js";
 import { populateGroups } from "./functions/authed.populateGroups.js";
 import { populateTasks } from "./functions/authed.populateTasks.js";

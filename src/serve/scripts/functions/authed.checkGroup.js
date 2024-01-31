@@ -1,6 +1,6 @@
 import { getUrlParam, setUrlParam } from "./authed.urlData.js";
 
-import { createNotice } from "./authed.createNotice.js";
+import { createNotice } from "./createNotice.js";
 import { request } from "./authed.request.js";
 
 export async function checkGroup(selectFirst = true) {

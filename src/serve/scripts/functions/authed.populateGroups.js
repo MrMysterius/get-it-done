@@ -1,4 +1,4 @@
-import { createNotice } from "./authed.createNotice.js";
+import { createNotice } from "./createNotice.js";
 import { getUrlParam } from "./authed.urlData.js";
 import { request } from "./authed.request.js";
 

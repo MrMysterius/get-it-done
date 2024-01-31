@@ -1,6 +1,6 @@
 import { checkGroup } from "./authed.checkGroup.js";
-import { createNotice } from "./authed.createNotice.js";
-import { createPopup } from "./authed.createPopup.js";
+import { createNotice } from "./createNotice.js";
+import { createPopup } from "./createPopup.js";
 import { populateGroups } from "./authed.populateGroups.js";
 import { populateTasks } from "./authed.populateTasks.js";
 import { request } from "./authed.request.js";
