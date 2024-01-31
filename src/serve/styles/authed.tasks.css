@@ -3,6 +3,12 @@
   padding-left: 250px;
 }
 
+@media (max-width: 700px) {
+  #tasks-wrapper {
+    padding-left: 20px;
+  }
+}
+
 div#tasks {
   margin: auto;
   display: flex;
@@ -18,25 +24,8 @@ div#tasks h1 {
   text-align: center;
 }
 
-#menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 250px;
-  max-width: 250px;
-  height: 100vh;
-
-  background-color: #36435c;
-
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  
-  align-items: center;
-}
-
 #task-new-title {
+  margin-top: 0.5em;
   background-color: #36435c;
   border: #dadada solid 0.1em;
   border-radius: 2em;

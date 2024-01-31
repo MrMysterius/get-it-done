@@ -10,27 +10,33 @@
 
     <link rel="stylesheet" href="/styles/general.css" />
     <link rel="stylesheet" href="/styles/tasks.css" />
-    <link rel="stylesheet" href="/styles/groups.css">
+    <link rel="stylesheet" href="/styles/groups.css" />
   </head>
   <body>
-    <div id="tasks-wrapper">
-      <div id="tasks">
-        <input type="text" id="task-new-title" placeholder="New Task..." />
+    <div class="page">
+      <div id="tasks-wrapper">
+        <div id="tasks">
+          <input type="text" id="task-new-title" placeholder="New Task..." />
+        </div>
       </div>
+
+      <div id="sidebar-menu">
+        <h1>Tasks</h1>
+
+        <select id="group-selection"></select>
+
+        <br />
+        <a href="/deauth"><button>LOGOUT</button></a>
+      </div>
+      <div id="sidebar-menu-drawer">
+        <p class="closed">></p>
+        <p class="opened"><</p>
+      </div>
+
+      <div id="popup-container"></div>
+
+      <div id="notice-container"></div>
     </div>
-
-    <div id="menu">
-      <h1>Tasks</h1>
-
-      <select id="group-selection"></select>
-
-      <br />
-      <a href="/deauth"><button>LOGOUT</button></a>
-    </div>
-
-    <div id="popup-container"></div>
-
-    <div id="notice-container"></div>
 
     <template id="template-task">
       <div class="task">
