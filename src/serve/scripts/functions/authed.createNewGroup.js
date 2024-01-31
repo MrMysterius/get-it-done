@@ -3,7 +3,7 @@ import { createNotice } from "./createNotice.js";
 import { createPopup } from "./createPopup.js";
 import { populateGroups } from "./authed.populateGroups.js";
 import { populateTasks } from "./authed.populateTasks.js";
-import { request } from "./authed.request.js";
+import { request } from "./request.js";
 import { switchGroup } from "./authed.switchGroup.js";
 
 export function createNewGroup() {

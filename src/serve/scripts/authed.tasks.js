@@ -7,7 +7,7 @@ import { createPopup } from "./functions/createPopup.js";
 import { lockTaskCreator } from "./functions/authed.lockTaskCreation.js";
 import { populateGroups } from "./functions/authed.populateGroups.js";
 import { populateTasks } from "./functions/authed.populateTasks.js";
-import { request } from "./functions/authed.request.js";
+import { request } from "./functions/request.js";
 import { switchGroup } from "./functions/authed.switchGroup.js";
 
 export let loop_interval_id;

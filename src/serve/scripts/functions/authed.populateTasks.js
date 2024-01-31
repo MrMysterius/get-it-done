@@ -1,7 +1,7 @@
 import { TasksMap } from "../authed.tasks.js";
 import { createNotice } from "./createNotice.js";
 import { getUrlParam } from "./authed.urlData.js";
-import { request } from "./authed.request.js";
+import { request } from "./request.js";
 
 export const TagIcons = {
   context: `<object data="/assets/Context.svg" alt="Context" style="height: 18px; width: 18px; display: inline-block;" title="Context"></object>`,

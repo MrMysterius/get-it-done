@@ -1,7 +1,7 @@
 import { getUrlParam, setUrlParam } from "./authed.urlData.js";
 
 import { createNotice } from "./createNotice.js";
-import { request } from "./authed.request.js";
+import { request } from "./request.js";
 
 export async function checkGroup(selectFirst = true) {
   const group_id = getUrlParam("g");

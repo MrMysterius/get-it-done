@@ -1,6 +1,6 @@
 import { createNotice } from "./createNotice.js";
 import { getUrlParam } from "./authed.urlData.js";
-import { request } from "./authed.request.js";
+import { request } from "./request.js";
 
 export async function populateGroups() {
   const groupSelector = document.querySelector("#group-selection");
