@@ -1,0 +1,40 @@
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  text-align: center;
+}
+
+form input {
+  height: 20px;
+  width: 200px;
+  font-size: 1em;
+  text-align: center;
+}
+
+hr {
+  background-color: white;
+  height: 1px;
+  width: 200px;
+}
