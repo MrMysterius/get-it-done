@@ -43,7 +43,10 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
 
 export const TasksMap = new Map();
 
-export async function mainLoop() {}
+export async function mainLoop() {
+  populateGroups();
+  populateTasks();
+}
 
 function toggleSidebar() {
   if (sidebarOpen) {
