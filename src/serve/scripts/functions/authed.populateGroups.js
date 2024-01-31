@@ -10,7 +10,7 @@ export async function populateGroups() {
 
   const groups = await request("GET", "/api/groups");
   if (!groups || groups.status != 200) {
-    createNotice("Couldn't get Groups", "error");
+    createNotice("Couldn't get Groups", "error", 15000);
     return false;
   }
 

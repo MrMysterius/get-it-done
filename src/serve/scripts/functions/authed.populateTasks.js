@@ -16,7 +16,7 @@ export async function populateTasks() {
 
   const newTasks = await request("GET", `/api/groups/${group_id}/tasks`);
   if (newTasks?.status != 200) {
-    createNotice("Couldn't get tasks", "error");
+    createNotice("Couldn't get tasks", "error", 15000);
     return;
   }
   const newTasksMap = new Map();
