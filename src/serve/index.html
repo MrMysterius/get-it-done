@@ -1,45 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GetItDone</title>
-</head>
-<body>
-  <h1>GetItDone</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GetItDone</title>
 
-  <form action="/signup" method="post">
-    <label for="signup-username">Username</label>
-    <input type="text" name="username" id="signup-username">
-    <br>
+    <link rel="stylesheet" href="/styles/general.css" />
+    <link rel="stylesheet" href="/styles/frontpage.css" />
 
-    <label for="signup-password">Password</label>
-    <input type="password" name="password" id="signup-password">
-    <br>
+    <script type="module" src="/scripts/front.js"></script>
 
-    <label for="signup-invitecode">Invite Code</label>
-    <input type="text" name="invite_code" id="signup-invitecode">
-    <br>
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>GetItDone</h1>
 
-    <input type="text" name="redirect" id="signup-redirect" style="display: none;" value="/tasks">
+      <h2>Login</h2>
 
-    <button type="submit">Signup</button>
-  </form>
+      <form action="/auth" method="post" id="login-form">
+        <label for="login-username">Username</label>
+        <input type="text" name="username" id="login-username" autocomplete="username" />
+        <br />
 
-  <br>
+        <label for="login-password">Password</label>
+        <input type="password" name="password" id="login-password" autocomplete="current-password" />
+        <br />
 
-  <form action="/auth" method="post">
-    <label for="signup-username">Username</label>
-    <input type="text" name="username" id="signup-username">
-    <br>
+        <button type="submit">Login</button>
+      </form>
 
-    <label for="signup-password">Password</label>
-    <input type="password" name="password" id="signup-password">
-    <br>
+      <br />
+      <hr />
 
-    <input type="text" name="redirect" id="signup-redirect" style="display: none;" value="/tasks">
+      <h2>Sign Up</h2>
 
-    <button type="submit">Login</button>
-  </form>
-</body>
+      <form action="/signup" method="post" id="signup-form">
+        <label for="signup-username">Username</label>
+        <input type="text" name="username" id="signup-username" autocomplete="username" />
+        <br />
+
+        <label for="signup-password">Password</label>
+        <input type="password" name="password" id="signup-password" autocomplete="new-password" />
+        <br />
+
+        <label for="signup-invitecode">Invite Code</label>
+        <input type="text" name="invite_code" id="signup-invitecode" />
+        <br />
+
+        <button type="submit">Signup</button>
+      </form>
+
+      <div id="popup-container"></div>
+
+      <div id="notice-container"></div>
+    </div>
+
+    <template id="template-popup">
+      <div class="popup">
+        <div class="popup-content">
+          <div class="popup-close unselectable">X</div>
+        </div>
+      </div>
+    </template>
+
+    <template id="template-notice">
+      <div class="notice">
+        <p class="notice-text"></p>
+      </div>
+    </template>
+  </body>
 </html>
