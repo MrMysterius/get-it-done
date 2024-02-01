@@ -41,6 +41,14 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
     }
   });
 
+  document.querySelector("#group-manage").addEventListener("click", () => {
+    const group_id = getUrlParam("g");
+    if (!group_id || group_id == "new") return;
+    window.location.replace(`/groups?g=${group_id}`);
+  });
+
+  document.querySelector("#group-manage").removeAttribute("disabled");
+
   loop_interval_id = setInterval(mainLoop, 15000);
 });
 
