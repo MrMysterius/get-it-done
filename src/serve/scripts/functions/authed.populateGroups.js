@@ -14,14 +14,14 @@ export async function populateGroups() {
     return false;
   }
 
-  const current_group = groups.data.sort((a, b) => a.id - b.id).find((group) => group.id == group_id);
+  const current_group = groups.data.sort((a, b) => a.id - b.id).find((group) => group.group_id == group_id);
 
   if (current_group) {
     options += `<option value="${current_group.group_id}">${current_group.group_name}</option>`;
   }
 
   for (const group of groups.data) {
-    if (group.id === group_id) continue;
+    if (group.group_id == group_id) continue;
     options += `<option value="${group.group_id}">${group.group_name}</option>`;
   }
 
