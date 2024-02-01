@@ -11,7 +11,6 @@ import { request } from "./functions/request.js";
 import { switchGroup } from "./functions/authed.switchGroup.js";
 
 export let loop_interval_id;
-let sidebarOpen = false;
 
 window.addEventListener("DOMContentLoaded", async (ev) => {
   await checkGroup();
@@ -34,10 +33,6 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
     await populateTasks();
   });
 
-  document.querySelector("#sidebar-menu-drawer").addEventListener("click", () => {
-    toggleSidebar();
-  });
-
   document.querySelector("body").addEventListener("keypress", (ev) => {
     const task_titleEl = document.querySelector("#task-new-title");
     if (ev.key == "t" && task_titleEl !== document.activeElement) {
@@ -54,16 +49,4 @@ export const TasksMap = new Map();
 export async function mainLoop() {
   populateGroups();
   populateTasks();
-}
-
-function toggleSidebar() {
-  if (sidebarOpen) {
-    sidebarOpen = false;
-    document.querySelector("#sidebar-menu").classList.remove("opened");
-    document.querySelector("#sidebar-menu-drawer").classList.remove("opened");
-  } else {
-    sidebarOpen = true;
-    document.querySelector("#sidebar-menu").classList.add("opened");
-    document.querySelector("#sidebar-menu-drawer").classList.add("opened");
-  }
 }
