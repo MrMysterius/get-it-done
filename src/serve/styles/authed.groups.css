@@ -8,3 +8,33 @@
   font-size: 1em;
   cursor: pointer;
 }
+
+table.group-members {
+  border-collapse: collapse;
+}
+
+table.group-members td {
+  padding: 0.2em 0.5em 0.2em 0.5em;
+  border-top: 1px dashed white;
+  border-bottom: 1px dashed white;
+}
+table.group-members tr:first-child td {
+  border-top: unset;
+}
+table.group-members tr:last-child td {
+  border-bottom: unset;
+}
+
+table.group-members .group-member-remove {
+  cursor: pointer;
+  background-color: var(--notice-error);
+}
+
+.group-member-add {
+  background-color: #29906e;
+  cursor: pointer;
+}
+.group-delete, .group-delete-confirm {
+  cursor: pointer;
+  background-color: var(--notice-error);
+}

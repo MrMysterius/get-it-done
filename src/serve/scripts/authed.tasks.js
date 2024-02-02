@@ -5,6 +5,7 @@ import { createNewTask } from "./functions/authed.createNewTask.js";
 import { createNotice } from "./functions/createNotice.js";
 import { createPopup } from "./functions/createPopup.js";
 import { lockTaskCreator } from "./functions/authed.lockTaskCreation.js";
+import { manageGroupPopup } from "./functions/authed.manageGroupPopup.js";
 import { populateGroups } from "./functions/authed.populateGroups.js";
 import { populateTasks } from "./functions/authed.populateTasks.js";
 import { request } from "./functions/request.js";
@@ -34,6 +35,7 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
   });
 
   document.querySelector("body").addEventListener("keypress", (ev) => {
+    if (document.querySelector("#popup-container").childElementCount > 0) return;
     const task_titleEl = document.querySelector("#task-new-title");
     if (ev.key == "t" && task_titleEl !== document.activeElement) {
       ev.preventDefault();
@@ -44,7 +46,7 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
   document.querySelector("#group-manage").addEventListener("click", () => {
     const group_id = getUrlParam("g");
     if (!group_id || group_id == "new") return;
-    window.location.replace(`/groups?g=${group_id}`);
+    manageGroupPopup();
   });
 
   document.querySelector("#group-manage").removeAttribute("disabled");
