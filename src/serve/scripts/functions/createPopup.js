@@ -31,30 +31,42 @@ export function createPopup(popupContent, cb = (popupWrapper, state) => {}) {
 
 export class Popup {
   popupElement;
+  destroyed = false;
 
   constructor() {
     const newPopup = document.querySelector("#template-popup")?.content?.cloneNode(true) || null;
     if (!newPopup) throw new Error("Couldn't create Popup, no Template Element found.");
 
     this.popupElement = newPopup.querySelector(".popup");
+
+    this.popupElement.addEventListener("click", (ev) => {
+      if (ev?.srcElement != this.popupElement) return;
+      this.destroy();
+    });
+    this.popupElement.querySelector(".popup-content .popup-close").addEventListener("click", (ev) => {
+      this.destroy();
+    });
   }
 
   spawn() {
+    if (this.destroyed) throw new Error("Popup Object allready destroyed.");
     const container = document.querySelector("#popup-container");
     if (!container) throw new Error("Couldn't spawn Popup, Popup Container Missing.");
     container.appendChild(this.popupElement);
   }
 
   appendContentFromString(newContent) {
+    if (this.destroyed) throw new Error("Popup Object allready destroyed.");
     const contentWrapper = this.popupElement.querySelector(".popup-content");
     if (!contentWrapper) throw new Error("Couldn't append new popup content.");
     const div = document.createElement("div");
     div.innerHTML = newContent;
 
-    contentWrapper.appendChild(div);
+    return contentWrapper.appendChild(div);
   }
 
   appendContentNodes(newContentNodes = []) {
+    if (this.destroyed) throw new Error("Popup Object allready destroyed.");
     if (!newContentNodes.map) throw new Error("Expected an Array of new content nodes.");
     const contentWrapper = this.popupElement.querySelector(".popup-content");
     if (!contentWrapper) throw new Error("Couldn't append new popup content.");
@@ -64,8 +76,11 @@ export class Popup {
     });
   }
 
-  close() {
+  destroy() {
+    if (this.destroyed) throw new Error("Popup Object allready destroyed.");
+    this.destroyed = true;
     this.popupElement.remove();
-    this.destroy();
+    delete this.popupElement;
+    delete this;
   }
 }
