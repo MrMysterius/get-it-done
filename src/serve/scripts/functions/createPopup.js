@@ -26,5 +26,5 @@ export function createPopup(popupContent, cb = (popupWrapper, state) => {}) {
   document.querySelector("#popup-container").appendChild(newPopup);
 
   cb(wrapperDiv, "opened");
-  return newPopup;
+  return wrapperDiv;
 }
