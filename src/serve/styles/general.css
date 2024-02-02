@@ -70,6 +70,12 @@ input[type="password"] {
   background-color: #6e8abd;
 }
 
+select {
+  color: white;
+  border: 1px solid white;
+  background-color: #6e8abd;
+}
+
 input:disabled,
 button:disabled {
   background-color: #191f2c !important;
