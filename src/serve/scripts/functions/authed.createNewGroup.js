@@ -24,6 +24,7 @@ export function createNewGroup() {
     if (state == "opened") {
       const cont = wrapper.querySelector(".group-new");
       const nameEl = cont.querySelector(".group-new-name");
+      nameEl.focus();
 
       cont.querySelector(".group-new-close").addEventListener("click", async (ev) => {
         ev.srcElement.setAttribute("disabled", "");
