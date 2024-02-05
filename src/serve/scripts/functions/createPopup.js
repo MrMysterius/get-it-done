@@ -54,6 +54,7 @@ export class Popup {
     const container = document.querySelector("#popup-container");
     if (!container) throw new Error("Couldn't spawn Popup, Popup Container Missing.");
     container.appendChild(this.popupElement);
+    document.activeElement.blur();
   }
 
   appendContentFromString(newContent) {
