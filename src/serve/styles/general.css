@@ -76,7 +76,8 @@ button:focus {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+textarea {
   color: white;
   border: 1px solid white;
   background-color: #6e8abd;
