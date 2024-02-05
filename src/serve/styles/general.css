@@ -28,6 +28,17 @@
   font-family: "Roboto Condensed", "Arial Black", sans-serif;
 }
 
+*::-webkit-scrollbar {
+  width: 0.3em;
+}
+*::-webkit-scrollbar-track {
+  background: #262626;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border-radius: 10px;
+}
+
 body {
   color: var(--main-text);
   background-color: var(--main-bg);
