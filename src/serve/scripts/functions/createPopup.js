@@ -32,6 +32,7 @@ export function createPopup(popupContent, cb = (popupWrapper, state) => {}) {
 export class Popup {
   popupElement;
   destroyed = false;
+  destroyListeners = [];
 
   constructor() {
     const newPopup = document.querySelector("#template-popup")?.content?.cloneNode(true) || null;
@@ -78,9 +79,16 @@ export class Popup {
 
   destroy() {
     if (this.destroyed) throw new Error("Popup Object allready destroyed.");
+    this.destroyListeners.forEach(async (listener) => listener.call());
     this.destroyed = true;
     this.popupElement.remove();
+    delete this.destroyListeners;
     delete this.popupElement;
     delete this;
+  }
+
+  addDestructionListener(cb) {
+    if (this.destroyed) throw new Error("Popup Object allready destroyed.");
+    this.destroyListeners.push(cb);
   }
 }
