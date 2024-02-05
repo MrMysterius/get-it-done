@@ -83,6 +83,18 @@ textarea {
   background-color: #6e8abd;
 }
 
+input[type="text"]:invalid,
+input[type="password"]:invalid,
+textarea:invalid,
+input[type="text"]:invalid:focus,
+input[type="password"]:invalid:focus,
+textarea:invalid:focus,
+input[type="text"]:invalid:hover,
+input[type="password"]:invalid:hover,
+textarea:invalid:hover {
+  border: 2px solid red;
+}
+
 select {
   color: white;
   border: 1px solid white;
