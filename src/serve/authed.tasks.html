@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="/styles/general.css" />
     <link rel="stylesheet" href="/styles/tasks.css" />
     <link rel="stylesheet" href="/styles/groups.css" />
-    
-    <link rel="shortcut icon" href="favicon.png" type="image/png">
+
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
   </head>
   <body>
     <div class="page">
@@ -26,9 +26,15 @@
       <div id="sidebar-menu">
         <h1>Tasks</h1>
 
-        <select id="group-selection"></select><br>
+        <select id="group-selection"></select
+        ><br />
 
-        <button id="group-manage" disabled>Manage Group</button><br>
+        <button id="group-manage" disabled>Manage Group</button><br />
+        <div>
+          <button id="group-tags" disabled>Manage Tags</button>
+          <button id="group-states" disabled>Manage States</button>
+        </div>
+        <br />
 
         <a href="/deauth"><button>LOGOUT</button></a>
       </div>
