@@ -84,9 +84,9 @@ export class Popup {
     });
   }
 
-  destroy() {
+  destroy(param) {
     if (this.destroyed) throw new Error("Popup Object allready destroyed.");
-    this.destroyListeners.forEach(async (listener) => listener.call());
+    this.destroyListeners.forEach(async (listener) => listener(param));
     this.destroyed = true;
     document.body.removeEventListener("keyup", this.destroyKeybind);
     this.popupElement.remove();
