@@ -33,6 +33,10 @@ export class Popup {
   popupElement;
   destroyed = false;
   destroyListeners = [];
+  destroyKeybind = (ev) => {
+    if (ev.key != "Escape" || document.querySelector("#popup-container").lastChild != this.popupElement) return;
+    this.destroy();
+  };
 
   constructor() {
     const newPopup = document.querySelector("#template-popup")?.content?.cloneNode(true) || null;
@@ -47,6 +51,8 @@ export class Popup {
     this.popupElement.querySelector(".popup-content .popup-close").addEventListener("click", (ev) => {
       this.destroy();
     });
+
+    document.body.addEventListener("keyup", this.destroyKeybind);
   }
 
   spawn() {
@@ -82,6 +88,7 @@ export class Popup {
     if (this.destroyed) throw new Error("Popup Object allready destroyed.");
     this.destroyListeners.forEach(async (listener) => listener.call());
     this.destroyed = true;
+    document.body.removeEventListener("keyup", this.destroyKeybind);
     this.popupElement.remove();
     delete this.destroyListeners;
     delete this.popupElement;
