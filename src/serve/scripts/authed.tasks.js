@@ -6,6 +6,7 @@ import { createNotice } from "./functions/createNotice.js";
 import { createPopup } from "./functions/createPopup.js";
 import { lockTaskCreator } from "./functions/authed.lockTaskCreation.js";
 import { manageGroupPopup } from "./functions/authed.manageGroupPopup.js";
+import { manageInboxesPopup } from "./functions/authed.manageInboxesPopup.js";
 import { manageStatesPopup } from "./functions/authed.manageStatesPopup.js";
 import { manageTagsPopup } from "./functions/authed.manageTagsPopup.js";
 import { populateGroups } from "./functions/authed.populateGroups.js";
@@ -65,6 +66,13 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
     manageStatesPopup(group_id);
   });
   document.querySelector("#group-states").removeAttribute("disabled");
+
+  document.querySelector("#group-inboxes").addEventListener("click", () => {
+    const group_id = getUrlParam("g");
+    if (!group_id || group_id == "new") return;
+    manageInboxesPopup(group_id);
+  });
+  document.querySelector("#group-inboxes").removeAttribute("disabled");
 
   loop_interval_id = setInterval(mainLoop, 15000);
 });
