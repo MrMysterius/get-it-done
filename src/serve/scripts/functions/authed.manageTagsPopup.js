@@ -154,12 +154,12 @@ export async function addTag(group_id) {
       if (!res || res.status != 200) {
         console.log(res);
         addPopup.destroy("cancel");
-        createNotice("Failed to update Tag", "error", 15000);
+        createNotice("Failed to create Tag", "error", 15000);
         return;
       }
 
       addPopup.destroy("finnished");
-      createNotice("Successfully edited Tag", "success", 5000);
+      createNotice("Successfully created Tag", "success", 5000);
       resolve(true);
       return;
     });
@@ -284,5 +284,3 @@ export async function deleteTag(group_id, tag_id, tag_name = "") {
     confirmPopup.spawn();
   });
 }
-
-export async function createNewTagPopup(group_id) {}
