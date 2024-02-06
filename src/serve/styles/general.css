@@ -104,6 +104,7 @@ select {
 input:disabled,
 button:disabled {
   background-color: #191f2c !important;
+  cursor: not-allowed;
 }
 
 /* PAGE */
