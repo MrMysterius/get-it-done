@@ -11,7 +11,7 @@ export async function manageStatesPopup(group_id) {
   const states = await request("GET", `/api/groups/${group_id}/states`);
 
   if (!group || !states || group.status != 200 || states.status != 200) {
-    createNotice("Couldn't get group or tags information", "error", 15000);
+    createNotice("Couldn't get group or states information", "error", 15000);
     return;
   }
 
@@ -243,5 +243,3 @@ export async function deleteState(group_id, state_id, state_name = "") {
     confirmPopup.spawn();
   });
 }
-
-export async function createNewTagPopup(group_id) {}
