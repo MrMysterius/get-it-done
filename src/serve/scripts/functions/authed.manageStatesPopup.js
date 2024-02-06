@@ -74,7 +74,7 @@ export async function addState(group_id) {
     const wrapper = document.createElement("div");
     let content = "";
     content += `<h4>Add New State</h4><form><table>`;
-    content += `<tr><td><b>Name:</b></td><td><input type="text" class="state-name" minlength="1" maxlength="30" placeholder="State Name" required></td></tr>`;
+    content += `<tr><td><b>Name:</b></td><td><input type="text" class="state-name" minlength="1" maxlength="100" placeholder="State Name" required></td></tr>`;
     content += `<tr><td><b>Description:</b></td><td><textarea type="text" class="state-description" maxlength="300" placeholder="State Description"></textarea></td></tr>`;
     content += `<tr><td><b>Colour Text:</b></td><td><input type="text" class="state-colour-txt" value="#000000" pattern="(^\#[0-9abcdefABCDEF]{6}$)|" placeholder="HEX Colour Code"><div class="state-colour-txt-preview" style="min-height: 10px; min-width: 10px; background-color: #000000;"></div></td></tr>`;
     content += `<tr><td><b>Colour Background:</b></td><td><input type="text" class="state-colour-bg" value="#66A3FF" pattern="(^\#[0-9abcdefABCDEF]{6}$)|" placeholder="HEX Colour Code"><div class="state-colour-bg-preview" style="min-height: 10px; min-width: 10px; background-color: #66A3FF;"></div></td></tr>`;
@@ -145,7 +145,7 @@ export async function editState(group_id, state) {
     const wrapper = document.createElement("div");
     let content = "";
     content += `<h4>Editing - ${state.name}</h4><form><table>`;
-    content += `<tr><td><b>Name:</b></td><td><input type="text" class="state-name" value="${state.name}" minlength="1" maxlength="30" placeholder="State Name"></td></tr>`;
+    content += `<tr><td><b>Name:</b></td><td><input type="text" class="state-name" value="${state.name}" minlength="1" maxlength="100" placeholder="State Name"></td></tr>`;
     content += `<tr><td><b>Description:</b></td><td><textarea type="text" class="state-description" value="${state.description}" maxlength="300" placeholder="State Description"></textarea></td></tr>`;
     content += `<tr><td><b>Colour Text:</b></td><td><input type="text" class="state-colour-txt" value="${state.colour_text}" pattern="^\#[0-9abcdefABCDEF]{6}$" placeholder="HEX Colour Code"><div class="state-colour-txt-preview" style="min-height: 10px; min-width: 10px; background-color: ${state.colour_text};"></div></td></tr>`;
     content += `<tr><td><b>Colour Background:</b></td><td><input type="text" class="state-colour-bg" value="${state.colour_background}" pattern="^\#[0-9abcdefABCDEF]{6}$" placeholder="HEX Colour Code"><div class="state-colour-bg-preview" style="min-height: 10px; min-width: 10px; background-color: ${state.colour_background};"></div></td></tr>`;
