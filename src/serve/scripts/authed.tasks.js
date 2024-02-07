@@ -9,6 +9,7 @@ import { manageGroupPopup } from "./functions/authed.manageGroupPopup.js";
 import { manageInboxesPopup } from "./functions/authed.manageInboxesPopup.js";
 import { manageStatesPopup } from "./functions/authed.manageStatesPopup.js";
 import { manageTagsPopup } from "./functions/authed.manageTagsPopup.js";
+import { manageUserPopup } from "./functions/authed.manageUserPopup.js";
 import { populateGroups } from "./functions/authed.populateGroups.js";
 import { populateTasks } from "./functions/authed.populateTasks.js";
 import { request } from "./functions/request.js";
@@ -73,6 +74,11 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
     manageInboxesPopup(group_id);
   });
   document.querySelector("#group-inboxes").removeAttribute("disabled");
+
+  document.querySelector("#user-settings").addEventListener("click", () => {
+    manageUserPopup();
+  });
+  document.querySelector("#user-settings").removeAttribute("disabled");
 
   loop_interval_id = setInterval(mainLoop, 15000);
 });
