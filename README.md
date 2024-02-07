@@ -10,14 +10,21 @@ Work In Progress - Project
 
 ## TODO
 
+- [ ] Backend
+  - [ ] Make Sure Inboxes and Filters don't allow malformed data
+
 - [ ] Frontend
-  - [ ] Start Page
-  - [X] Login
-  - [ ] Tasks View
-  - [ ] Dashboard
-  - [ ] User Settings
-  - [ ] Group Settings
-- [ ] Make Sure Inboxes and Filters don't allow malformed data
+  - [ ] Create a better update System for Tasks - Hashing JSON Data and Comparing for Example
+  - [ ] Task Management Menu for Editing a Task
+  - [ ] Admin Menu for doing Administrative Action (Optional for Beta)
+  - [ ] Invite Code Creation Menu
+  - [ ] Quick Filter Options
+  - [ ] Saving, Editing, Deletion and Selection of Filters
+  - [ ] Focus Mode
+  - [ ] Update Tasks View to show more information from Tasks
+  - [ ] Integrate Suggestions Dialog Menu Somehow / Add it for later
+  - [ ] Think / Add Keyboard Shortcuts
+  - [ ] Create a Keyboard Shortcuts manager / handler
 
 ## Finished Todo's
 
@@ -75,6 +82,17 @@ Work In Progress - Project
     - [X] Create
     - [X] Update
     - [X] Delete
+
+- [ ] Frontend
+  - [X] Login Page
+    - [X] Login Form
+    - [X] Signup Form
+  - [X] Group Management Menu
+  - [X] Groups Tags Management Menu
+  - [X] Groups States Management Menu
+  - [X] Groups Inboxes Management Menu
+  - [X] User Settings Menu
+  - [X] Group Creation Menu
 
 ## Further Documentation
 
