@@ -2,6 +2,7 @@ import { checkGroup } from "./authed.checkGroup.js";
 import { createNotice } from "./createNotice.js";
 import { createPopup } from "./createPopup.js";
 import { getUrlParam } from "./authed.urlData.js";
+import { populateFilters } from "./authed.populateFilters.js";
 import { populateGroups } from "./authed.populateGroups.js";
 import { request } from "./request.js";
 import { switchGroup } from "./authed.switchGroup.js";
@@ -133,6 +134,7 @@ export async function manageGroupPopup() {
       popupGroupManage.remove();
       await checkGroup();
       await populateGroups();
+      await populateFilters();
       switchGroup();
       return;
     });

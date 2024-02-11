@@ -36,6 +36,7 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
   document.querySelector("#group-selection").addEventListener("change", async () => {
     switchGroup();
     await populateTasks();
+    await populateFilters();
   });
 
   document.querySelector("body").addEventListener("keypress", (ev) => {
