@@ -14,7 +14,7 @@ Work In Progress - Project
   - [ ] Make Sure Inboxes and Filters don't allow malformed data
 
 - [ ] Frontend
-  - [ ] Create a better update System for Tasks - Hashing JSON Data and Comparing for Example
+  - [X] Create a better update System for Tasks - Hashing JSON Data and Comparing for Example
   - [ ] Task Management Menu for Editing a Task
   - [ ] Admin Menu for doing Administrative Action (Optional for Beta)
   - [ ] Invite Code Creation Menu
