@@ -47,7 +47,23 @@ GroupsGetRouter.get("/", (req, res) => {
       req.authedUser?.user_id
     );
 
-    if (!groups.isSuccessful || !groups.data) throw new Error();
+    const groupsMemberOf = getAllData<GIDData.group & { group_owner_username: string; group_owner_displayname: string }>(
+      `SELECT
+        groups.*,
+        users.user_name as group_owner_username,
+        users.user_displayname as group_owner_displayname
+      FROM groups
+      LEFT JOIN group_members
+      ON groups.group_id = group_members.group_id
+      LEFT JOIN users
+      ON groups.group_owner = users.user_id
+      WHERE group_members.user_id = ?`,
+      req.authedUser?.user_id
+    );
+
+    if (!groups.isSuccessful || !groups.data || !groupsMemberOf.isSuccessful || !groupsMemberOf.data) throw new Error();
+
+    groups.data.push(...groupsMemberOf.data);
 
     res.status(200);
     res.json(
