@@ -137,9 +137,16 @@ button:disabled {
 
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 
   align-items: center;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+  
+  hr {
+    width: 100%;
+  }
 }
 
 #sidebar-menu-drawer {

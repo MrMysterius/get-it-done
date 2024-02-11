@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GetItDone | Tasks</title>
 
-    <script src="/libs/showdown.min.js"></script>
+    <script src="/libs/authed.showdown.min.js"></script>
     <script type="module" src="/scripts/authed.tasks.js"></script>
     <script type="module" src="/scripts/sidebarToggle.js"></script>
 
@@ -26,8 +26,9 @@
       <div id="sidebar-menu">
         <h1>Tasks</h1>
 
-        <select id="group-selection"></select
-        ><br />
+        <select id="group-selection"></select>
+
+        <hr />
 
         <button id="group-manage" disabled>Manage Group</button><br />
         <div>
@@ -35,12 +36,20 @@
           <button id="group-states" disabled>States</button>
           <button id="group-inboxes" disabled>Inboxes</button>
         </div>
-        <br />
+
+        <hr />
+
+        <div class="filters">
+          <button class="add-filter">Add Filter</button>
+        </div>
+
+        <hr />
 
         <div>
           <button id="user-settings" disabled>User Settings</button>
           <a href="/deauth"><button>LOGOUT</button></a>
         </div>
+        <br />
       </div>
       <div id="sidebar-menu-drawer">
         <p class="closed">></p>
