@@ -7,19 +7,21 @@
 
 - [ ] Frontend
   - [X] Create a better update System for Tasks - Hashing JSON Data and Comparing for Example
-  - [ ] Task Management Menu for Editing a Task
+  - [X] Task Management Menu for Editing a Task
   - [ ] Admin Menu for doing Administrative Action (Optional for Beta)
   - [ ] Invite Code Creation Menu
   - [ ] Quick Filter Options
-  - [ ] Saving, Editing, Deletion and Selection of Filters
+  - [X] Saving, Editing, Deletion and Selection of Filters
   - [ ] Focus Mode
   - [ ] Update Tasks View to show more information from Tasks
   - [ ] Integrate Suggestions Dialog Menu Somehow / Add it for later
-  - [ ] Think / Add Keyboard Shortcuts
+  - [ ] Think about / Add Keyboard Shortcuts
   - [ ] Create a Keyboard Shortcuts manager / handler
   - [ ] Make Group Name Editable
   - [ ] Fix Tag Icons Loading
   - [ ] Fix Mobile Login Token Stuff
+  - [ ] Add States to Tasks
+  - [ ] Filter Editing / View
 
 ## Finished Todo's
 
