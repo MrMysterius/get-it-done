@@ -8,3 +8,7 @@
 .filters .filter-list .filter.selected {
   background-color: #fff8b857;
 }
+
+.filters .filter-list .filter {
+  word-break: break-word;
+}
