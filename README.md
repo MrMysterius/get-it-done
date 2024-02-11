@@ -25,6 +25,9 @@ Work In Progress - Project
   - [ ] Integrate Suggestions Dialog Menu Somehow / Add it for later
   - [ ] Think / Add Keyboard Shortcuts
   - [ ] Create a Keyboard Shortcuts manager / handler
+  - [ ] Make Group Name Editable
+  - [ ] Fix Tag Icons Loading
+  - [ ] Fix Mobile Login Token Stuff
 
 ## Finished Todo's
 
