@@ -1,0 +1,37 @@
+{
+  "name": "get-it-done",
+  "version": "0.1.0",
+  "description": "Taskmanaging Application with the GTD Principal in Mind",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node -r tsconfig-paths/register --files src/main.ts",
+    "dev": "set NODE_ENV=dev&& ts-node -r tsconfig-paths/register --files src/main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Mr Mysterius",
+  "license": "LGPL-3.0-or-later",
+  "dependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/cookie-parser": "^1.4.6",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.10.8",
+    "bcrypt": "^5.1.1",
+    "better-sqlite3": "^9.2.2",
+    "chalk": "4",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "nanoid": "^3.3.7",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.3.3",
+    "winston": "^3.11.0"
+  }
+}

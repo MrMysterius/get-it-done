@@ -1,9 +1,17 @@
-# GetItDone (Get It Done)
+# GetItDone (Get It Done) - ALPHA V0.1.0
 
-> Taskmanagement Application build on NodeJS with GTD Pricipal in mind
+> Taskmanagement Web Application build in NodeJS with the GTD Taskmanagement Pricipal in mind
 
 Spent less time managing and more time doing it. Anywhere. Anytime.
 
 ---
 
 Work In Progress - Project
+
+## TODO
+
+For a list of some planned features visit the [todo page](TODO.md)
+
+## Further Documentation
+
+Further Documentation can be found on the [documentation page](DOCUMENTATION.md)
