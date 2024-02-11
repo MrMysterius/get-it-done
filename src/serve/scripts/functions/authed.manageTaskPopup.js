@@ -1,5 +1,6 @@
 import { Popup } from "./createPopup.js";
 import { createNotice } from "./createNotice.js";
+import { populateTasks } from "./authed.populateTasks.js";
 import { request } from "./request.js";
 
 // import { showdown } from "../../libs/authed.showdown.min.js";
@@ -182,6 +183,10 @@ export async function manageTaskPopup(group_id, task_id) {
     taskPopup.destroy("finnished");
     createNotice("User information updated", "success", 5000);
     return;
+  });
+
+  taskPopup.addDestructionListener(() => {
+    populateTasks();
   });
 
   taskPopup.appendContentNodes([wrapper]);

@@ -22,7 +22,7 @@ export async function populateTasks() {
   }
   const newTasksMap = new Map();
   newTasks.data.map((newTask) => {
-    newTasksMap.set(newTask.id, newTask);
+    newTasksMap.set(newTask.id, { task: newTask, fingerprint: btoa(JSON.stringify(newTask)) });
   });
 
   const tasksContainer = document.querySelector("#tasks");
@@ -42,8 +42,8 @@ export async function populateTasks() {
     }, 2000);
   }
 
-  for (const [id, task] of newTasksMap.entries()) {
-    if (TasksMap.has(id)) continue;
+  for (const [id, { task, fingerprint }] of newTasksMap.entries()) {
+    if (TasksMap.has(id) && TasksMap.get(id).fingerprint == fingerprint) continue;
 
     const newTaskClone = taskTemplate.content.cloneNode(true);
 
@@ -66,8 +66,12 @@ export async function populateTasks() {
       manageTaskPopup(group_id, task.id);
     });
 
-    tasksContainer.appendChild(newTaskClone);
+    if (TasksMap.has(id) && TasksMap.get(id).fingerprint != fingerprint) {
+      tasksContainer.querySelector(`#task-${id}`).replaceWith(newTaskClone);
+    } else {
+      tasksContainer.appendChild(newTaskClone);
+    }
 
-    TasksMap.set(id, task);
+    TasksMap.set(id, { task, fingerprint });
   }
 }
