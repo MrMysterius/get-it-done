@@ -1,0 +1,178 @@
+#tasks-wrapper {
+  margin: auto;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-left: 250px;
+
+  max-height: 100vh;
+  overflow-y: scroll;
+}
+
+@media (max-width: 700px) {
+  #tasks-wrapper {
+    padding-left: 20px;
+  }
+}
+
+div#tasks {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  max-width: 45vw;
+  /* justify-content: center; */
+  gap: 0.7em;
+}
+
+div#tasks h1 {
+  text-align: center;
+}
+
+#task-new-title {
+  margin-top: 0.5em;
+  background-color: #36435c;
+  border: #dadada solid 0.1em;
+  border-radius: 2em;
+  padding: 0.3em 0.5em 0.3em 0.5em;
+  font-size: 1.5em;
+  color: #FFFFFF;
+}
+
+#task-new-title:active, #task-new-title:focus {
+  border: #FFFFFF solid 0.1em;
+}
+
+.task {
+  min-width: 0;
+  border-radius: 10px;
+  background-color: #36435c;
+  padding-left: 1em;
+  padding-bottom: 0.5em;
+
+  animation-name: TaskPopin;
+  animation-duration: 500ms;
+
+  cursor: pointer;
+
+  max-width: inherit;
+  word-wrap: break-word;
+}
+
+.task.TaskPopout {
+  animation-name: TaskPopout;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+  cursor: none;
+}
+
+.task .task-title {
+  font-size: 1.25em;
+}
+
+.task .task-tags {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  align-items: center;
+  min-height: 0;
+}
+
+.task .task-tags svg {
+  color: white;
+  fill: white;
+}
+
+.task .task-tag {
+  display: inline-block;
+  padding: 0.2em 0.4em 0.2em 0.4em;
+  border-radius: 2em;
+  margin: 0;
+}
+
+@media (max-width: 1065px) {
+  div#tasks {
+    max-width: 95vw;
+  }
+}
+
+@keyframes TaskPopin {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes TaskPopout {
+  0% {
+    opacity: 1;
+    max-height: 1000px;
+    cursor: none;
+  }
+  50% {
+    max-height: 1000px;
+    opacity: 0;
+    cursor: none;
+  }
+  99% {
+    opacity: 0;
+    max-height: 0px;
+    cursor: none;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+    max-height: 0px;
+    cursor: none;
+  }
+}
+
+.popup .task-description-display {
+  font-size: 0.9em;
+
+  h1 {
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    font-size: 1.5em;
+    text-decoration: underline;
+  }
+  h2 {
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    font-size: 1.25em;
+    text-decoration: underline;
+  }
+  h3 {
+    margin-top: 0.15em;
+    margin-bottom: 0.15em;
+    font-size: 1.1em;
+  }
+  h4 {
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+    font-size: 1em;
+  }
+  h5 {
+    margin-top: 0.05em;
+    margin-bottom: 0.05em;
+    font-size: 0.8em;
+  }
+  h6 {
+    margin-top: 0.05em;
+    margin-bottom: 0.05em;
+    font-size: 0.7em;
+  }
+
+  em, i {
+    color: #c2bb98;
+  }
+  strong, b {
+    font-weight: 900;
+    color: #d9ffdf;
+  }
+}
