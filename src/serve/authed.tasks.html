@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/styles/general.css" />
     <link rel="stylesheet" href="/styles/tasks.css" />
     <link rel="stylesheet" href="/styles/groups.css" />
+    <link rel="stylesheet" href="/styles/filters.css" />
 
     <link rel="shortcut icon" href="favicon.png" type="image/png" />
   </head>
@@ -40,7 +41,10 @@
         <hr />
 
         <div class="filters">
-          <button class="add-filter">Add Filter</button>
+          <button class="add-filter" disabled>Add Filter</button>
+          <button class="no-filter" disabled>No Filter</button>
+          <hr />
+          <div class="filter-list"></div>
         </div>
 
         <hr />

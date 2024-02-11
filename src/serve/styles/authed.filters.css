@@ -1,0 +1,10 @@
+.filters .filter-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.1em;
+}
+
+.filters .filter-list .filter.selected {
+  background-color: #fff8b857;
+}

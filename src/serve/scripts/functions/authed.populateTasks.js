@@ -1,6 +1,7 @@
+import { getUrlParam, setUrlParam } from "./authed.urlData.js";
+
 import { TasksMap } from "../authed.tasks.js";
 import { createNotice } from "./createNotice.js";
-import { getUrlParam } from "./authed.urlData.js";
 import { manageTaskPopup } from "./authed.manageTaskPopup.js";
 import { request } from "./request.js";
 
@@ -20,6 +21,17 @@ export async function populateTasks() {
     createNotice("Couldn't get tasks", "error", 15000);
     return;
   }
+
+  const filters = await request("GET", `/api/groups/${group_id}/filters`);
+  if (!filters || filters.status != 200) {
+    createNotice("Couldn't get tasks", "error", 15000);
+    return;
+  }
+  const filter = filters.data.find((filter) => filter.id == getUrlParam("f"));
+  if (!filter) {
+    setUrlParam("f");
+  }
+
   const newTasksMap = new Map();
   newTasks.data.map((newTask) => {
     newTasksMap.set(newTask.id, { task: newTask, fingerprint: btoa(JSON.stringify(newTask)) });
@@ -28,8 +40,8 @@ export async function populateTasks() {
   const tasksContainer = document.querySelector("#tasks");
   const taskTemplate = document.querySelector("#template-task");
 
-  for (const [id, task] of TasksMap.entries()) {
-    if (newTasksMap.has(id)) continue;
+  for (const [id, { task }] of TasksMap.entries()) {
+    if (newTasksMap.has(id) && checkFilter(task, filter)) continue;
 
     const taskEl = document.querySelector(`#task-${id}`);
     if (!taskEl) continue;
@@ -43,7 +55,7 @@ export async function populateTasks() {
   }
 
   for (const [id, { task, fingerprint }] of newTasksMap.entries()) {
-    if (TasksMap.has(id) && TasksMap.get(id).fingerprint == fingerprint) continue;
+    if ((TasksMap.has(id) && TasksMap.get(id).fingerprint == fingerprint) || !checkFilter(task, filter)) continue;
 
     const newTaskClone = taskTemplate.content.cloneNode(true);
 
@@ -74,4 +86,13 @@ export async function populateTasks() {
 
     TasksMap.set(id, { task, fingerprint });
   }
+}
+
+export function checkFilter(task, filter) {
+  if (!filter) return true;
+  for (const ftag of filter.filter_data.tags) {
+    if (task.tags.find((tag) => ftag == tag.name)) continue;
+    return false;
+  }
+  return true;
 }
