@@ -2,8 +2,6 @@ import { getUrlParam, setUrlParam } from "./functions/authed.urlData.js";
 
 import { checkGroup } from "./functions/authed.checkGroup.js";
 import { createNewTask } from "./functions/authed.createNewTask.js";
-import { createNotice } from "./functions/createNotice.js";
-import { createPopup } from "./functions/createPopup.js";
 import { lockTaskCreator } from "./functions/authed.lockTaskCreation.js";
 import { manageGroupPopup } from "./functions/authed.manageGroupPopup.js";
 import { manageInboxesPopup } from "./functions/authed.manageInboxesPopup.js";
@@ -12,7 +10,6 @@ import { manageTagsPopup } from "./functions/authed.manageTagsPopup.js";
 import { manageUserPopup } from "./functions/authed.manageUserPopup.js";
 import { populateGroups } from "./functions/authed.populateGroups.js";
 import { populateTasks } from "./functions/authed.populateTasks.js";
-import { request } from "./functions/request.js";
 import { switchGroup } from "./functions/authed.switchGroup.js";
 
 export let loop_interval_id;
