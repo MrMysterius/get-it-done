@@ -1,6 +1,7 @@
 import { TasksMap } from "../authed.tasks.js";
 import { createNotice } from "./createNotice.js";
 import { getUrlParam } from "./authed.urlData.js";
+import { manageTaskPopup } from "./authed.manageTaskPopup.js";
 import { request } from "./request.js";
 
 export const TagIcons = {
@@ -62,12 +63,7 @@ export async function populateTasks() {
     newTaskClone.querySelector(".task-tags").innerHTML = taskTagsHTML;
 
     newTaskClone.querySelector(".task").addEventListener("click", async (ev) => {
-      const res = await request("DELETE", `/api/groups/${group_id}/tasks/${task.id}`);
-      if (res?.status != 200) {
-        createNotice("Couldn't delete task", "error");
-        return;
-      }
-      populateTasks();
+      manageTaskPopup(group_id, task.id);
     });
 
     tasksContainer.appendChild(newTaskClone);
