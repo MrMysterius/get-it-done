@@ -34,7 +34,7 @@ export async function manageTaskPopup(group_id, task_id) {
   wrapper.innerHTML += `<div><div class="task-tags-display" style="display: flex; flex-direction: row; gap: 0.1em; max-width: 300px; flex-wrap: wrap;"></div><br><select class="task-tags-selection"><option>Add Tag</option></select></div>`;
 
   let form = "<br><br><br><form><table>";
-  form += `</table><button class="confirm" type="submit" style="background-color: var(--notice-warn); color: black;">UPDATE</button> <button class="cancel">CANCEL</button></form>`;
+  form += `</table><button class="delete" style="background-color: var(--notice-error); color: var(--notice-error-text);">DELETE</button> <button class="archive" style="background-color: var(--notice-warn); color: var(--notice-warn-text);">ARCHIVE</button> <button class="cancel">CANCEL</button></form>`;
 
   wrapper.innerHTML += form;
 
@@ -155,34 +155,29 @@ export async function manageTaskPopup(group_id, task_id) {
     ev.preventDefault();
     taskPopup.destroy("canceled");
   });
-  wrapper.querySelector("form").addEventListener("submit", async (ev) => {
+  wrapper.querySelector(".archive").addEventListener("click", async (ev) => {
     ev.preventDefault();
-
-    const user_name = wrapper.querySelector(".user-name").value;
-    const user_displayname = wrapper.querySelector(".user-displayname").value;
-    const new_password = wrapper.querySelector(".user-password").value;
-
-    const data = {
-      user_name,
-      user_displayname,
-      password: new_password,
-    };
-
-    if (me.data.user_name == user_name) delete data.user_name;
-    if (me.data.pass == user_name) delete data.user_name;
-    if ("" == new_password) delete data.password;
-
-    const res = await request("PUT", `/api/users/${me.data.user_id}`, data);
+    const res = await request("PUT", `/api/groups/${group_id}/tasks/${task_id}`, {
+      isArchived: 1,
+    });
     if (!res || res.status != 200) {
-      console.log(res);
-      taskPopup.destroy("canceled");
-      createNotice("Couldn't update user information", "error", 15000);
+      createNotice("Couldn't archive Task", "error", 15000);
       return;
     }
-
-    taskPopup.destroy("finnished");
-    createNotice("User information updated", "success", 5000);
-    return;
+    createNotice("Archived Task", "success", 5000);
+    populateTasks();
+    taskPopup.destroy("archived");
+  });
+  wrapper.querySelector(".delete").addEventListener("click", async (ev) => {
+    ev.preventDefault();
+    const res = await request("DELETE", `/api/groups/${group_id}/tasks/${task_id}`);
+    if (!res || res.status != 200) {
+      createNotice("Couldn't delete Task", "error", 15000);
+      return;
+    }
+    createNotice("Deleted Task", "success", 5000);
+    populateTasks();
+    taskPopup.destroy("deleted");
   });
 
   taskPopup.addDestructionListener(() => {
