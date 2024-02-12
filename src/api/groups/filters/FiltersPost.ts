@@ -1,6 +1,7 @@
 import Express from "express";
 import { body } from "express-validator";
 import { createTransactionStatementTyped } from "@/functions/databaseFunctions";
+import { escape } from "validator";
 import { validateData } from "@/middlewares/validateData";
 
 export const FiltersPostRouter = Express.Router();
@@ -17,6 +18,9 @@ FiltersPostRouter.post(
     .isObject()
     .customSanitizer((obj: any) => {
       return { tags: obj?.tags || [] };
+    })
+    .customSanitizer((obj: any) => {
+      obj.tags = obj.tags.map((tag) => escape(tag));
     }),
 
   // DATA CHECK

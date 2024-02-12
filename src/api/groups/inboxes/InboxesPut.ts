@@ -2,6 +2,7 @@ import { body, param } from "express-validator";
 import { createTransactionStatementTyped, getData } from "@/functions/databaseFunctions";
 
 import Express from "express";
+import { escape } from "validator";
 import { validateData } from "@/middlewares/validateData";
 
 export const InboxesPutRouter = Express.Router();
@@ -28,6 +29,9 @@ InboxesPutRouter.put(
     .notEmpty()
     .customSanitizer((obj: any) => {
       return { tags: obj?.tags || [] };
+    })
+    .customSanitizer((obj: any) => {
+      obj.tags = obj.tags.map((tag) => escape(tag));
     })
     .optional(),
 
