@@ -143,6 +143,8 @@ button:disabled {
 
   overflow-x: hidden;
   overflow-y: auto;
+
+  word-break: break-all;
   
   hr {
     width: 100%;
