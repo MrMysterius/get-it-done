@@ -21,6 +21,7 @@ FiltersPostRouter.post(
     })
     .customSanitizer((obj: any) => {
       obj.tags = obj.tags.map((tag) => escape(tag));
+      return obj;
     }),
 
   // DATA CHECK
