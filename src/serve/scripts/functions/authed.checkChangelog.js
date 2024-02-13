@@ -38,6 +38,7 @@ function displayChangelog(changes) {
     changeDiv.innerHTML += `<p><i>${change.description}</i></p>`;
 
     for (const [type, changes] of Object.entries(change.changes)) {
+      if (changes.length == 0) continue;
       const details = document.createElement("div");
 
       details.innerHTML += `<b>${type.toUpperCase()}</b>`;
