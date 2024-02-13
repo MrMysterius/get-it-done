@@ -2,6 +2,7 @@ import { checkGroup } from "./authed.checkGroup.js";
 import { createNotice } from "./createNotice.js";
 import { createPopup } from "./createPopup.js";
 import { getUrlParam } from "./authed.urlData.js";
+import { populateFilters } from "./authed.populateFilters.js";
 import { populateGroups } from "./authed.populateGroups.js";
 import { request } from "./request.js";
 import { switchGroup } from "./authed.switchGroup.js";
@@ -10,15 +11,14 @@ export async function manageGroupPopup() {
   const group_id = getUrlParam("g");
 
   const wrapper = document.createElement("div");
-  const group = await request("GET", `/api/groups/${group_id}`);
-  const members = await request("GET", `/api/groups/${group_id}/members`);
-  const me = await request("GET", `/api/me`);
-  if (!group || !members || !me) {
-    console.log(group, members, me);
-    createNotice(`Couldn't open group management for group ${group_id}`, "error", 15000);
-    return;
-  }
-  if (group.status != 200 || members.status != 200 || me.status != 200) {
+
+  const groupReq = await request("GET", `/api/groups/${group_id}`);
+  const membersReq = await request("GET", `/api/groups/${group_id}/members`);
+  const meReq = await request("GET", `/api/me`);
+
+  const [group, members, me] = await Promise.all([groupReq, membersReq, meReq]);
+
+  if (group?.status != 200 || members?.status != 200 || me?.status != 200) {
     console.log(group, members, me);
     createNotice(`Couldn't open group management for group ${group_id}`, "error", 15000);
     return;
@@ -133,6 +133,7 @@ export async function manageGroupPopup() {
       popupGroupManage.remove();
       await checkGroup();
       await populateGroups();
+      await populateFilters();
       switchGroup();
       return;
     });

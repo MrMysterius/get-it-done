@@ -175,4 +175,11 @@ div#tasks h1 {
     font-weight: 900;
     color: #d9ffdf;
   }
+
+  code, pre {
+    background-color: #2e2e2e7d;
+  }
+  blockquote {
+    background-color: #ff7a557e;
+  }
 }

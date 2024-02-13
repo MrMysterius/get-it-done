@@ -25,7 +25,11 @@ export async function createNewTask() {
 
   if (filter)
     await request("POST", `/api/groups/${group_id}/tasks/${res.data.task_id}/tags`, {
-      tags: filter.filter_data.tags,
+      tags: filter.filter_data.tags.map((t) => {
+        const el = document.createElement("textarea");
+        el.innerHTML = t;
+        return el.value;
+      }),
     });
 
   titleEl.value = "";

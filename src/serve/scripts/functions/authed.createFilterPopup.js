@@ -4,10 +4,12 @@ import { populateFilters } from "./authed.populateFilters.js";
 import { request } from "./request.js";
 
 export async function createFilterPopup(group_id) {
-  const group = await request("GET", `/api/groups/${group_id}`);
-  const tags = await request("GET", `/api/groups/${group_id}/tags`);
+  const groupReq = request("GET", `/api/groups/${group_id}`);
+  const tagsReq = request("GET", `/api/groups/${group_id}/tags`);
 
-  if (!group || group.status != 200 || !tags || tags.status != 200) {
+  const [group, tags] = await Promise.all([groupReq, tagsReq]);
+
+  if (group?.status != 200 || tags?.status != 200) {
     createNotice("Couldn't open Filter Creation", "error", 15000);
     return;
   }
