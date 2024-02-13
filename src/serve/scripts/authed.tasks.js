@@ -1,5 +1,6 @@
 import { getUrlParam, setUrlParam } from "./functions/authed.urlData.js";
 
+import { checkChangelog } from "./functions/authed.checkChangelog.js";
 import { checkGroup } from "./functions/authed.checkGroup.js";
 import { createFilterPopup } from "./functions/authed.createFilterPopup.js";
 import { createNewTask } from "./functions/authed.createNewTask.js";
@@ -17,11 +18,12 @@ import { switchGroup } from "./functions/authed.switchGroup.js";
 export let loop_interval_id;
 
 window.addEventListener("DOMContentLoaded", async (ev) => {
+  checkChangelog();
   await checkGroup();
   await populateGroups();
   switchGroup();
-  await populateFilters();
-  await populateTasks();
+  populateTasks();
+  populateFilters();
 
   // Task Send New
   document.querySelector("#task-new-title").addEventListener("keypress", async (ev) => {
@@ -36,6 +38,7 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
   document.querySelector("#group-selection").addEventListener("change", async () => {
     switchGroup();
     await populateTasks();
+    await populateFilters();
   });
 
   document.querySelector("body").addEventListener("keypress", (ev) => {
@@ -102,4 +105,5 @@ export const TasksMap = new Map();
 export async function mainLoop() {
   populateGroups();
   populateTasks();
+  populateFilters();
 }

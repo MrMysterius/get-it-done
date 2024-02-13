@@ -35,7 +35,7 @@ TagsPutRouter.put(
         tag_creator: req.extra.params.group_id,
         tag_name: name,
       });
-      if (tag.data) throw new Error("Tag with that name allready exists");
+      if (tag.data && tag.data.tag_id != (req.params.tag_id as unknown as number)) throw new Error("Tag with that name allready exists");
       return true;
     })
     .optional(),

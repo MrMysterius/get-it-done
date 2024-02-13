@@ -47,7 +47,23 @@ GroupsGetRouter.get("/", (req, res) => {
       req.authedUser?.user_id
     );
 
-    if (!groups.isSuccessful || !groups.data) throw new Error();
+    const groupsMemberOf = getAllData<GIDData.group & { group_owner_username: string; group_owner_displayname: string }>(
+      `SELECT
+        groups.*,
+        users.user_name as group_owner_username,
+        users.user_displayname as group_owner_displayname
+      FROM groups
+      LEFT JOIN group_members
+      ON groups.group_id = group_members.group_id
+      LEFT JOIN users
+      ON groups.group_owner = users.user_id
+      WHERE group_members.user_id = ?`,
+      req.authedUser?.user_id
+    );
+
+    if (!groups.isSuccessful || !groups.data || !groupsMemberOf.isSuccessful || !groupsMemberOf.data) throw new Error();
+
+    groups.data.push(...groupsMemberOf.data);
 
     res.status(200);
     res.json(
@@ -78,7 +94,15 @@ GroupsGetRouter.get(
     .custom((id: number, meta) => {
       const req = meta.req as Express.Request;
       const group = getData<Pick<GIDData.group, "group_id" | "group_owner">>(`SELECT group_id, group_owner FROM groups WHERE group_id = ?`, id);
-      if (!group.isSuccessful || !group.data || (req.authedUser?.user_role == "user" && req.authedUser.user_id != group.data.group_owner))
+      const members = getAllData<GIDData.group_member>(`SELECT * FROM group_members WHERE group_id = ?`, id);
+      if (
+        !group.isSuccessful ||
+        !group.data ||
+        !members.data ||
+        (req.authedUser?.user_role == "user" &&
+          req.authedUser.user_id != group.data.group_owner &&
+          !members.data.find((mem) => mem.user_id == req.authedUser.user_id))
+      )
         throw new Error("Group with that ID doesn't exist");
       return true;
     }),

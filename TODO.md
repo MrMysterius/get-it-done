@@ -22,6 +22,7 @@
   - [ ] Fix Mobile Login Token Stuff
   - [ ] Add States to Tasks
   - [ ] Filter Editing / View
+  - [ ] Version Number on Website
 
 ## Finished Todo's
 

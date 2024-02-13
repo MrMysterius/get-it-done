@@ -142,7 +142,9 @@ button:disabled {
   align-items: center;
 
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
+
+  word-break: break-all;
   
   hr {
     width: 100%;
@@ -338,7 +340,7 @@ button:disabled {
   border-radius: 10px;
 
   max-height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   background-color: #36435c;
 }

@@ -1,5 +1,6 @@
 import Express from "express";
 import { findServableFile } from "./functions/findServableFile";
+import fs from "fs";
 import path from "path";
 import { validateAuth } from "./middlewares/validateAuth";
 
@@ -14,6 +15,5 @@ ServeRouter.get("/*", (req, res, next) => {
     return;
   }
 
-  res.status(200);
-  res.sendFile(filePath);
+  res.sendFile(filePath, { maxAge: 300000 });
 });

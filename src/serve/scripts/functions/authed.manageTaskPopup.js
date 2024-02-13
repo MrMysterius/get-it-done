@@ -6,11 +6,14 @@ import { request } from "./request.js";
 // import { showdown } from "../../libs/authed.showdown.min.js";
 
 export async function manageTaskPopup(group_id, task_id) {
-  const group = await request("GET", `/api/groups/${group_id}`);
-  const task = await request("GET", `/api/groups/${group_id}/tasks/${task_id}`);
-  const tags = await request("GET", `/api/groups/${group_id}/tags`);
+  const groupReq = request("GET", `/api/groups/${group_id}`);
+  const taskReq = request("GET", `/api/groups/${group_id}/tasks/${task_id}`);
+  const tagsReq = request("GET", `/api/groups/${group_id}/tags`);
 
-  if (!group || group.status != 200 || !task || task.status != 200 || !tags || tags.status != 200) {
+  const [group, task, tags] = await Promise.all([groupReq, taskReq, tagsReq]);
+
+  if (group?.status != 200 || task?.status != 200 || tags?.status != 200) {
+    console.log(group, task, tags);
     createNotice("Couldn't get task information", "error", 15000);
     return;
   }
