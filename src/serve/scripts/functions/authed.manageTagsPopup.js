@@ -181,7 +181,7 @@ export async function editTag(group_id, tag) {
     let content = "";
     content += `<h4>Editing - ${tag.name}</h4><form><table>`;
     content += `<tr><td><b>Name:</b></td><td><input type="text" class="tag-name" value="${tag.name}" minlength="1" maxlength="30" placeholder="Tag Name"></td></tr>`;
-    content += `<tr><td><b>Description:</b></td><td><textarea type="text" class="tag-description" value="${tag.description}" maxlength="300" placeholder="Tag Description"></textarea></td></tr>`;
+    content += `<tr><td><b>Description:</b></td><td><textarea type="text" class="tag-description" value="${tag.description}" maxlength="300" placeholder="Tag Description">${tag.description}</textarea></td></tr>`;
     content += `<tr><td><b>Type:</b></td><td><select class="tag-type" value="${tag.type}"><option value="context">Context</option><option value="project">Project</option><option value="other">Other</option></select></td></tr>`;
     content += `<tr><td><b>Colour Text:</b></td><td><input type="text" class="tag-colour-txt" value="${tag.colour_text}" pattern="^\#[0-9abcdefABCDEF]{6}$" placeholder="HEX Colour Code"><div class="tag-colour-txt-preview" style="min-height: 10px; min-width: 10px; background-color: ${tag.colour_text};"></div></td></tr>`;
     content += `<tr><td><b>Colour Background:</b></td><td><input type="text" class="tag-colour-bg" value="${tag.colour_background}" pattern="^\#[0-9abcdefABCDEF]{6}$" placeholder="HEX Colour Code"><div class="tag-colour-bg-preview" style="min-height: 10px; min-width: 10px; background-color: ${tag.colour_background};"></div></td></tr>`;
