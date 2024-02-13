@@ -7,10 +7,12 @@ export async function manageStatesPopup(group_id) {
 
   const content = document.createElement("div");
 
-  const group = await request("GET", `/api/groups/${group_id}`);
-  const states = await request("GET", `/api/groups/${group_id}/states`);
+  const groupReq = await request("GET", `/api/groups/${group_id}`);
+  const statesReq = await request("GET", `/api/groups/${group_id}/states`);
 
-  if (!group || !states || group.status != 200 || states.status != 200) {
+  const [group, states] = await Promise.all([groupReq, statesReq]);
+
+  if (group?.status != 200 || states?.status != 200) {
     createNotice("Couldn't get group or states information", "error", 15000);
     return;
   }

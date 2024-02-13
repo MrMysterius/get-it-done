@@ -7,10 +7,12 @@ export async function manageInboxesPopup(group_id) {
 
   const content = document.createElement("div");
 
-  const group = await request("GET", `/api/groups/${group_id}`);
-  const inboxes = await request("GET", `/api/groups/${group_id}/inboxes`);
+  const groupReq = await request("GET", `/api/groups/${group_id}`);
+  const inboxesReq = await request("GET", `/api/groups/${group_id}/inboxes`);
 
-  if (!group || !inboxes || group.status != 200 || inboxes.status != 200) {
+  const [group, inboxes] = await Promise.all([groupReq, inboxesReq]);
+
+  if (group?.status != 200 || inboxes?.status != 200) {
     createNotice("Couldn't get group or inboxes information", "error", 15000);
     return;
   }

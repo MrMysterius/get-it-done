@@ -11,15 +11,14 @@ export async function manageGroupPopup() {
   const group_id = getUrlParam("g");
 
   const wrapper = document.createElement("div");
-  const group = await request("GET", `/api/groups/${group_id}`);
-  const members = await request("GET", `/api/groups/${group_id}/members`);
-  const me = await request("GET", `/api/me`);
-  if (!group || !members || !me) {
-    console.log(group, members, me);
-    createNotice(`Couldn't open group management for group ${group_id}`, "error", 15000);
-    return;
-  }
-  if (group.status != 200 || members.status != 200 || me.status != 200) {
+
+  const groupReq = await request("GET", `/api/groups/${group_id}`);
+  const membersReq = await request("GET", `/api/groups/${group_id}/members`);
+  const meReq = await request("GET", `/api/me`);
+
+  const [group, members, me] = await Promise.all([groupReq, membersReq, meReq]);
+
+  if (group?.status != 200 || members?.status != 200 || me?.status != 200) {
     console.log(group, members, me);
     createNotice(`Couldn't open group management for group ${group_id}`, "error", 15000);
     return;

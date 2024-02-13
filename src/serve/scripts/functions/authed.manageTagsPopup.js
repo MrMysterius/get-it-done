@@ -7,10 +7,12 @@ export async function manageTagsPopup(group_id) {
 
   const content = document.createElement("div");
 
-  const group = await request("GET", `/api/groups/${group_id}`);
-  const tags = await request("GET", `/api/groups/${group_id}/tags`);
+  const groupReq = await request("GET", `/api/groups/${group_id}`);
+  const tagsReq = await request("GET", `/api/groups/${group_id}/tags`);
 
-  if (!group || !tags || group.status != 200 || tags.status != 200) {
+  const [group, tags] = await Promise.all([groupReq, tagsReq]);
+
+  if (group?.status != 200 || tags?.status != 200) {
     createNotice("Couldn't get group or tags information", "error", 15000);
     return;
   }

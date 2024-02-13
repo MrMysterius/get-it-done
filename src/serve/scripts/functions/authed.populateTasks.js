@@ -16,17 +16,16 @@ export async function populateTasks() {
 
   if (!group_id) return;
 
-  const newTasks = await request("GET", `/api/groups/${group_id}/tasks`);
-  if (newTasks?.status != 200) {
+  const newTasksReq = request("GET", `/api/groups/${group_id}/tasks`);
+  const filtersReq = request("GET", `/api/groups/${group_id}/filters`);
+
+  const [newTasks, filters] = await Promise.all([newTasksReq, filtersReq]);
+
+  if (newTasks?.status != 200 || filters?.status != 200) {
     createNotice("Couldn't get tasks", "error", 15000);
     return;
   }
 
-  const filters = await request("GET", `/api/groups/${group_id}/filters`);
-  if (!filters || filters.status != 200) {
-    createNotice("Couldn't get tasks", "error", 15000);
-    return;
-  }
   const filter = filters.data.find((filter) => filter.id == getUrlParam("f"));
   if (!filter) {
     setUrlParam("f");

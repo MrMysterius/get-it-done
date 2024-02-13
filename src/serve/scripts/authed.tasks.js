@@ -20,8 +20,8 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
   await checkGroup();
   await populateGroups();
   switchGroup();
-  await populateFilters();
-  await populateTasks();
+  populateTasks();
+  populateFilters();
 
   // Task Send New
   document.querySelector("#task-new-title").addEventListener("keypress", async (ev) => {
@@ -103,4 +103,5 @@ export const TasksMap = new Map();
 export async function mainLoop() {
   populateGroups();
   populateTasks();
+  populateFilters();
 }
