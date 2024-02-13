@@ -94,7 +94,14 @@ GroupsGetRouter.get(
     .custom((id: number, meta) => {
       const req = meta.req as Express.Request;
       const group = getData<Pick<GIDData.group, "group_id" | "group_owner">>(`SELECT group_id, group_owner FROM groups WHERE group_id = ?`, id);
-      if (!group.isSuccessful || !group.data || (req.authedUser?.user_role == "user" && req.authedUser.user_id != group.data.group_owner))
+      const members = getAllData<GIDData.group_member>(`SELECT * FROM group_members WHERE group_id = ?`, id);
+      if (
+        !group.isSuccessful ||
+        !group.data ||
+        !members.data ||
+        (req.authedUser?.user_role == "user" &&
+          (req.authedUser.user_id != group.data.group_owner || !members.data.find((mem) => mem.user_id == req.authedUser.user_id)))
+      )
         throw new Error("Group with that ID doesn't exist");
       return true;
     }),
