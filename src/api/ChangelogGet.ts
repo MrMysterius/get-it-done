@@ -8,12 +8,29 @@ ChangelogGetRouter.get("/", (req, res) => {
     changelog: [
       {
         version: "0.1.1",
-        title: "",
+        title: "Changelog Introduction and Fixes",
         description: "",
         changes: {
-          new_features: ["Added Changelog Endpoint /api/changelog"],
-          improvements: [],
-          fixes: [],
+          new_features: [
+            "Added Changelog Endpoint /api/changelog | #BACKEND",
+            "Added Changelog Popup 🎉 (YOU ARE LOOKIN AT IT RIGHT NOW HOORAY) | #FRONTEND",
+            "Added version number to pages (Very Smol and Cute :3 🙀) | #FRONTEND",
+          ],
+          improvements: [
+            "Scrollbars now don't show up on the Sidebar and Popups when not needed for. | #FRONTEND",
+            "Added word-break to the sidebar. | #FRONTEND",
+            "Added styling for task description markdown code and blockquotes (yes you can use markdown in task description amazing right 🤩) | #FRONTEND",
+            "Added a bit of caching for frontend served files. | #BACKEND",
+            "Some frontend code didn't utilize the async (Whoops 🥴) part of requests so now you should see faster menu loading times, because of concurrent requests. | #FRONTEND",
+          ],
+          fixes: [
+            "Getting specific Group route not returning group information for group members (besides group owner) | #BACKEND",
+            "Filter list not updating when switching groups | #FRONTEND",
+            "Tag names for filter, inbox and task tags routes weren't sanitized causing problems with the Frontend and data expectations. | #BACKEND",
+            "Tag description when editing tags wasn't filled with current description | #FRONTEND",
+            "When updating tags it will no longer throw an 'tag already existing' error when using the same name | #BACKEND",
+            "Auto adding tags with escaped characters from filters didn't work when adding a new Task | #FRONTEND",
+          ],
           refactors: [],
           deprecations: [],
           removed: [],
