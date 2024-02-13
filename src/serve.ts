@@ -15,16 +15,5 @@ ServeRouter.get("/*", (req, res, next) => {
     return;
   }
 
-  const lastModified = fs.statSync(filePath).mtime;
-
-  if (req.headers["if-modified-since"] == lastModified.toString()) {
-    res.status(304);
-    res.send();
-    return;
-  }
-
-  res.status(200);
-  res.setHeader("Cache-Control", "public, max-age=300");
-  res.setHeader("Last-Modified", lastModified.toString());
-  res.sendFile(filePath);
+  res.sendFile(filePath, { maxAge: 300000 });
 });
