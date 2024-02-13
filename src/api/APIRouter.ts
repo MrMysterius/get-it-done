@@ -1,3 +1,4 @@
+import { ChangelogGetRouter } from "./ChangelogGet";
 import Express from "express";
 import { GroupsRouter } from "./groups/Groups";
 import { InvitesRouter } from "./invites/Invites";
@@ -15,3 +16,4 @@ APIRouter.use("/me", MeGetRouter);
 APIRouter.use("/groups", GroupsRouter);
 APIRouter.use("/invites", InvitesRouter);
 APIRouter.use("/users", UsersRouter);
+APIRouter.use("/changelog", ChangelogGetRouter);
