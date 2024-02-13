@@ -100,7 +100,8 @@ GroupsGetRouter.get(
         !group.data ||
         !members.data ||
         (req.authedUser?.user_role == "user" &&
-          (req.authedUser.user_id != group.data.group_owner || !members.data.find((mem) => mem.user_id == req.authedUser.user_id)))
+          req.authedUser.user_id != group.data.group_owner &&
+          !members.data.find((mem) => mem.user_id == req.authedUser.user_id))
       )
         throw new Error("Group with that ID doesn't exist");
       return true;
