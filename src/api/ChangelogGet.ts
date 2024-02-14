@@ -12,7 +12,7 @@ ChangelogGetRouter.get("/", (req, res) => {
         description: "",
         changes: {
           new_features: ["Added URL Parameter for Task ID with which you can share / reopen from link a specific task. | #FRONTEND"],
-          improvements: [],
+          improvements: ["Enlarged Sidebar drawer bar to make it easier on smaller screen devices to interact with it. | #FRONTEND"],
           fixes: [],
           refactors: [],
           deprecations: [],
