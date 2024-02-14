@@ -7,6 +7,19 @@ ChangelogGetRouter.get("/", (req, res) => {
   res.json({
     changelog: [
       {
+        version: "0.0.0",
+        title: "",
+        description: "",
+        changes: {
+          new_features: ["Added URL Parameter for Task ID with which you can share / reopen from link a specific task. | #FRONTEND"],
+          improvements: [],
+          fixes: [],
+          refactors: [],
+          deprecations: [],
+          removed: [],
+        },
+      },
+      {
         version: "0.1.1",
         title: "Changelog Introduction and Fixes",
         description: "",
