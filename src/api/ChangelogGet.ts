@@ -15,6 +15,7 @@ ChangelogGetRouter.get("/", (req, res) => {
           improvements: [
             "Enlarged Sidebar drawer bar to make it easier on smaller screen devices to interact with it. | #FRONTEND",
             "Added application name next to the version number on pages. | #FRONTEND",
+            "Log Level is now automatically set to debug when ran in Dev Mode. | #BACKEND",
           ],
           fixes: [],
           refactors: [],
