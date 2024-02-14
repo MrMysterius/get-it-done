@@ -19,7 +19,7 @@ export async function manageInboxesPopup(group_id) {
 
   content.innerHTML += `<h3>Inboxes - ${group.data.group_name}</h3>`;
 
-  content.innerHTML += `<button class="inboxes-create-new" style="background-color: var(--notice-success); color: black;">CREATE NEW INBOX</button><hr><br>`;
+  content.innerHTML += `<button class="inboxes-create-new" style="background-color: var(--notice-success); color: black;">CREATE NEW INBOX</button> <button class="inboxes-info" style="background-color: var(--notice-info); color: var(--notice-info-text);">INFO</button><hr><br>`;
 
   const statesList = document.createElement("div");
   statesList.innerHTML += `<b>Inboxes:</b><br>`;
@@ -34,6 +34,14 @@ export async function manageInboxesPopup(group_id) {
       await manageInboxesPopup(group_id);
       inboxesPopup.destroy();
     }
+  });
+
+  content.querySelector(".inboxes-info").addEventListener("click", () => {
+    const infoPopup = new Popup();
+    const infoContent = document.createElement("div");
+    infoContent.innerHTML += `<p>How inboxes work is you can use the CODE of an Inbox to do a POST Request to the API Endpoint '/api/inboxes/INBOXCODE' <br>with a JSON Body that has an Object that looks like this '{ tasks: "NEW TASK NAME" }' and then it will create <br>this new task in this group and add all the tags that the inbox has configured to this task on top. <br>This way you can quickly from any third party add a new Task without sharing login details or being logged in yourself.</p>`;
+    infoPopup.appendContentNodes([infoContent]);
+    infoPopup.spawn();
   });
 
   inboxesPopup.appendContentNodes([content]);

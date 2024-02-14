@@ -26,8 +26,9 @@ export async function populateTasks() {
     return;
   }
 
-  const filter = filters.data.find((filter) => filter.id == getUrlParam("f"));
-  if (!filter) {
+  const currentFiltersList = getUrlParam("f")?.split(",") || [];
+  const activeFilters = filters.data.filter((filter) => currentFiltersList.find((cf) => cf == filter.id));
+  if (activeFilters.length == 0) {
     setUrlParam("f");
   }
 
@@ -40,7 +41,7 @@ export async function populateTasks() {
   const taskTemplate = document.querySelector("#template-task");
 
   for (const [id, { task }] of TasksMap.entries()) {
-    if (newTasksMap.has(id) && checkFilter(task, filter)) continue;
+    if (newTasksMap.has(id) && checkFilter(task, activeFilters)) continue;
 
     const taskEl = document.querySelector(`#task-${id}`);
     if (!taskEl) continue;
@@ -54,7 +55,7 @@ export async function populateTasks() {
   }
 
   for (const [id, { task, fingerprint }] of newTasksMap.entries()) {
-    if ((TasksMap.has(id) && TasksMap.get(id).fingerprint == fingerprint) || !checkFilter(task, filter)) continue;
+    if ((TasksMap.has(id) && TasksMap.get(id).fingerprint == fingerprint) || !checkFilter(task, activeFilters)) continue;
 
     const newTaskClone = taskTemplate.content.cloneNode(true);
 
@@ -87,11 +88,13 @@ export async function populateTasks() {
   }
 }
 
-export function checkFilter(task, filter) {
-  if (!filter) return true;
-  for (const ftag of filter.filter_data.tags) {
-    if (task.tags.find((tag) => ftag == tag.name)) continue;
-    return false;
+export function checkFilter(task, filters) {
+  if (!filters || filters.length == 0) return true;
+  for (const filter of filters) {
+    for (const ftag of filter.filter_data.tags) {
+      if (task.tags.find((tag) => ftag == tag.name)) continue;
+      return false;
+    }
   }
   return true;
 }

@@ -9,6 +9,7 @@ import { manageGroupPopup } from "./functions/authed.manageGroupPopup.js";
 import { manageInboxesPopup } from "./functions/authed.manageInboxesPopup.js";
 import { manageStatesPopup } from "./functions/authed.manageStatesPopup.js";
 import { manageTagsPopup } from "./functions/authed.manageTagsPopup.js";
+import { manageTaskPopup } from "./functions/authed.manageTaskPopup.js";
 import { manageUserPopup } from "./functions/authed.manageUserPopup.js";
 import { populateFilters } from "./functions/authed.populateFilters.js";
 import { populateGroups } from "./functions/authed.populateGroups.js";
@@ -22,7 +23,12 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
   await checkGroup();
   await populateGroups();
   switchGroup();
-  populateTasks();
+  populateTasks().then(() => {
+    const group_id = getUrlParam("g");
+    const task_id = getUrlParam("t");
+    if (!group_id || !task_id) return;
+    manageTaskPopup(group_id, task_id);
+  });
   populateFilters();
 
   // Task Send New
