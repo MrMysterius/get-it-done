@@ -7,11 +7,14 @@ ChangelogGetRouter.get("/", (req, res) => {
   res.json({
     changelog: [
       {
-        version: "0.0.0",
-        title: "",
-        description: "",
+        version: "0.1.2",
+        title: "Specific Task Sharing and Multiselecting Filters",
+        description: "This Patch brings the option to select multiple filters and sharing the link to a specific task.",
         changes: {
-          new_features: ["Added URL Parameter for Task ID with which you can share / reopen from link a specific task. | #FRONTEND"],
+          new_features: [
+            "Added URL Parameter for Task ID with which you can share / reopen from link a specific task. | #FRONTEND",
+            "Added the option to select multiple Filters to mix and match them. | #FRONTEND",
+          ],
           improvements: [
             "Enlarged Sidebar drawer bar to make it easier on smaller screen devices to interact with it. | #FRONTEND",
             "Added application name next to the version number on pages. | #FRONTEND",
