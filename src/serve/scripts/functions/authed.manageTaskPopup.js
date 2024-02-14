@@ -2,6 +2,7 @@ import { Popup } from "./createPopup.js";
 import { createNotice } from "./createNotice.js";
 import { populateTasks } from "./authed.populateTasks.js";
 import { request } from "./request.js";
+import { setUrlParam } from "./authed.urlData.js";
 
 // import { showdown } from "../../libs/authed.showdown.min.js";
 
@@ -15,6 +16,7 @@ export async function manageTaskPopup(group_id, task_id) {
   if (group?.status != 200 || task?.status != 200 || tags?.status != 200) {
     console.log(group, task, tags);
     createNotice("Couldn't get task information", "error", 15000);
+    setUrlParam("t");
     return;
   }
 
@@ -184,9 +186,11 @@ export async function manageTaskPopup(group_id, task_id) {
   });
 
   taskPopup.addDestructionListener(() => {
+    setUrlParam("t");
     populateTasks();
   });
 
+  setUrlParam("t", task_id);
   taskPopup.appendContentNodes([wrapper]);
   taskPopup.spawn();
 }
