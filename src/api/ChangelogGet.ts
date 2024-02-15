@@ -14,7 +14,10 @@ ChangelogGetRouter.get("/", (req, res) => {
         changes: {
           new_features: [],
           improvements: ["Added dates to changelog | #BACKEND #FRONTEND"],
-          fixes: ["Tag icons needing to load multiple times, because they were always new objects. (Silly Me 🥴) | #FRONTEND"],
+          fixes: [
+            "Fixed tag icons needing to load multiple times, because they were always new objects. (Silly Me 🥴) | #FRONTEND",
+            "Fixed auto adding of tags from multiple filters to new tasks not working. | #FRONTEND",
+          ],
           refactors: [],
           deprecations: [],
           removed: [],
