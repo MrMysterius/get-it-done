@@ -7,10 +7,10 @@ ChangelogGetRouter.get("/", (req, res) => {
   res.json({
     changelog: [
       {
-        version: "",
-        title: "",
-        description: "",
-        date: "",
+        version: "0.1.3",
+        title: "Some Fixes regarding Tags",
+        description: "Fixed some stuff that has to do with Tags.",
+        date: "15.02.2024",
         changes: {
           new_features: [],
           improvements: ["Added dates to changelog | #BACKEND #FRONTEND", "Tag icons now take on the text color of the tag. 🌈 | #FRONTEND"],
