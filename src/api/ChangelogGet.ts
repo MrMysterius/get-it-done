@@ -7,6 +7,20 @@ ChangelogGetRouter.get("/", (req, res) => {
   res.json({
     changelog: [
       {
+        version: "",
+        title: "",
+        description: "",
+        date: "",
+        changes: {
+          new_features: [],
+          improvements: ["Added dates to changelog | #BACKEND #FRONTEND"],
+          fixes: ["Tag icons needing to load multiple times, because they were always new objects. (Silly Me 🥴) | #FRONTEND"],
+          refactors: [],
+          deprecations: [],
+          removed: [],
+        },
+      },
+      {
         version: "0.1.2",
         title: "Specific Task Sharing and Multiselecting Filters",
         description: "This Patch brings the option to select multiple filters and sharing the link to a specific task.",
