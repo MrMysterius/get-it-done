@@ -74,7 +74,7 @@ export async function populateTasks() {
       const tagEl = document.createElement("p");
       tagEl.classList.add("task-tag");
       tagEl.style.backgroundColor = tag.colour_background;
-      tagEl.style.backgroundColor = tag.colour_text;
+      tagEl.style.color = tag.colour_text;
       tagEl.title = tag.description;
 
       const tagIcon =
