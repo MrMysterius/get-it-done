@@ -13,7 +13,7 @@ ChangelogGetRouter.get("/", (req, res) => {
         date: "",
         changes: {
           new_features: [],
-          improvements: ["Added dates to changelog | #BACKEND #FRONTEND"],
+          improvements: ["Added dates to changelog | #BACKEND #FRONTEND", "Tag icons now take on the text color of the tag. 🌈 | #FRONTEND"],
           fixes: [
             "Fixed tag icons needing to load multiple times, because they were always new objects. (Silly Me 🥴) | #FRONTEND",
             "Fixed auto adding of tags from multiple filters to new tasks not working. | #FRONTEND",
