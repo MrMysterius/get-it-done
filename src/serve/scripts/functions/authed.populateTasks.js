@@ -89,6 +89,8 @@ export async function populateTasks() {
       tagIcon.style.height = "18px";
       tagIcon.style.width = "18px";
       tagIcon.style.display = "inline-block";
+      tagIcon.style.color = tag.colour_text;
+      tagIcon.style.backgroundColor = tag.colour_background;
 
       tagEl.appendChild(tagIcon);
 
