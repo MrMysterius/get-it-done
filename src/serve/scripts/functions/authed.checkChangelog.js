@@ -34,7 +34,7 @@ function displayChangelog(changes) {
   for (const change of changes) {
     const changeDiv = document.createElement("details");
 
-    changeDiv.innerHTML += `<summary>V${change.version} - ${change.title}</summary>`;
+    changeDiv.innerHTML += `<summary>[${change.date}] V${change.version} - ${change.title}</summary>`;
     changeDiv.innerHTML += `<p><i>${change.description}</i></p>`;
 
     for (const [type, changes] of Object.entries(change.changes)) {

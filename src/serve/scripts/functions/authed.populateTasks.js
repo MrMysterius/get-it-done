@@ -11,6 +11,12 @@ export const TagIcons = {
   other: `<object data="/assets/Tag.svg" alt="Tag" style="height: 18px; width: 18px; display: inline-block;" title="Tag"></object>`,
 };
 
+export const TagIconsMap = {
+  context: "/assets/Context.svg",
+  project: "/assets/Project.svg",
+  other: "/assets/Tag.svg",
+};
+
 export async function populateTasks() {
   const group_id = getUrlParam("g");
 
@@ -64,15 +70,36 @@ export async function populateTasks() {
 
     task.tags.sort((a, b) => a.type - b.type);
 
-    const taskTagsHTML = task.tags
-      .map((tag) => {
-        return `<p class="task-tag" style="background-color: ${tag.colour_background}; color: ${tag.colour_text};" title="${tag.description}">${
-          TagIcons[tag.type]
-        } ${tag.name}</p>`;
-      })
-      .join(" ");
+    const taskTags = task.tags.map((tag) => {
+      const tagEl = document.createElement("p");
+      tagEl.classList.add("task-tag");
+      tagEl.style.backgroundColor = tag.colour_background;
+      tagEl.style.color = tag.colour_text;
+      tagEl.title = tag.description;
 
-    newTaskClone.querySelector(".task-tags").innerHTML = taskTagsHTML;
+      const tagIcon =
+        document.querySelector(`#preloaded-stuff object[data="${TagIconsMap[tag.type]}"]`)?.contentDocument?.cloneNode(true)?.children[0] ||
+        [document.createElement("div")]
+          .map((d) => {
+            d.innerHTML = TagIcons[tag.type];
+            return d;
+          })[0]
+          .querySelector("object");
+
+      tagIcon.style.height = "18px";
+      tagIcon.style.width = "18px";
+      tagIcon.style.display = "inline-block";
+      tagIcon.style.color = tag.colour_text;
+      tagIcon.style.backgroundColor = tag.colour_background;
+
+      tagEl.appendChild(tagIcon);
+
+      const tagName = document.createElement("b");
+      tagName.innerHTML = tag.name;
+      tagEl.appendChild(tagName);
+
+      newTaskClone.querySelector(".task-tags").appendChild(tagEl);
+    });
 
     newTaskClone.querySelector(".task").addEventListener("click", async (ev) => {
       manageTaskPopup(group_id, task.id);

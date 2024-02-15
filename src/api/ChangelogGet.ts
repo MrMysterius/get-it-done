@@ -7,9 +7,27 @@ ChangelogGetRouter.get("/", (req, res) => {
   res.json({
     changelog: [
       {
+        version: "0.1.3",
+        title: "Some Fixes regarding Tags",
+        description: "Fixed some stuff that has to do with Tags.",
+        date: "15.02.2024",
+        changes: {
+          new_features: [],
+          improvements: ["Added dates to changelog | #BACKEND #FRONTEND", "Tag icons now take on the text color of the tag. 🌈 | #FRONTEND"],
+          fixes: [
+            "Fixed tag icons needing to load multiple times, because they were always new objects. (Silly Me 🥴) | #FRONTEND",
+            "Fixed auto adding of tags from multiple filters to new tasks not working. | #FRONTEND",
+          ],
+          refactors: [],
+          deprecations: [],
+          removed: [],
+        },
+      },
+      {
         version: "0.1.2",
         title: "Specific Task Sharing and Multiselecting Filters",
         description: "This Patch brings the option to select multiple filters and sharing the link to a specific task.",
+        date: "14.02.2024",
         changes: {
           new_features: [
             "Added URL Parameter for Task ID with which you can share / reopen from link a specific task. | #FRONTEND",
@@ -31,6 +49,7 @@ ChangelogGetRouter.get("/", (req, res) => {
         version: "0.1.1",
         title: "Changelog Introduction and Fixes",
         description: "",
+        date: "13.02.2024",
         changes: {
           new_features: [
             "Added Changelog Endpoint /api/changelog | #BACKEND",
@@ -61,6 +80,7 @@ ChangelogGetRouter.get("/", (req, res) => {
         version: "0.1.0",
         title: "ALPHA Release",
         description: "A usable Version of the Project. That can be tested from testers.",
+        date: "11.02.2024",
         changes: {
           new_features: ["Added the Backend for interacting with stored data anywhere.", "Added Frontend for Interacting with the Backend as a Human."],
           improvements: [],

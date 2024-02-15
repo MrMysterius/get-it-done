@@ -8,29 +8,36 @@ export async function createNewTask() {
   const title = titleEl?.value || null;
   if (!title) return false;
 
-  let filters = await request("GET", `/api/groups/${group_id}/filters`);
-  if (!filters || filters.status != 200) {
-    filters = { data: [] };
-  }
-  const filter = filters.data.find((f) => f.id == getUrlParam("f"));
-
+  const filtersReq = request("GET", `/api/groups/${group_id}/filters`);
   const res = await request("POST", `/api/groups/${group_id}/tasks`, {
     title,
   });
 
-  if (!res || res.status != 200) {
+  if (res?.status != 200) {
     createNotice("Couldn't create new Task", "error", 30000);
     return false;
   }
 
-  if (filter)
-    await request("POST", `/api/groups/${group_id}/tasks/${res.data.task_id}/tags`, {
-      tags: filter.filter_data.tags.map((t) => {
-        const el = document.createElement("textarea");
-        el.innerHTML = t;
-        return el.value;
-      }),
-    });
+  let filters = await filtersReq;
+  if (filters?.status != 200) {
+    filters = [];
+  }
+
+  const currentFiltersList = getUrlParam("f")?.split(",") || [];
+  const activeFilters = filters.data.filter((filter) => currentFiltersList.find((cf) => cf == filter.id));
+
+  if (activeFilters.length > 0)
+    await Promise.all(
+      activeFilters.map((filter) =>
+        request("POST", `/api/groups/${group_id}/tasks/${res.data.task_id}/tags`, {
+          tags: filter.filter_data.tags.map((t) => {
+            const el = document.createElement("textarea");
+            el.innerHTML = t;
+            return el.value;
+          }),
+        })
+      )
+    );
 
   titleEl.value = "";
 

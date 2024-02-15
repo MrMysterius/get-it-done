@@ -88,7 +88,8 @@ div#tasks h1 {
 }
 
 .task .task-tag {
-  display: inline-block;
+  display: flex;
+  gap: 0.2em;
   padding: 0.2em 0.4em 0.2em 0.4em;
   border-radius: 2em;
   margin: 0;

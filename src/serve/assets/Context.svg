@@ -16,7 +16,7 @@
   <sodipodi:namedview
      id="namedview29935"
      pagecolor="#505050"
-     bordercolor="#ffffff"
+     bordercolor="currentColor"
      borderopacity="1"
      inkscape:showpageshadow="0"
      inkscape:pageopacity="0"
@@ -41,7 +41,7 @@
      id="layer1">
     <text
        xml:space="preserve"
-       style="font-size:84.4077px;line-height:0;fill:#ffffff;stroke-width:0.439623"
+       style="font-size:84.4077px;line-height:0;fill:currentColor;stroke-width:0.439623"
        x="-11.416832"
        y="68.597542"
        id="text30354"
@@ -53,7 +53,7 @@
          y="68.597542">!</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:80.0041px;font-family:Lotion;-inkscape-font-specification:Lotion;fill:#ffffff;stroke-width:0.416687"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:80.0041px;font-family:Lotion;-inkscape-font-specification:Lotion;fill:currentColor;stroke-width:0.416687"
        x="25.1213"
        y="49.531231"
        id="text30408"
