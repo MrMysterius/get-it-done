@@ -99,16 +99,6 @@ export async function populateTasks() {
       newTaskClone.querySelector(".task-tags").appendChild(tagEl);
     });
 
-    // const taskTagsHTML = task.tags
-    //   .map((tag) => {
-    //     return `<p class="task-tag" style="background-color: ${tag.colour_background}; color: ${tag.colour_text};" title="${tag.description}">${
-    //       TagIcons[tag.type]
-    //     } ${tag.name}</p>`;
-    //   })
-    //   .join(" ");
-
-    // newTaskClone.querySelector(".task-tags").innerHTML = taskTagsHTML;
-
     newTaskClone.querySelector(".task").addEventListener("click", async (ev) => {
       manageTaskPopup(group_id, task.id);
     });
