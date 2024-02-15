@@ -90,8 +90,6 @@ export async function populateTasks() {
       tagIcon.style.width = "18px";
       tagIcon.style.display = "inline-block";
 
-      console.log(tagIcon);
-
       tagEl.appendChild(tagIcon);
 
       const tagName = document.createElement("b");
