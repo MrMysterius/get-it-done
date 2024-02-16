@@ -149,6 +149,11 @@ button:disabled {
   hr {
     width: 100%;
   }
+
+  * {
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+  }
 }
 
 #sidebar-menu-drawer {
