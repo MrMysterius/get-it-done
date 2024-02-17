@@ -136,52 +136,51 @@ div#tasks h1 {
 
 .popup .task-description-display {
   font-size: 0.9em;
+}
+.popup .task-description-display h1 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  font-size: 1.5em;
+  text-decoration: underline;
+}
+.popup .task-description-display h2 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  font-size: 1.25em;
+  text-decoration: underline;
+}
+.popup .task-description-display h3 {
+  margin-top: 0.15em;
+  margin-bottom: 0.15em;
+  font-size: 1.1em;
+}
+.popup .task-description-display h4 {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  font-size: 1em;
+}
+.popup .task-description-display h5 {
+  margin-top: 0.05em;
+  margin-bottom: 0.05em;
+  font-size: 0.8em;
+}
+.popup .task-description-display h6 {
+  margin-top: 0.05em;
+  margin-bottom: 0.05em;
+  font-size: 0.7em;
+}
 
-  h1 {
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
-    font-size: 1.5em;
-    text-decoration: underline;
-  }
-  h2 {
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
-    font-size: 1.25em;
-    text-decoration: underline;
-  }
-  h3 {
-    margin-top: 0.15em;
-    margin-bottom: 0.15em;
-    font-size: 1.1em;
-  }
-  h4 {
-    margin-top: 0.1em;
-    margin-bottom: 0.1em;
-    font-size: 1em;
-  }
-  h5 {
-    margin-top: 0.05em;
-    margin-bottom: 0.05em;
-    font-size: 0.8em;
-  }
-  h6 {
-    margin-top: 0.05em;
-    margin-bottom: 0.05em;
-    font-size: 0.7em;
-  }
+.popup .task-description-display em, i {
+  color: #c2bb98;
+}
+.popup .task-description-display strong, b {
+  font-weight: 900;
+  color: #d9ffdf;
+}
 
-  em, i {
-    color: #c2bb98;
-  }
-  strong, b {
-    font-weight: 900;
-    color: #d9ffdf;
-  }
-
-  code, pre {
-    background-color: #2e2e2e7d;
-  }
-  blockquote {
-    background-color: #ff7a557e;
-  }
+.popup .task-description-display code, pre {
+  background-color: #2e2e2e7d;
+}
+.popup .task-description-display blockquote {
+  background-color: #ff7a557e;
 }

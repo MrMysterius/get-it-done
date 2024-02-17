@@ -145,15 +145,13 @@ button:disabled {
   overflow-y: auto;
 
   word-break: break-all;
-  
-  hr {
-    width: 100%;
-  }
-
-  * {
-    margin-left: 0.1em;
-    margin-right: 0.1em;
-  }
+}
+#sidebar-menu hr {
+  width: 100%;
+}
+#sidebar-menu > * {
+  margin-left: 0.1em;
+  margin-right: 0.1em;
 }
 
 #sidebar-menu-drawer {
