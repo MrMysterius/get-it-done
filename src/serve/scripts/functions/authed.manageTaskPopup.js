@@ -10,10 +10,11 @@ export async function manageTaskPopup(group_id, task_id) {
   const groupReq = request("GET", `/api/groups/${group_id}`);
   const taskReq = request("GET", `/api/groups/${group_id}/tasks/${task_id}`);
   const tagsReq = request("GET", `/api/groups/${group_id}/tags`);
+  const stateReq = request("GET", `/api/groups/${group_id}/states`);
 
-  const [group, task, tags] = await Promise.all([groupReq, taskReq, tagsReq]);
+  const [group, task, tags, states] = await Promise.all([groupReq, taskReq, tagsReq, stateReq]);
 
-  if (group?.status != 200 || task?.status != 200 || tags?.status != 200) {
+  if (group?.status != 200 || task?.status != 200 || tags?.status != 200 || states?.status != 200) {
     console.log(group, task, tags);
     createNotice("Couldn't get task information", "error", 15000);
     setUrlParam("t");
@@ -37,6 +38,8 @@ export async function manageTaskPopup(group_id, task_id) {
   }</textarea></div><hr>`;
 
   wrapper.innerHTML += `<div><div class="task-tags-display" style="display: flex; flex-direction: row; gap: 0.1em; max-width: 300px; flex-wrap: wrap;"></div><br><select class="task-tags-selection"><option>Add Tag</option></select></div>`;
+  wrapper.innerHTML += `<hr>`;
+  wrapper.innerHTML += `<div><select class="task-state"></select></div>`;
 
   let form = "<br><br><br><form><table>";
   form += `</table><button class="delete" style="background-color: var(--notice-error); color: var(--notice-error-text);">DELETE</button> <button class="archive" style="background-color: var(--notice-warn); color: var(--notice-warn-text);">ARCHIVE</button> <button class="cancel">CANCEL</button></form>`;
@@ -152,6 +155,42 @@ export async function manageTaskPopup(group_id, task_id) {
     tagsSelection.innerHTML = generateTagsSelection(tags.data.filter((tag) => !CurrentTags.has(tag.id)));
     applyClickableRemove(tagsDisplay, group_id, task_id, taskPopup);
     tagsSelection.removeAttribute("disabled");
+  });
+
+  //
+  // TASK STATE
+  const taskStateSelection = wrapper.querySelector(".task-state");
+  taskStateSelection.innerHTML = task.data.state
+    ? `<option value="${task.data.state.id}" style="background-color: ${task.data.state.colour_background}; color: ${task.data.state.colour_text}" title="${task.data.state.description}">${task.data.state.name}</option>`
+    : `<option value="null">No State</option>`;
+  for (const state of states.data) {
+    if (state.id == task.data.state?.id) continue;
+    taskStateSelection.innerHTML += `<option value="${state.id}" style="background-color: ${state.colour_background}; color: ${state.colour_text}" title="${state.description}">${state.name}</option>`;
+  }
+  taskStateSelection.addEventListener("change", async () => {
+    if (!taskStateSelection.value) return;
+    taskStateSelection.setAttribute("disabled", "");
+
+    const res = await request("POST", `/api/groups/${group_id}/tasks/${task_id}/state/${taskStateSelection.value}`);
+    if (res?.status != 200) {
+      console.log(res);
+      createNotice("Couldn't change state of task", "error", 15000);
+      taskStateSelection.innerHTML = task.data.state
+        ? `<option value="${task.data.state.id}" style="background-color: ${task.data.state.colour_background}; color: ${task.data.state.colour_text}" title="${task.data.state.description}">${task.data.state.name}</option>`
+        : `<option value="null">No State</option>`;
+      for (const state of states.data) {
+        if (state.id == task.data.state?.id) continue;
+        taskStateSelection.innerHTML += `<option value="${state.id}" style="background-color: ${state.colour_background}; color: ${state.colour_text}" title="${state.description}">${state.name}</option>`;
+      }
+      taskStateSelection.removeAttribute("disabled");
+      return;
+    }
+
+    createNotice("Changed Status of task", "success", 5000);
+    taskStateSelection.removeAttribute("disabled");
+    await manageTaskPopup(group_id, task_id);
+    taskPopup.destroy("finnished");
+    return;
   });
 
   //
