@@ -1,5 +1,6 @@
 import { getUrlParam, setUrlParam } from "./authed.urlData.js";
 
+import { RequestHandler } from "../classes/authed.RequestHandler.js";
 import { TasksMap } from "../authed.tasks.js";
 import { createNotice } from "./createNotice.js";
 import { manageTaskPopup } from "./authed.manageTaskPopup.js";
@@ -17,17 +18,32 @@ export const TagIconsMap = {
   other: "/assets/Tag.svg",
 };
 
-export async function populateTasks() {
+export async function populateTasks(forceClear = false) {
   const group_id = getUrlParam("g");
 
   if (!group_id) return;
 
-  const newTasksReq = request("GET", `/api/groups/${group_id}/tasks`);
-  const filtersReq = request("GET", `/api/groups/${group_id}/filters`);
+  const Requests = new RequestHandler();
+  Requests.prepareRequest("tasks", {
+    method: "GET",
+    url: `/api/groups/${group_id}/tasks`,
+  });
+  Requests.prepareRequest("filters", {
+    method: "GET",
+    url: `/api/groups/${group_id}/filters`,
+  });
+  Requests.prepareRequest("states", {
+    method: "GET",
+    url: `/api/groups/${group_id}/states`,
+  });
 
-  const [newTasks, filters] = await Promise.all([newTasksReq, filtersReq]);
+  await Requests.makeRequest();
 
-  if (newTasks?.status != 200 || filters?.status != 200) {
+  const newTasks = Requests.getResponse("tasks");
+  const filters = Requests.getResponse("filters");
+  const states = Requests.getResponse("states");
+
+  if (!Requests.checkStatusAll(200)) {
     createNotice("Couldn't get tasks", "error", 15000);
     return;
   }
@@ -58,6 +74,69 @@ export async function populateTasks() {
     setTimeout(() => {
       taskEl.remove();
     }, 2000);
+  }
+
+  const groupingEl = document.querySelector(".quick-filters-container .quick-filter-grouping");
+  if (forceClear) {
+    for (const [id, obj] of TasksMap.entries()) {
+      const taskEl = document.querySelector(`#task-${id}`);
+      taskEl?.classList.add("TaskPopout");
+      TasksMap.delete(id);
+      taskEl?.remove();
+    }
+    for (const [id, obj] of newTasksMap.entries()) {
+      const taskEl = document.querySelector(`#task-${id}`);
+      taskEl?.classList.add("TaskPopout");
+      TasksMap.delete(id);
+      taskEl?.remove();
+    }
+    for (const el of Array.from(document.querySelectorAll("#tasks .grouping-div"))) {
+      el.remove();
+    }
+
+    switch (groupingEl?.value) {
+      case "state-grouping-asc":
+        {
+          for (const state of states.data.map((s) => s.name)) {
+            if (state == "null") continue;
+            const el = document.createElement("div");
+            el.classList.add("grouping-div");
+            el.id = `group-${state.replace(/ /g, "-")}`;
+            el.innerHTML += `<h4>${state}</h4><hr><div class="tasks"></div>`;
+            document.querySelector("#tasks").appendChild(el);
+          }
+          const el = document.createElement("div");
+          el.classList.add("grouping-div");
+          el.id = `group-null`;
+          el.innerHTML += `<h4>Other</h4><hr><div class="tasks"></div>`;
+          document.querySelector("#tasks").appendChild(el);
+        }
+        break;
+      case "state-grouping-dec":
+        {
+          for (const state of Object.keys(
+            Array.from(newTasksMap.entries()).reduce((p, c) => {
+              p[c[1]?.task?.state?.name || "null"] = 1;
+              return p;
+            }, {})
+          ).sort((a, b) => b.localeCompare(a))) {
+            if (state == "null") continue;
+            const el = document.createElement("div");
+            el.classList.add("grouping-div");
+            el.id = `group-${state.replace(/ /g, "-")}`;
+            el.innerHTML += `<h4>${state}</h4><hr><div class="tasks"></div>`;
+            document.querySelector("#tasks").appendChild(el);
+          }
+          const el = document.createElement("div");
+          el.classList.add("grouping-div");
+          el.id = `group-null`;
+          el.innerHTML += `<h4>Other</h4><hr><div class="tasks"></div>`;
+          document.querySelector("#tasks").appendChild(el);
+        }
+        break;
+      default:
+        break;
+    }
   }
 
   for (const [id, { task, fingerprint }] of newTasksMap.entries()) {
@@ -112,9 +191,26 @@ export async function populateTasks() {
     });
 
     if (TasksMap.has(id) && TasksMap.get(id).fingerprint != fingerprint) {
-      tasksContainer.querySelector(`#task-${id}`).replaceWith(newTaskClone);
+      switch (groupingEl?.value) {
+        case "state-grouping-asc":
+        case "state-grouping-dec":
+          tasksContainer.querySelector(`#task-${id}`).remove();
+          document.querySelector(`#tasks #group-${task.state?.name?.replace(/ /g, "-") || "null"} .tasks`)?.appendChild(newTaskClone);
+          break;
+        default:
+          tasksContainer.querySelector(`#task-${id}`).replaceWith(newTaskClone);
+          break;
+      }
     } else {
-      tasksContainer.appendChild(newTaskClone);
+      switch (groupingEl?.value) {
+        case "state-grouping-asc":
+        case "state-grouping-dec":
+          document.querySelector(`#tasks #group-${task.state?.name?.replace(/ /g, "-") || "null"} .tasks`)?.appendChild(newTaskClone);
+          break;
+        default:
+          tasksContainer.appendChild(newTaskClone);
+          break;
+      }
     }
 
     TasksMap.set(id, { task, fingerprint });

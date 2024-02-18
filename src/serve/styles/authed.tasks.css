@@ -26,6 +26,23 @@ div#tasks {
   gap: 0.7em;
 }
 
+.grouping-div {
+  display: none;
+}
+.grouping-div:has(.tasks .task) {
+  display: block;
+}
+
+.grouping-div .tasks {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  /* justify-content: center; */
+  gap: 0.7em;
+}
+
 div#tasks h1 {
   text-align: center;
 }
@@ -40,8 +57,24 @@ div#tasks h1 {
   color: #ffffff;
 }
 
-#task-new-title:active, #task-new-title:focus {
-  border: #FFFFFF solid 0.1em;
+.quick-filters-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+.quick-filters-container > * {
+  height: 2.5em;
+  border-radius: 1em;
+  padding: 0;
+  flex: 1;
+}
+
+#task-new-title:active,
+#task-new-title:focus {
+  border: #ffffff solid 0.1em;
 }
 
 .task {

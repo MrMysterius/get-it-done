@@ -103,6 +103,31 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
   });
   document.querySelector("#sidebar-menu .filters .no-filter").removeAttribute("disabled");
 
+  let graceTimeID;
+  document.querySelector(".quick-filters-container .quick-filter-grouping").addEventListener("change", () => {
+    clearTimeout(graceTimeID);
+    setTimeout(() => {
+      populateTasks(true);
+    }, 500);
+  });
+  document.querySelector(".quick-filters-container .quick-filter-grouping").removeAttribute("disabled");
+
+  document.querySelector(".quick-filters-container .quick-filter-sorting").addEventListener("change", () => {
+    clearTimeout(graceTimeID);
+    setTimeout(() => {
+      populateTasks(true);
+    }, 500);
+  });
+  document.querySelector(".quick-filters-container .quick-filter-sorting").removeAttribute("disabled");
+
+  document.querySelector(".quick-filters-container .quick-filter-tag-search").addEventListener("keyup", () => {
+    clearTimeout(graceTimeID);
+    setTimeout(() => {
+      populateTasks(true);
+    }, 500);
+  });
+  document.querySelector(".quick-filters-container .quick-filter-tag-search").removeAttribute("disabled");
+
   loop_interval_id = setInterval(mainLoop, 15000);
 });
 
