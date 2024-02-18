@@ -68,6 +68,11 @@ export async function populateTasks() {
     newTaskClone.querySelector(".task").id = `task-${task.id}`;
     newTaskClone.querySelector(".task-title").innerHTML = task.title;
 
+    if (task.state) {
+      newTaskClone.querySelector(".task").style.backgroundColor = task.state.colour_background;
+      newTaskClone.querySelector(".task").style.color = task.state.colour_text;
+    }
+
     task.tags.sort((a, b) => a.type - b.type);
 
     const taskTags = task.tags.map((tag) => {
@@ -75,6 +80,7 @@ export async function populateTasks() {
       tagEl.classList.add("task-tag");
       tagEl.style.backgroundColor = tag.colour_background;
       tagEl.style.color = tag.colour_text;
+      tagEl.style.border = `${tag.colour_text} 1px solid`;
       tagEl.title = tag.description;
 
       const tagIcon =
