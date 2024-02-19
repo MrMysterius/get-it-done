@@ -18,6 +18,7 @@ export const TagIconsMap = {
 export class TasksHandler {
   Requests = new RequestHandler();
   Tasks = new Map();
+  isPopulating = false;
 
   constructor() {
     this.TasksEl = document.querySelector("#tasks");
@@ -43,6 +44,8 @@ export class TasksHandler {
   }
 
   async populate(forceFullClear = false) {
+    if (this.isPopulating) setTimeout(this.populate, 100, forceFullClear);
+    this.isPopulating = true;
     this.setRequests();
     this.Requests.reset();
     await this.Requests.makeRequest();
@@ -69,6 +72,7 @@ export class TasksHandler {
     this.clearRemovedTasks(NewTasks, filters);
     this.updateTasks(NewTasks, filters);
 
+    this.isPopulating = false;
     return true;
   }
 
