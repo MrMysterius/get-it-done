@@ -7,6 +7,28 @@ ChangelogGetRouter.get("/", (req, res) => {
   res.json({
     changelog: [
       {
+        version: "0.2.0",
+        title: "Quick Grouping and Sorting - State Selection",
+        description:
+          "Refactored Populating Tasks into its own handler and added Quick Grouping and Sorting functionality. As well as adding the option to select/apply a state to a task.",
+        date: "19.02.2024",
+        changes: {
+          new_features: [
+            "Added option to select/apply a state to a task. 🗿 | #FRONTEND",
+            "Added quick filter options, to group by and sort by something. | #FRONTEND",
+            "Added class for handling multiple requests at once. | #FRONTEND",
+          ],
+          improvements: [
+            "Displaying task state by changing background and text color accordingly. | #FRONTEND",
+            "Moved the small screen menu drawer button to the bottom for better access and taking less space. | #FRONTEND",
+          ],
+          fixes: ["Unnested CSS stylings in order to support older browser versions better. | #FRONTEND"],
+          refactors: ["Populating tasks got refactored into a TaskHandler Class. | #FRONTEND"],
+          deprecations: ["Old populateTasks function is deprecated and isn't used anymore. | #FRONTEND"],
+          removed: [],
+        },
+      },
+      {
         version: "0.1.3",
         title: "Some Fixes regarding Tags",
         description: "Fixed some stuff that has to do with Tags.",

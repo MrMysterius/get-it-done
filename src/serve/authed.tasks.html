@@ -21,6 +21,19 @@
       <div id="tasks-wrapper">
         <div id="tasks">
           <input type="text" id="task-new-title" placeholder="New Task..." />
+          <div class="quick-filters-container">
+            <select class="quick-filter-grouping" disabled>
+              <option value="no-grouping">No Grouping</option>
+              <option value="state-grouping-asc">Group by State Ascending</option>
+              <option value="state-grouping-dec">Group by State Decending</option>
+            </select>
+            <select class="quick-filter-sorting" disabled>
+              <option value="no-sorting">No Sorting</option>
+              <option value="creation-sort-asc">Sort by Creation Ascending</option>
+              <option value="creation-sort-dec">Sort by Creation Decending</option>
+            </select>
+            <input class="quick-filter-tag-search" type="text" placeholder="Tag Search..." disabled />
+          </div>
         </div>
       </div>
 
@@ -54,7 +67,7 @@
           <a href="/deauth"><button>LOGOUT</button></a>
         </div>
 
-        <h6>GetItDone - v0.1.3</h6>
+        <h6>GetItDone - v0.2.0</h6>
         <br />
       </div>
       <div id="sidebar-menu-drawer">

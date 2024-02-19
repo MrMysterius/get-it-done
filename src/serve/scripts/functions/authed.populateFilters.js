@@ -1,8 +1,8 @@
 import { getUrlParam, setUrlParam } from "./authed.urlData.js";
 
 import { createNotice } from "./createNotice.js";
-import { populateTasks } from "./authed.populateTasks.js";
 import { request } from "./request.js";
+import { task_handler } from "../authed.tasks.js";
 
 export async function populateFilters() {
   const group_id = getUrlParam("g");
@@ -41,7 +41,7 @@ export async function populateFilters() {
         currentFilters.push(filter.id);
         setUrlParam("f", currentFilters.join(","));
         populateFilters();
-        populateTasks();
+        task_handler.populate();
       });
     else filterEl.querySelector(".filter-select").remove();
 
@@ -54,7 +54,7 @@ export async function populateFilters() {
 
       createNotice("Deleted Filter", "success", 5000);
       populateFilters();
-      populateTasks();
+      task_handler.populate();
     });
 
     filterElements.push(filterEl);
