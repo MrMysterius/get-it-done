@@ -49,4 +49,9 @@ export class RequestHandler {
     if (!this.responses.has(name) || !this.executed) return null;
     return this.responses.get(name)?.data;
   }
+
+  reset() {
+    this.executed = false;
+    this.responses.clear();
+  }
 }
