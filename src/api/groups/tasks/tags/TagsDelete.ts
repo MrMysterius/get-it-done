@@ -35,7 +35,7 @@ TaskTagsDeleteRouter.delete(
           if (typeof id == "string")
             return getData<Pick<GIDData.tag, "tag_id" | "tag_name">>(
               `SELECT tag_id, tag_name FROM tags WHERE tag_name = ? AND tag_creator = ?`,
-              id,
+              escape(id),
               req.extra.params.group_id
             );
         })
