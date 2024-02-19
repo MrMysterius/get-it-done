@@ -1,3 +1,7 @@
+body {
+  overflow: hidden;
+}
+
 #tasks-wrapper {
   margin: auto;
   margin-left: 5px;
@@ -24,6 +28,7 @@ div#tasks {
   max-width: 45vw;
   /* justify-content: center; */
   gap: 0.7em;
+  overflow-x: hidden;
 }
 
 .grouping-div {
@@ -130,7 +135,12 @@ div#tasks h1 {
 
 @media (max-width: 1065px) {
   div#tasks {
-    max-width: 95vw;
+    max-width: 90vw;
+  }
+
+  .quick-filters-container {
+    flex-direction: column;
+    align-items: unset;
   }
 }
 
