@@ -7,6 +7,20 @@ ChangelogGetRouter.get("/", (req, res) => {
   res.json({
     changelog: [
       {
+        version: "0.2.1",
+        title: "Smol Hotfix",
+        description: "",
+        date: "19.02.2024",
+        changes: {
+          new_features: [],
+          improvements: [],
+          fixes: ["Added default and check for when filters are not present. | #FRONTEND"],
+          refactors: [],
+          deprecations: [],
+          removed: [],
+        },
+      },
+      {
         version: "0.2.0",
         title: "Quick Grouping and Sorting - State Selection",
         description:
