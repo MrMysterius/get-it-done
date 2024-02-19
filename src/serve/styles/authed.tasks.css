@@ -10,7 +10,7 @@
 
 @media (max-width: 700px) {
   #tasks-wrapper {
-    padding-left: 28px;
+    padding-left: 3px;
     padding-right: 3px;
   }
 }
@@ -26,6 +26,23 @@ div#tasks {
   gap: 0.7em;
 }
 
+.grouping-div {
+  display: none;
+}
+.grouping-div:has(.tasks .task) {
+  display: block;
+}
+
+.grouping-div .tasks {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  /* justify-content: center; */
+  gap: 0.7em;
+}
+
 div#tasks h1 {
   text-align: center;
 }
@@ -37,11 +54,27 @@ div#tasks h1 {
   border-radius: 2em;
   padding: 0.3em 0.5em 0.3em 0.5em;
   font-size: 1.5em;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
-#task-new-title:active, #task-new-title:focus {
-  border: #FFFFFF solid 0.1em;
+.quick-filters-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+.quick-filters-container > * {
+  height: 2.5em;
+  border-radius: 1em;
+  padding: 0;
+  flex: 1;
+}
+
+#task-new-title:active,
+#task-new-title:focus {
+  border: #ffffff solid 0.1em;
 }
 
 .task {
@@ -103,7 +136,7 @@ div#tasks h1 {
 
 @keyframes TaskPopin {
   0% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
     opacity: 1;
@@ -136,52 +169,54 @@ div#tasks h1 {
 
 .popup .task-description-display {
   font-size: 0.9em;
+}
+.popup .task-description-display h1 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  font-size: 1.5em;
+  text-decoration: underline;
+}
+.popup .task-description-display h2 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  font-size: 1.25em;
+  text-decoration: underline;
+}
+.popup .task-description-display h3 {
+  margin-top: 0.15em;
+  margin-bottom: 0.15em;
+  font-size: 1.1em;
+}
+.popup .task-description-display h4 {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  font-size: 1em;
+}
+.popup .task-description-display h5 {
+  margin-top: 0.05em;
+  margin-bottom: 0.05em;
+  font-size: 0.8em;
+}
+.popup .task-description-display h6 {
+  margin-top: 0.05em;
+  margin-bottom: 0.05em;
+  font-size: 0.7em;
+}
 
-  h1 {
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
-    font-size: 1.5em;
-    text-decoration: underline;
-  }
-  h2 {
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
-    font-size: 1.25em;
-    text-decoration: underline;
-  }
-  h3 {
-    margin-top: 0.15em;
-    margin-bottom: 0.15em;
-    font-size: 1.1em;
-  }
-  h4 {
-    margin-top: 0.1em;
-    margin-bottom: 0.1em;
-    font-size: 1em;
-  }
-  h5 {
-    margin-top: 0.05em;
-    margin-bottom: 0.05em;
-    font-size: 0.8em;
-  }
-  h6 {
-    margin-top: 0.05em;
-    margin-bottom: 0.05em;
-    font-size: 0.7em;
-  }
+.popup .task-description-display em,
+.popup .task-description-display i {
+  color: #c2bb98;
+}
+.popup .task-description-display strong,
+.popup .task-description-display b {
+  font-weight: 900;
+  color: #d9ffdf;
+}
 
-  em, i {
-    color: #c2bb98;
-  }
-  strong, b {
-    font-weight: 900;
-    color: #d9ffdf;
-  }
-
-  code, pre {
-    background-color: #2e2e2e7d;
-  }
-  blockquote {
-    background-color: #ff7a557e;
-  }
+.popup .task-description-display code,
+.popup .task-description-display pre {
+  background-color: #2e2e2e7d;
+}
+.popup .task-description-display blockquote {
+  background-color: #ff7a557e;
 }
