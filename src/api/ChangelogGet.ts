@@ -7,6 +7,20 @@ ChangelogGetRouter.get("/", (req, res) => {
   res.json({
     changelog: [
       {
+        version: "0.2.3",
+        title: "Smol Hotfix",
+        description: "I am screwing up bad time with smol i forgor moments 🤡 😭",
+        date: "19.02.2024",
+        changes: {
+          new_features: [],
+          improvements: [],
+          fixes: [],
+          refactors: [],
+          deprecations: [],
+          removed: [],
+        },
+      },
+      {
         version: "0.2.2",
         title: "Smol Hotfix",
         description: "",
