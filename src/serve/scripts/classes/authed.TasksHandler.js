@@ -44,7 +44,10 @@ export class TasksHandler {
   }
 
   async populate(forceFullClear = false) {
-    if (this.isPopulating) setTimeout(this.populate, 100, forceFullClear);
+    if (this.isPopulating) {
+      setTimeout(this.populate, 100, forceFullClear);
+      return;
+    }
     this.isPopulating = true;
     this.setRequests();
     this.Requests.reset();
