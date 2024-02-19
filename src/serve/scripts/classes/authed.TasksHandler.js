@@ -54,7 +54,7 @@ export class TasksHandler {
     }
 
     const currentFiltersList = getUrlParam("f")?.split(",") || [];
-    const filters = this.Requests.getData("filters").filter((filter) => currentFiltersList.find((cf) => cf == filter.id));
+    const filters = this.Requests.getData("filters")?.filter((filter) => currentFiltersList.find((cf) => cf == filter.id)) || [];
 
     const NewTasks = new Map();
     for (const task of this.Requests.getData("tasks").sort(this.getSorter())) {
