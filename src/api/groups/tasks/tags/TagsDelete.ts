@@ -2,6 +2,7 @@ import { createTransactionStatementTyped, getData } from "@/functions/databaseFu
 
 import Express from "express";
 import { body } from "express-validator";
+import { escape } from "validator";
 import { generateErrorWithStatus } from "@/functions/generateErrorWithStatus";
 import { validateData } from "@/middlewares/validateData";
 
