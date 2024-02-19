@@ -2,9 +2,9 @@ import { checkGroup } from "./authed.checkGroup.js";
 import { createNotice } from "./createNotice.js";
 import { createPopup } from "./createPopup.js";
 import { populateGroups } from "./authed.populateGroups.js";
-import { populateTasks } from "./authed.populateTasks.js";
 import { request } from "./request.js";
 import { switchGroup } from "./authed.switchGroup.js";
+import { task_handler } from "../authed.tasks.js";
 
 export function createNewGroup() {
   const content = document.createElement("div");
@@ -57,7 +57,7 @@ export function createNewGroup() {
         await populateGroups();
         wrapper.remove();
         createNotice("Created new Group", "success", 5000);
-        await populateTasks();
+        await task_handler.populate();
         return;
       };
 

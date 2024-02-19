@@ -1,8 +1,8 @@
 import { Popup } from "./createPopup.js";
 import { createNotice } from "./createNotice.js";
-import { populateTasks } from "./authed.populateTasks.js";
 import { request } from "./request.js";
 import { setUrlParam } from "./authed.urlData.js";
+import { task_handler } from "../authed.tasks.js";
 
 // import { showdown } from "../../libs/authed.showdown.min.js";
 
@@ -209,7 +209,7 @@ export async function manageTaskPopup(group_id, task_id) {
       return;
     }
     createNotice("Archived Task", "success", 5000);
-    populateTasks();
+    task_handler.populate();
     taskPopup.destroy("archived");
   });
   wrapper.querySelector(".delete").addEventListener("click", async (ev) => {
@@ -220,13 +220,13 @@ export async function manageTaskPopup(group_id, task_id) {
       return;
     }
     createNotice("Deleted Task", "success", 5000);
-    populateTasks();
+    task_handler.populate();
     taskPopup.destroy("deleted");
   });
 
   taskPopup.addDestructionListener(() => {
     setUrlParam("t");
-    populateTasks();
+    task_handler.populate();
   });
 
   setUrlParam("t", task_id);

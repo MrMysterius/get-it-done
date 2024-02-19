@@ -1,5 +1,6 @@
 import { getUrlParam, setUrlParam } from "./functions/authed.urlData.js";
 
+import { TasksHandler } from "./classes/authed.TasksHandler.js";
 import { checkChangelog } from "./functions/authed.checkChangelog.js";
 import { checkGroup } from "./functions/authed.checkGroup.js";
 import { createFilterPopup } from "./functions/authed.createFilterPopup.js";
@@ -13,17 +14,18 @@ import { manageTaskPopup } from "./functions/authed.manageTaskPopup.js";
 import { manageUserPopup } from "./functions/authed.manageUserPopup.js";
 import { populateFilters } from "./functions/authed.populateFilters.js";
 import { populateGroups } from "./functions/authed.populateGroups.js";
-import { populateTasks } from "./functions/authed.populateTasks.js";
 import { switchGroup } from "./functions/authed.switchGroup.js";
 
 export let loop_interval_id;
+export let task_handler = new TasksHandler();
 
 window.addEventListener("DOMContentLoaded", async (ev) => {
   checkChangelog();
   await checkGroup();
   await populateGroups();
   switchGroup();
-  populateTasks().then(() => {
+  task_handler.setRequests();
+  task_handler.populate().then(() => {
     const group_id = getUrlParam("g");
     const task_id = getUrlParam("t");
     if (!group_id || !task_id) return;
@@ -37,13 +39,13 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
     lockTaskCreator(true);
     const res = await createNewTask();
     lockTaskCreator(false);
-    if (res) await populateTasks();
+    if (res) await task_handler.populate();
   });
 
   // Group Selector Change
   document.querySelector("#group-selection").addEventListener("change", async () => {
     switchGroup();
-    await populateTasks();
+    await task_handler.populate();
     await populateFilters();
   });
 
@@ -99,31 +101,32 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
   document.querySelector("#sidebar-menu .filters .no-filter").addEventListener("click", () => {
     setUrlParam("f");
     populateFilters();
-    populateTasks();
+    task_handler.populate();
   });
   document.querySelector("#sidebar-menu .filters .no-filter").removeAttribute("disabled");
 
   let graceTimeID;
   document.querySelector(".quick-filters-container .quick-filter-grouping").addEventListener("change", () => {
     clearTimeout(graceTimeID);
-    setTimeout(() => {
-      populateTasks(true);
+    graceTimeID = setTimeout(() => {
+      task_handler.populate(true);
     }, 500);
   });
   document.querySelector(".quick-filters-container .quick-filter-grouping").removeAttribute("disabled");
 
   document.querySelector(".quick-filters-container .quick-filter-sorting").addEventListener("change", () => {
     clearTimeout(graceTimeID);
-    setTimeout(() => {
-      populateTasks(true);
+    graceTimeID = setTimeout(() => {
+      task_handler.populate(true);
     }, 500);
   });
   document.querySelector(".quick-filters-container .quick-filter-sorting").removeAttribute("disabled");
 
   document.querySelector(".quick-filters-container .quick-filter-tag-search").addEventListener("keyup", () => {
+    task_handler.fullClear();
     clearTimeout(graceTimeID);
-    setTimeout(() => {
-      populateTasks(true);
+    graceTimeID = setTimeout(() => {
+      task_handler.populate(true);
     }, 500);
   });
   document.querySelector(".quick-filters-container .quick-filter-tag-search").removeAttribute("disabled");
@@ -135,6 +138,6 @@ export const TasksMap = new Map();
 
 export async function mainLoop() {
   populateGroups();
-  populateTasks();
+  task_handler.populate();
   populateFilters();
 }
