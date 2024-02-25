@@ -1,3 +1,5 @@
+import { getDatabaseInfo, setDatabaseInfo } from "./functions/databaseInfos";
+
 import { APIRouter } from "./api/APIRouter";
 import { AuthRouter } from "./auth";
 import Express from "express";
