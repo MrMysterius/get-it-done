@@ -107,6 +107,22 @@ button:disabled {
   cursor: not-allowed;
 }
 
+input.loading,
+button.loading {
+  background-size: 200% 100%;
+  background-image: linear-gradient(145deg, #191f2c 48%, rgba(191, 191, 255, 1) 50%, #191f2c 52%);
+  animation: infinite LoadingVisualizer 1s;
+}
+
+@keyframes LoadingVisualizer {
+  0% {
+    background-position: 150% 50%;
+  }
+  100% {
+    background-position: -50% 50%;
+  }
+}
+
 /* PAGE */
 
 .page {
