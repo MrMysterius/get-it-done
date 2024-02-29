@@ -35,7 +35,10 @@ export async function migrateDatabase(current_version: string): Promise<boolean>
   for (const migrationObject of migrationObjects.slice(currentMigration)) {
     logger.info(`>> Migrating for Version ${migrationObject.version}`);
 
-    await migrationObject.execute(db, logger);
+    if (!migrationObject.execute(db, logger)) {
+      logger.error(`# Failed Migration to version ${migrationObject.version} - ABORTING`);
+      throw new Error(`Failed to Migrate to version ${migrationObject.version}`);
+    }
 
     setDatabaseInfo({ key: "version", value: migrationObject.version });
 
