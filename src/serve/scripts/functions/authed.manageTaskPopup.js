@@ -28,6 +28,19 @@ export async function manageTaskPopup(group_id, task_id) {
   const converter = new showdown.Converter();
   const taskPopup = new Popup();
 
+  converter.setOption("disableForced4SpacesIndentedSublists", true);
+  converter.setOption("emoji", true);
+  converter.setOption("encodeEmails", true);
+  converter.setOption("openLinksInNewWindow", true);
+  converter.setOption("requireSpaceBeforeHeadingText", true);
+  converter.setOption("simpleLineBreaks", true);
+  converter.setOption("simplifiedAutoLink", true);
+  converter.setOption("splitAdjacentBlockquotes", true);
+  converter.setOption("strikethrough", true);
+  converter.setOption("tables", true);
+  converter.setOption("tasklists", true);
+  converter.setOption("underline", true);
+
   const wrapper = document.createElement("div");
   wrapper.innerHTML += `<h2 class="task-title-display" style="cursor: pointer; width: 300px; margin-top: 0;">${task.data.title}</h2><textarea class="task-title" type="text" placeholder="Task Title..." style="display: none; width: 300px;">${task.data.title}</textarea><hr>`;
 
