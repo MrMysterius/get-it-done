@@ -230,3 +230,8 @@ div#tasks h1 {
 .popup .task-description-display blockquote {
   background-color: #ff7a557e;
 }
+
+.popup .task-description-display a {
+  color: #ff8d8d;
+  background-color: #2525258c;
+}
