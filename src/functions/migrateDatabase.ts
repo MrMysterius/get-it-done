@@ -17,10 +17,12 @@ export async function migrateDatabase(current_version: string): Promise<boolean>
     if (!obj.isFile()) continue;
 
     try {
-      const imported = await import(path.join(obj.path, obj.name));
+      const imported = await import(path.join("../migrations", obj.name));
       migrationObjects.push(imported.Migration);
     } catch (err) {
-      console.log(err);
+      logger.debug(path.join("../migrations", obj.name));
+      logger.error(err.message, { stack: err.stack });
+      process.exit(1);
     }
   }
 
