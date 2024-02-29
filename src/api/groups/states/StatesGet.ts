@@ -23,6 +23,7 @@ StatesGetRouter.get(
           description: state.state_description,
           colour_text: state.state_colour_text,
           colour_background: state.state_colour_background,
+          is_default: state.is_default,
         };
       })
     );
@@ -58,6 +59,7 @@ StatesGetRouter.get(
       description: state.data.state_description,
       colour_text: state.data.state_colour_text,
       colour_background: state.data.state_colour_background,
+      is_default: state.data.is_default,
     });
   }
 );

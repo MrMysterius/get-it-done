@@ -43,9 +43,13 @@ export async function manageStatesPopup(group_id) {
 export function generateStatesTable(group_id, states, popup = null) {
   const table = document.createElement("table");
   for (const state of states) {
+    console.log(state.is_default);
     const row = document.createElement("tr");
     row.innerHTML += `<td class="state-name" state-id="${state.id}" style="background-color: ${state.colour_background}; color: ${state.colour_text};">${state.name}</td>`;
     row.innerHTML += `<td class="state-description">${state.description}</td>`;
+    row.innerHTML += `<td class="state-is-default"><input class="state-is-default-checkbox" type="checkbox" ${
+      state.is_default ? "checked disabled" : ""
+    } title="DEFAULT?"></td>`;
     row.innerHTML += `<td class="state-options"><button class="state-edit" style="background-color: var(--notice-warn); color: var(--notice-warn-text)">EDIT</button> <button class="state-delete" style="background-color: var(--notice-error)">DELETE</button></td>`;
 
     row.querySelector(".state-edit").addEventListener("click", async () => {
@@ -57,6 +61,13 @@ export function generateStatesTable(group_id, states, popup = null) {
     });
     row.querySelector(".state-delete").addEventListener("click", async () => {
       const res = await deleteState(group_id, state.id, state.name);
+      if (res && popup) {
+        await manageStatesPopup(group_id);
+        popup.destroy();
+      }
+    });
+    row.querySelector(".state-is-default-checkbox").addEventListener("click", async () => {
+      const res = await request("PUT", `/api/groups/${group_id}/states/${state.id}`, { is_default: 1 });
       if (res && popup) {
         await manageStatesPopup(group_id);
         popup.destroy();

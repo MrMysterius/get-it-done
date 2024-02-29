@@ -43,6 +43,7 @@ declare namespace GIDData {
     state_description: string;
     state_colour_text: string;
     state_colour_background: string;
+    is_default: boolean;
   }
 
   interface tag {

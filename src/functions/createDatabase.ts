@@ -101,6 +101,7 @@ export function createDatabase() {
       "state_description"	TEXT DEFAULT '',
       "state_colour_text"	TEXT NOT NULL DEFAULT '#000000',
       "state_colour_background"	TEXT NOT NULL DEFAULT '#262626',
+      "is_default"	NUMERIC NOT NULL DEFAULT 0,
       PRIMARY KEY("state_id" AUTOINCREMENT),
       FOREIGN KEY("state_creator") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
