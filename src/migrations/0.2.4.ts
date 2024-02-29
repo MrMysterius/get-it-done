@@ -7,7 +7,7 @@ export const Migration: MigrationObject = {
       let res = db
         .prepare(
           `ALTER TABLE "states"
-          ADD COLUMN "is_default" NUMERIC DEFAULT 0`
+          ADD COLUMN "is_default" NUMERIC NOT NULL DEFAULT 0`
         )
         .run();
       logger.info(`+ Added Column "is_default" to "states" table.`);
