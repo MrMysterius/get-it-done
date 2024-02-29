@@ -45,11 +45,25 @@ StatesPutRouter.put(
 
   body("colour_background").trim().notEmpty().isHexColor().optional(),
 
+  body("is_default").trim().isIn([0, 1]).toInt().optional(),
+
   // DATA CHECK
   validateData,
 
   // ACTUAL REQUEST HANDLE
   (req, res) => {
+    if (req.body.is_default) {
+      const updateStates = createTransactionStatementTyped<Pick<GIDData.state, "state_creator">>(
+        `UPDATE states
+        SET
+          is_default = 0
+        WHERE state_creator = @state_creator`
+      );
+
+      const updateResult = updateStates.run({ state_creator: req.extra.params.group_id });
+      if (!updateResult.isSuccessful) throw new Error("Couldn't Update States");
+    }
+
     const originalState = getData<GIDData.state>(`SELECT * FROM states WHERE state_id = ?`, req.params.state_id);
 
     if (!originalState.data) throw new Error();
@@ -60,7 +74,8 @@ StatesPutRouter.put(
         state_name = @state_name,
         state_description = @state_description,
         state_colour_text = @state_colour_text,
-        state_colour_background = @state_colour_background
+        state_colour_background = @state_colour_background,
+        is_default = @is_default
       WHERE state_id = @state_id`
     );
 
@@ -70,6 +85,7 @@ StatesPutRouter.put(
       state_description: req.body.description || originalState.data.state_description,
       state_colour_text: req.body.colour_text || originalState.data.state_colour_text,
       state_colour_background: req.body.colour_background || originalState.data.state_colour_background,
+      is_default: req.body.is_default != undefined ? req.body.is_default : originalState.data.is_default,
     });
 
     if (!result.isSuccessful || !result.data) throw new Error("Couldn't update state");
@@ -81,6 +97,7 @@ StatesPutRouter.put(
       state_description: req.body.description || originalState.data.state_description,
       state_colour_text: req.body.colour_text || originalState.data.state_colour_text,
       state_colour_background: req.body.colour_background || originalState.data.state_colour_background,
+      is_default: req.body.is_default != undefined ? req.body.is_default : originalState.data.is_default,
     });
   }
 );

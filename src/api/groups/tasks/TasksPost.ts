@@ -1,8 +1,9 @@
-import { createTransactionStatementTyped, getData } from "../../../functions/databaseFunctions";
+import { createTransactionStatementTyped, getData } from "@/functions/databaseFunctions";
 
 import Express from "express";
 import { body } from "express-validator";
-import { validateData } from "../../../middlewares/validateData";
+import { logger } from "@/main";
+import { validateData } from "@/middlewares/validateData";
 
 export const TasksPostRouter = Express.Router();
 
@@ -43,6 +44,8 @@ TasksPostRouter.post(
 
   // ACTUAL REQUEST HANDLE
   (req, res) => {
+    const defaultState = getData<GIDData.state>(`SELECT * FROM states WHERE is_default = 1 AND state_creator = ?`, req.extra.params.group_id);
+
     const insertTask = createTransactionStatementTyped<Omit<GIDData.task, "task_id" | "task_archived">>(
       `INSERT INTO tasks (task_creator, task_title, task_description, task_date_start, task_date_due, task_time_estimate, task_time_needed)
       VALUES (@task_creator, @task_title, @task_description, @task_date_start, @task_date_due, @task_time_estimate, @task_time_needed)`
@@ -59,6 +62,16 @@ TasksPostRouter.post(
     });
 
     if (!result.isSuccessful || !result.data) throw new Error("Cound't create new task");
+
+    if (defaultState.data) {
+      const stateUpdate = createTransactionStatementTyped<GIDData.task_state>(
+        `INSERT INTO task_state (task_id, state_id)
+        VALUES (@task_id, @state_id)`
+      );
+
+      const stateRes = stateUpdate.run({ task_id: result.data.lastInsertRowid as number, state_id: defaultState.data.state_id });
+      if (!stateRes.isSuccessful) logger.error("Couldn't set default state");
+    }
 
     res.status(200);
     res.json({
