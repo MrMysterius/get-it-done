@@ -32,14 +32,28 @@ StatesPostRouter.post(
 
   body("colour_background").trim().default("#262626").notEmpty().isHexColor(),
 
+  body("is_default").trim().default(0).isIn([0, 1]).toInt(),
+
   // DATA CHECK
   validateData,
 
   // ACTUAL REQUEST HANDLE
   (req, res) => {
+    if (req.body.is_default) {
+      const updateStates = createTransactionStatementTyped<Pick<GIDData.state, "state_creator">>(
+        `UPDATE states
+        SET
+          is_default = 0
+        WHERE state_creator = @state_creator`
+      );
+
+      const updateResult = updateStates.run({ state_creator: req.extra.params.group_id });
+      if (!updateResult.isSuccessful) throw new Error("Couldn't Update States");
+    }
+
     const createState = createTransactionStatementTyped<Omit<GIDData.state, "state_id">>(
-      `INSERT INTO states (state_creator, state_name, state_description, state_colour_text, state_colour_background)
-      VALUES (@state_creator, @state_name, @state_description, @state_colour_text, @state_colour_background)`
+      `INSERT INTO states (state_creator, state_name, state_description, state_colour_text, state_colour_background, is_default)
+      VALUES (@state_creator, @state_name, @state_description, @state_colour_text, @state_colour_background, @is_default)`
     );
 
     const result = createState.run({
@@ -48,6 +62,7 @@ StatesPostRouter.post(
       state_description: req.body.description,
       state_colour_text: req.body.colour_text,
       state_colour_background: req.body.colour_background,
+      is_default: req.body.is_default,
     });
 
     if (!result.isSuccessful || !result.data) throw new Error("Couldn't create state");
@@ -60,6 +75,7 @@ StatesPostRouter.post(
       state_description: req.body.description,
       state_colour_text: req.body.colour_text,
       state_colour_background: req.body.colour_background,
+      is_default: req.body.is_default,
     });
   }
 );

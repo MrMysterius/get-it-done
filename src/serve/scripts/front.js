@@ -90,8 +90,10 @@ window.addEventListener("DOMContentLoaded", () => {
 function lockLogin(bool = true) {
   for (const el of document.querySelectorAll("form#login-form input, form#login-form button").values()) {
     if (bool) {
+      if (el.tagName == "BUTTON") el.classList.add("loading");
       el.setAttribute("disabled", "");
     } else {
+      if (el.tagName == "BUTTON") el.classList.remove("loading");
       el.removeAttribute("disabled");
     }
   }
@@ -100,8 +102,10 @@ function lockLogin(bool = true) {
 function lockSignup(bool = true) {
   for (const el of document.querySelectorAll("form#signup-form input, form#signup-form button").values()) {
     if (bool) {
+      if (el.tagName == "BUTTON") el.classList.add("loading");
       el.setAttribute("disabled", "");
     } else {
+      if (el.tagName == "BUTTON") el.classList.remove("loading");
       el.removeAttribute("disabled");
     }
   }
