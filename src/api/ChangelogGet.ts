@@ -7,6 +7,27 @@ ChangelogGetRouter.get("/", (req, res) => {
   res.json({
     changelog: [
       {
+        version: "0.2.4",
+        title: "Default Task State, Database Migrations and other smol Improvements",
+        description: `A state can now be set to be the default state, which is then applied to all new tasks upon creation. To make this possible Database Migration checks and files where also added. Also there are some additional smol Improvements :3`,
+        date: "01.03.2024",
+        changes: {
+          new_features: [
+            "Added database migrator check | #BACKEND",
+            "Added migration for 0.2.4 🔼 | #BACKEND",
+            "Added option to mark a state as default for new tasks 😎 | #BACKEND #FRONTEND",
+          ],
+          improvements: ["Added loading animation for login/signup page 🤩 | #FRONTEND", "Improved markdown conversions on task description | #FRONTEND"],
+          fixes: [
+            "Fixed removing tags from task with special HTML characters 😶 | #BACKEND",
+            "Styling fix for sort and grouping options on smaller screen devices. ✨ | #FRONTEND",
+          ],
+          refactors: [],
+          deprecations: [],
+          removed: [],
+        },
+      },
+      {
         version: "0.2.3",
         title: "Smol Hotfix",
         description: "I am screwing up bad time with smol i forgor moments 🤡 😭",

@@ -1,7 +1,7 @@
+import { CURRENT_APP_VERSION, logger } from "../main";
 import { createTransactionStatement, executeRawStatement } from "./databaseFunctions";
 
 import { generatePasswordHash } from "./generatePasswordHash";
-import { logger } from "../main";
 
 export function createDatabase() {
   logger.info("# Creating Database...");
@@ -20,7 +20,7 @@ export function createDatabase() {
   logger.info("+ Inserting Keys into gid_info");
   {
     const statement = createTransactionStatement(`INSERT INTO gid_info (key, value) VALUES (?, ?)`);
-    statement.run("version", "0.1.0");
+    statement.run("version", CURRENT_APP_VERSION);
     statement.run("installation_timestamp", Date.now().toString());
     statement.run("last_startup_timestamp", Date.now().toString());
   }
@@ -101,6 +101,7 @@ export function createDatabase() {
       "state_description"	TEXT DEFAULT '',
       "state_colour_text"	TEXT NOT NULL DEFAULT '#000000',
       "state_colour_background"	TEXT NOT NULL DEFAULT '#262626',
+      "is_default"	NUMERIC NOT NULL DEFAULT 0,
       PRIMARY KEY("state_id" AUTOINCREMENT),
       FOREIGN KEY("state_creator") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
