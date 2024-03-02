@@ -38,6 +38,12 @@ div#tasks {
   display: block;
 }
 
+.grouping-div .grouping-details summary h4 {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .grouping-div .tasks {
   margin: auto;
   display: flex;

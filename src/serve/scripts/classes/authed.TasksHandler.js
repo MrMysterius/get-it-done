@@ -119,7 +119,7 @@ export class TasksHandler {
       GroupingsDiv.classList.add("grouping-div");
       GroupingsDiv.id = `group-${state.replace(/\s/g, "-")}`;
 
-      GroupingsDiv.innerHTML += `<h4>${state}</h4><hr><div class="tasks"></div>`;
+      GroupingsDiv.innerHTML += `<details open class="grouping-details"><summary><h4>${state}</h4><hr></summary><div class="tasks"></div></details>`;
 
       this.TasksEl.appendChild(GroupingsDiv);
     }
@@ -129,7 +129,7 @@ export class TasksHandler {
     GroupingsDiv.classList.add("grouping-div");
     GroupingsDiv.id = `group-no-state`;
 
-    GroupingsDiv.innerHTML += `<h4>No State</h4><hr><div class="tasks"></div>`;
+    GroupingsDiv.innerHTML += `<details open class="grouping-details"><summary><h4>No State</h4><hr></summary><div class="tasks"></div></details>`;
 
     this.TasksEl.appendChild(GroupingsDiv);
   }
