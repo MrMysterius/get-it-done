@@ -134,6 +134,8 @@ export function createDatabase() {
       "task_time_estimate"	INTEGER,
       "task_time_needed"	INTEGER,
       "task_archived"	INTEGER NOT NULL DEFAULT 0,
+      "task_creation_timestamp"	TEXT,
+      "task_last_edit_timestamp"	TEXT,
       PRIMARY KEY("task_id" AUTOINCREMENT),
       FOREIGN KEY("task_creator") REFERENCES "groups"("group_id") ON UPDATE CASCADE ON DELETE CASCADE
     );`
