@@ -176,6 +176,8 @@ export class TasksHandler {
       for (const tag of task.tags) {
         const tagEl = document.createElement("p");
         tagEl.classList.add("task-tag");
+        if (localStorage.getItem("task-tags-collapsed")) tagEl.classList.add("collapsed");
+        else tagEl.classList.add("expanded");
         tagEl.style.backgroundColor = tag.colour_background;
         tagEl.style.color = tag.colour_text;
         tagEl.style.border = `${tag.colour_text} 1px solid`;
@@ -195,17 +197,45 @@ export class TasksHandler {
         tagIcon.style.display = "inline-block";
         tagIcon.style.color = tag.colour_text;
         tagIcon.style.backgroundColor = tag.colour_background;
+        tagIcon.classList.add("tag-icon");
 
         tagEl.appendChild(tagIcon);
 
         const tagName = document.createElement("b");
         tagName.innerHTML = tag.name;
+        tagName.classList.add("tag-name");
         tagEl.appendChild(tagName);
+
+        const tagBullet = document.createElement("d");
+        tagBullet.style.borderColor = tag.colour_text;
+        tagBullet.style.backgroundColor = tag.colour_text;
+        tagBullet.classList.add("tag-bullet");
+        tagEl.appendChild(tagBullet);
+
+        tagEl.addEventListener("click", (el) => {
+          el.preventDefault();
+          const task_tags = Array.from(document.querySelectorAll(".task-tag"));
+          if (task_tags[0].classList.contains("collapsed")) {
+            localStorage.setItem("task-tags-collapsed", false);
+            for (let task_tag of task_tags) {
+              task_tag.classList.remove("collapsed");
+              task_tag.classList.add("expanded");
+            }
+          } else {
+            localStorage.setItem("task-tags-collapsed", true);
+            for (let task_tag of task_tags) {
+              task_tag.classList.remove("expanded");
+              task_tag.classList.add("collapsed");
+            }
+          }
+        });
 
         TaskElementClone.querySelector(".task-tags").appendChild(tagEl);
       }
 
       TaskElementClone.querySelector(".task").addEventListener("click", async (ev) => {
+        const blackList = ["task-tag", "tag-icon", "tag-name", "tag-bullet"];
+        if (Array.from(ev?.srcElement?.classList?.values() || []).find((cName) => blackList.includes(cName))) return;
         manageTaskPopup(group_id, task.id);
       });
 

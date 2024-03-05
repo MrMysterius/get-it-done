@@ -92,8 +92,7 @@ div#tasks h1 {
   min-width: 0;
   border-radius: 10px;
   background-color: #36435c;
-  padding-left: 1em;
-  padding-bottom: 0.5em;
+  padding: 0.5em;
 
   animation-name: TaskPopin;
   animation-duration: 500ms;
@@ -114,10 +113,11 @@ div#tasks h1 {
 
 .task .task-title {
   font-size: 1.25em;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
 }
 
 .task .task-tags {
-  margin: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -137,6 +137,35 @@ div#tasks h1 {
   padding: 0.2em 0.4em 0.2em 0.4em;
   border-radius: 2em;
   margin: 0;
+  align-items: center;
+}
+
+.task .task-tags .task-tag .tag-bullet {
+  height: 0.05em;
+  width: 5em;
+  border: 0.15em solid;
+  border-radius: 2em;
+}
+
+.task .task-tag.expanded .tag-bullet {
+  display: none;
+}
+
+.task .task-tag.collapsed {
+  padding: 0.2em 0.2em 0.2em 0.2em;
+}
+.task .task-tag.collapsed .tag-icon {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -100px;
+  left: -100px;
+}
+.task .task-tag.collapsed .tag-name {
+  display: none;
+}
+.task .task-tag.collapsed .tag-bullet {
+  display: block;
 }
 
 @media (max-width: 1065px) {
