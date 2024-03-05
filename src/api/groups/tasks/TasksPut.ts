@@ -61,7 +61,7 @@ TasksPutRouter.put(
 
     if (!originalTask.data) throw new Error("Couldn't update task");
 
-    const updateStatement = createTransactionStatementTyped<Omit<GIDData.task, "task_creator">>(
+    const updateStatement = createTransactionStatementTyped<Omit<GIDData.task, "task_creator" | "task_creation_timestamp">>(
       `UPDATE tasks
       SET
         task_title = @task_title,
@@ -70,9 +70,12 @@ TasksPutRouter.put(
         task_date_due = @task_date_due,
         task_time_estimate = @task_time_estimate,
         task_time_needed = @task_time_needed,
-        task_archived = @task_archived
+        task_archived = @task_archived,
+        task_last_edit_timestamp = @task_last_edit_timestamp
       WHERE task_id = @task_id`
     );
+
+    const edit_timestamp = Date.now().toString();
 
     const result = updateStatement.run({
       task_id: req.params.task_id as unknown as number,
@@ -83,6 +86,7 @@ TasksPutRouter.put(
       task_time_estimate: req.body.time_estimate || originalTask.data.task_time_estimate,
       task_time_needed: req.body.time_needed || originalTask.data.task_time_needed,
       task_archived: req.body.isArchived != undefined ? req.body.isArchived : originalTask.data.task_archived,
+      task_last_edit_timestamp: edit_timestamp,
     });
 
     if (!result.isSuccessful || !result.data) throw new Error("Couldn't update task");
@@ -98,6 +102,7 @@ TasksPutRouter.put(
       task_time_estimate: req.body.time_estimate || originalTask.data.task_time_estimate,
       task_time_needed: req.body.time_needed || originalTask.data.task_time_needed,
       task_archived: req.body.isArchived != undefined ? req.body.isArchived : originalTask.data.task_archived,
+      task_last_edit_timestamp: edit_timestamp,
     });
   }
 );

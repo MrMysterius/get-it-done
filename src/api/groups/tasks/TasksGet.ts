@@ -50,6 +50,8 @@ TasksGetRouter.get(
           time_estimate: task.task_time_estimate,
           time_needed: task.task_time_needed,
           isArchived: task.task_archived,
+          creation_timestamp: task.task_creation_timestamp,
+          last_edit_timestamp: task.task_last_edit_timestamp,
           state: state
             ? {
                 id: state.state_id,
@@ -136,6 +138,8 @@ TasksGetRouter.get(
           time_estimate: task.task_time_estimate,
           time_needed: task.task_time_needed,
           isArchived: task.task_archived,
+          creation_timestamp: task.task_creation_timestamp,
+          last_edit_timestamp: task.task_last_edit_timestamp,
           state: state
             ? {
                 id: state.state_id,
@@ -230,6 +234,8 @@ TasksGetRouter.get(
       time_estimate: task.data.task_time_estimate,
       time_needed: task.data.task_time_needed,
       isArchived: task.data.task_archived,
+      creation_timestamp: task.data.task_creation_timestamp,
+      last_edit_timestamp: task.data.task_last_edit_timestamp,
       state: state.data
         ? {
             id: state.data.state_id,

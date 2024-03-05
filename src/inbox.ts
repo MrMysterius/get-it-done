@@ -30,10 +30,12 @@ InboxRouter.post(
   (req, res) => {
     const inbox_code = req.extra.inbox as GIDData.inbox_code;
 
-    const insertTask = createTransactionStatementTyped<Omit<GIDData.task, "task_id" | "task_archived">>(
-      `INSERT INTO tasks (task_creator, task_title, task_description, task_date_start, task_date_due, task_time_estimate, task_time_needed)
-      VALUES (@task_creator, @task_title, @task_description, @task_date_start, @task_date_due, @task_time_estimate, @task_time_needed)`
+    const insertTask = createTransactionStatementTyped<Omit<GIDData.task, "task_id" | "task_archived" | "task_last_edit_timestamp">>(
+      `INSERT INTO tasks (task_creator, task_title, task_description, task_date_start, task_date_due, task_time_estimate, task_time_needed, task_creation_timestamp)
+      VALUES (@task_creator, @task_title, @task_description, @task_date_start, @task_date_due, @task_time_estimate, @task_time_needed, @task_creation_timestamp)`
     );
+
+    const creation_timestamp = Date.now().toString();
 
     const resultTask = insertTask.run({
       task_creator: inbox_code.inbox_owner,
@@ -43,6 +45,7 @@ InboxRouter.post(
       task_date_due: null,
       task_time_estimate: 0,
       task_time_needed: 0,
+      task_creation_timestamp: creation_timestamp,
     });
 
     if (!resultTask.data || !resultTask.isSuccessful) throw new Error("Couldn't create task");
