@@ -7,6 +7,20 @@ ChangelogGetRouter.get("/", (req, res) => {
   res.json({
     changelog: [
       {
+        version: "0.2.6",
+        title: "Hotfix Database Creation",
+        description: "Hotfix for database creation. Database creation did not incorporate the new task creation and last edit timestamp columns.",
+        date: "06.03.2024",
+        changes: {
+          new_features: [],
+          improvements: [],
+          fixes: ["Fixed database creation not having new task creation and last edit timestamp column. | #BACKEND"],
+          refactors: [],
+          deprecations: [],
+          removed: [],
+        },
+      },
+      {
         version: "0.2.5",
         title: "Collapsable Groupings, Task Creation/Edit Timestamps and Migration Fixes",
         description:
