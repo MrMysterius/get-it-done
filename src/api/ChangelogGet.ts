@@ -7,6 +7,24 @@ ChangelogGetRouter.get("/", (req, res) => {
   res.json({
     changelog: [
       {
+        version: "0.2.5",
+        title: "Collapsable Groupings, Task Creation/Edit Timestamps and Migration Fixes",
+        description:
+          "Added the possibility to declutter by collapsing task groupings. Also tasks save their creation timestamp, as well as their last edit timestamp. This is beneficial for future grouping possibilites. Also fixes some migration function problems.",
+        date: "05.03.2024",
+        changes: {
+          new_features: ["Groupings of tasks can now be collapsed to declutter. 🚮 | #FRONTEND", "Added migration for 0.2.5 🔼 | #BACKEND"],
+          improvements: [
+            "Redirecting unauthed users from tasks page to login/signup ↩ | #FRONTEND",
+            "Tasks now save creation and last edit timestamps. ⏱ | #BACKEND",
+          ],
+          fixes: ["Fixed migrations checks trying to apply older migrations. 😐 | #BACKEND"],
+          refactors: [],
+          deprecations: [],
+          removed: [],
+        },
+      },
+      {
         version: "0.2.4",
         title: "Default Task State, Database Migrations and other smol Improvements",
         description: `A state can now be set to be the default state, which is then applied to all new tasks upon creation. To make this possible Database Migration checks and files where also added. Also there are some additional smol Improvements :3`,

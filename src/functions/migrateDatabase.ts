@@ -28,13 +28,19 @@ export async function migrateDatabase(current_version: string): Promise<boolean>
 
   migrationObjects.sort((a, b) => a.version.localeCompare(b.version));
 
-  const versions = migrationObjects.map((obj) => obj.version);
-  versions.push(current_version);
-  versions.sort((a, b) => a.localeCompare(b));
+  const versions = migrationObjects.reduce((p, c) => {
+    p[`${c.version}`] = true;
+    return p;
+  }, {});
+  versions[`${current_version}`] = true;
+  logger.debug(versions);
+  const versionsArray = Array.from(Object.keys(versions)).sort((a, b) => a.localeCompare(b));
+  logger.debug(versionsArray);
 
-  const currentMigration = versions.findIndex((v) => v == current_version);
+  const currentMigration = versionsArray.findIndex((v) => v == current_version);
+  logger.debug(currentMigration);
 
-  for (const migrationObject of migrationObjects.slice(currentMigration)) {
+  for (const migrationObject of migrationObjects.slice(currentMigration + 1)) {
     logger.info(`>> Migrating for Version ${migrationObject.version}`);
 
     if (!migrationObject.execute(db, logger)) {

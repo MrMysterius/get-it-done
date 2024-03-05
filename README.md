@@ -1,4 +1,4 @@
-# GetItDone (Get It Done) - ALPHA V0.1.0
+# GetItDone (Get It Done) - ALPHA V0.2.5
 
 > Taskmanagement Web Application build in NodeJS with the GTD Taskmanagement Pricipal in mind
 
