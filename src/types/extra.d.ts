@@ -68,6 +68,8 @@ declare namespace GIDData {
     task_time_estimate: number;
     task_time_needed: number;
     task_archived: boolean;
+    task_creation_timestamp: string;
+    task_last_edit_timestamp: string;
   }
 
   interface task_tag {

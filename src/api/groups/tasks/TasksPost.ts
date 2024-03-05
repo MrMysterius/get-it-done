@@ -46,10 +46,12 @@ TasksPostRouter.post(
   (req, res) => {
     const defaultState = getData<GIDData.state>(`SELECT * FROM states WHERE is_default = 1 AND state_creator = ?`, req.extra.params.group_id);
 
-    const insertTask = createTransactionStatementTyped<Omit<GIDData.task, "task_id" | "task_archived">>(
-      `INSERT INTO tasks (task_creator, task_title, task_description, task_date_start, task_date_due, task_time_estimate, task_time_needed)
-      VALUES (@task_creator, @task_title, @task_description, @task_date_start, @task_date_due, @task_time_estimate, @task_time_needed)`
+    const insertTask = createTransactionStatementTyped<Omit<GIDData.task, "task_id" | "task_archived" | "task_last_edit_timestamp">>(
+      `INSERT INTO tasks (task_creator, task_title, task_description, task_date_start, task_date_due, task_time_estimate, task_time_needed, task_creation_timestamp)
+      VALUES (@task_creator, @task_title, @task_description, @task_date_start, @task_date_due, @task_time_estimate, @task_time_needed, @task_creation_timestamp)`
     );
+
+    const creation_timestamp = Date.now().toString();
 
     const result = insertTask.run({
       task_creator: req.extra.params.group_id,
@@ -59,6 +61,7 @@ TasksPostRouter.post(
       task_date_due: req.body.date_due || null,
       task_time_estimate: req.body.time_estimate || 0,
       task_time_needed: req.body.time_needed || 0,
+      task_creation_timestamp: creation_timestamp,
     });
 
     if (!result.isSuccessful || !result.data) throw new Error("Cound't create new task");
@@ -83,6 +86,7 @@ TasksPostRouter.post(
       task_date_due: req.body.date_due || null,
       task_time_estimate: req.body.time_estimate || 0,
       task_time_needed: req.body.time_needed || 0,
+      task_creation_timestamp: creation_timestamp,
     });
   }
 );
