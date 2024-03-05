@@ -19,7 +19,7 @@ import sqlite from "better-sqlite3";
 
 // Config / Environment
 
-export const CURRENT_APP_VERSION = "0.2.4";
+export const CURRENT_APP_VERSION = "0.2.5";
 
 console.log("# Loading Environment Config");
 dotenv.config();
