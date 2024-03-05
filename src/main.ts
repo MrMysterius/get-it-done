@@ -34,6 +34,7 @@ main();
 async function main() {
   logger.info("# Initializing Database");
 
+  db.pragma("auto_vacuum = FULL");
   const db_version = getDatabaseInfo("version");
 
   if (db_version === null) {
