@@ -40,7 +40,7 @@ async function main() {
   if (db_version === null) {
     createDatabase();
   }
-  if (db_version.value !== CURRENT_APP_VERSION) {
+  if (db_version && db_version.value !== CURRENT_APP_VERSION) {
     logger.info(`> App Version is Newer than Database ${CURRENT_APP_VERSION} > ${db_version.value}`);
     await migrateDatabase(db_version.value);
     logger.info(`> Updating Database Version to ${CURRENT_APP_VERSION}`);
