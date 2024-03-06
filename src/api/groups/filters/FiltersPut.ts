@@ -3,12 +3,18 @@ import { createTransactionStatementTyped, getData } from "@/functions/databaseFu
 
 import Express from "express";
 import { escape } from "validator";
+import { generateErrorWithStatus } from "@/functions/generateErrorWithStatus";
 import { validateData } from "@/middlewares/validateData";
 
 export const FiltersPutRouter = Express.Router();
 
 FiltersPutRouter.put(
   "/:filter_id",
+
+  (req, res, next) => {
+    if (parseInt(req.headers["content-length"]) > 10240) throw generateErrorWithStatus("Content too Large", 400, `${req.headers["content-length"]} > 10240`);
+    next();
+  },
 
   // REQUEST DATA REQUIREMENTS
   param("filter_id")
