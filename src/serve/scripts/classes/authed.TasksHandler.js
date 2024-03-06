@@ -207,6 +207,7 @@ export class TasksHandler {
         tagEl.appendChild(tagName);
 
         const tagBullet = document.createElement("d");
+        tagBullet.style.width = `${Math.min(0.5 * tag.name.length, 6).toPrecision(1)}em`;
         tagBullet.style.borderColor = tag.colour_text;
         tagBullet.style.backgroundColor = tag.colour_text;
         tagBullet.classList.add("tag-bullet");
