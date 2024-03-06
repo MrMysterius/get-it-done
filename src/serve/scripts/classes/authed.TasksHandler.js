@@ -64,7 +64,7 @@ export class TasksHandler {
 
     const NewTasks = new Map();
     for (const task of this.Requests.getData("tasks").sort(this.getSorter())) {
-      NewTasks.set(task.id, { task, fingerprint: btoa(JSON.stringify(task)) });
+      NewTasks.set(task.id, { task, fingerprint: btoa(encodeURI(JSON.stringify(task))) });
     }
 
     if (forceFullClear) {
