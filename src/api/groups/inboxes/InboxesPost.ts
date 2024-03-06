@@ -2,6 +2,7 @@ import Express from "express";
 import { body } from "express-validator";
 import { createTransactionStatementTyped } from "@/functions/databaseFunctions";
 import { escape } from "validator";
+import { generateErrorWithStatus } from "@/functions/generateErrorWithStatus";
 import { generateInboxCode } from "@/functions/generateInboxCode";
 import { validateData } from "@/middlewares/validateData";
 
@@ -9,6 +10,11 @@ export const InboxesPostRouter = Express.Router();
 
 InboxesPostRouter.post(
   "/",
+
+  (req, res, next) => {
+    if (parseInt(req.headers["content-length"]) > 10240) throw generateErrorWithStatus("Content too Large", 400, `${req.headers["content-length"]} > 10240`);
+    next();
+  },
 
   // REQUEST DATA REQUIREMENTS
   body("extras")
