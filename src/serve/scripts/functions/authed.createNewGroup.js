@@ -57,7 +57,7 @@ export function createNewGroup() {
         await populateGroups();
         wrapper.remove();
         createNotice("Created new Group", "success", 5000);
-        await task_handler.populate();
+        await task_handler.populate(true);
         return;
       };
 

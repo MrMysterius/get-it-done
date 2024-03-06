@@ -45,7 +45,7 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
   // Group Selector Change
   document.querySelector("#group-selection").addEventListener("change", async () => {
     switchGroup();
-    await task_handler.populate();
+    await task_handler.populate(true);
     await populateFilters();
   });
 
