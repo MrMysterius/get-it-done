@@ -281,6 +281,7 @@ export class TasksHandler {
   }
 
   sortedInsert(onElement, beforeQuerySelector, newElement) {
+    if (!onElement) return;
     const beforeElemenet = onElement.querySelector(beforeQuerySelector);
     if (beforeElemenet) {
       onElement.insertBefore(newElement, beforeElemenet);
