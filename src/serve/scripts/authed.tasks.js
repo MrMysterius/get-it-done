@@ -20,12 +20,16 @@ export let loop_interval_id;
 export let task_handler = new TasksHandler();
 
 window.addEventListener("DOMContentLoaded", async (ev) => {
+  if (localStorage.getItem("grouping-selection"))
+    document.querySelector(".quick-filters-container .quick-filter-grouping").value = localStorage.getItem("grouping-selection");
+  if (localStorage.getItem("sorting-selection"))
+    document.querySelector(".quick-filters-container .quick-filter-sorting").value = localStorage.getItem("sorting-selection");
   checkChangelog();
   await checkGroup();
   await populateGroups();
   switchGroup();
   task_handler.setRequests();
-  task_handler.populate().then(() => {
+  task_handler.populate(true).then(() => {
     const group_id = getUrlParam("g");
     const task_id = getUrlParam("t");
     if (!group_id || !task_id) return;
@@ -107,6 +111,7 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
 
   let graceTimeID;
   document.querySelector(".quick-filters-container .quick-filter-grouping").addEventListener("change", () => {
+    localStorage.setItem("grouping-selection", document.querySelector(".quick-filters-container .quick-filter-grouping").value);
     clearTimeout(graceTimeID);
     graceTimeID = setTimeout(() => {
       task_handler.populate(true);
@@ -115,6 +120,7 @@ window.addEventListener("DOMContentLoaded", async (ev) => {
   document.querySelector(".quick-filters-container .quick-filter-grouping").removeAttribute("disabled");
 
   document.querySelector(".quick-filters-container .quick-filter-sorting").addEventListener("change", () => {
+    localStorage.setItem("sorting-selection", document.querySelector(".quick-filters-container .quick-filter-sorting").value);
     clearTimeout(graceTimeID);
     graceTimeID = setTimeout(() => {
       task_handler.populate(true);
