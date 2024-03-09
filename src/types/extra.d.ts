@@ -5,40 +5,40 @@ declare namespace GIDData {
   }
 
   interface user {
-    user_id: number;
+    user_id: string;
     user_name: string;
     user_password_hash: string;
     user_displayname: string;
     user_role: user_role;
     user_last_action_timestamp: string;
     user_active: boolean;
-    user_invited_from: number | null;
+    user_invited_from: string | null;
   }
 
   type user_role = "admin" | "user";
 
   interface group {
-    group_id: number;
+    group_id: string;
     group_name: string;
-    group_owner: number;
+    group_owner: string;
   }
 
   interface invite {
-    invite_id: number;
-    invite_creator: number;
+    invite_id: string;
+    invite_creator: string;
     invite_code: string;
     invite_limit: number;
     invite_used_amount: number;
   }
 
   interface group_member {
-    group_id: number;
-    user_id: number;
+    group_id: string;
+    user_id: string;
   }
 
   interface state {
-    state_id: number;
-    state_creator: number;
+    state_id: string;
+    state_creator: string;
     state_name: string;
     state_description: string;
     state_colour_text: string;
@@ -47,8 +47,8 @@ declare namespace GIDData {
   }
 
   interface tag {
-    tag_id: number;
-    tag_creator: number;
+    tag_id: string;
+    tag_creator: string;
     tag_name: string;
     tag_description: string;
     tag_type: tag_type;
@@ -59,8 +59,8 @@ declare namespace GIDData {
   type tag_type = "context" | "project" | "other";
 
   interface task {
-    task_id: number;
-    task_creator: number;
+    task_id: string;
+    task_creator: string;
     task_title: string;
     task_description: string;
     task_date_start: string;
@@ -73,38 +73,38 @@ declare namespace GIDData {
   }
 
   interface task_tag {
-    task_id: number;
-    tag_id: number;
+    task_id: string;
+    tag_id: string;
   }
 
   interface task_state {
-    task_id: number;
-    state_id: number;
+    task_id: string;
+    state_id: string;
   }
 
   interface task_asignee {
-    task_id: number;
-    user_id: number;
+    task_id: string;
+    user_id: string;
   }
 
   interface comment {
-    comment_id: number;
-    task_id: number;
-    user_id: number;
+    comment_id: string;
+    task_id: string;
+    user_id: string;
     comment: string;
     comment_last_changed: string;
   }
 
   interface inbox_code {
-    inbox_id: number;
-    inbox_owner: number;
+    inbox_id: string;
+    inbox_owner: string;
     inbox_code: string;
     inbox_extras: string;
   }
 
   interface filter {
-    filter_id: number;
-    filter_creator: number;
+    filter_id: string;
+    filter_creator: string;
     filter_name: string;
     filter_data: string;
   }
@@ -142,16 +142,16 @@ declare namespace Express {
 }
 
 interface TokenUser {
-  user_id: number;
+  user_id: string;
   username: string;
   role: GIDData.user_role;
 }
 
 interface AuthedUser {
-  user_id: number;
+  user_id: string;
   user_name: string;
   user_displayname: string;
   user_role: GIDData.user_role;
   user_active: boolean;
-  user_invited_from: number | null;
+  user_invited_from: string | null;
 }
