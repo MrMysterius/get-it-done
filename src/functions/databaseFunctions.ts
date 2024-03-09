@@ -2,31 +2,15 @@ import { db, logger } from "../main";
 
 import Database from "better-sqlite3";
 
-type IsSQLParameter<Part> = Part extends `@${infer PartA}` ? PartA : never;
-type RemoveNewLine<Statement> = Statement extends `${infer PartA}\n${infer PartB}` ? `${PartA} ${RemoveNewLine<PartB>}` : Statement;
-type StatementParts<Part> = RemoveNewLine<Part> extends `${infer PartA} ${infer PartB}` ? IsSQLParameter<PartA> | StatementParts<PartB> : IsSQLParameter<Part>;
-
-type SQLPOriginalParameter<Original, Parameter> = Parameter extends keyof Original ? Original[Parameter] : never;
-
-type SQLParameters<Original, Statement extends string> = {
-  [Key in StatementParts<Statement>]: SQLPOriginalParameter<Original, Key>;
-};
+type SQLParameters<Original, T extends string> = ObjectifyWithOriginal<Original, StartsWith<SplitToParts<ReplaceWith<T, "\n", " ">>, "@">>;
 
 type SelectedColumns<T> = SplitToParts<SplitToParts<SplitToParts<SplitToParts<T, " ,">, " , ">, ", ">, " ">;
-
-type Objectify<Original, Statement extends string> = {
-  [Key in Statement]: SQLPOriginalParameter<Original, Key>;
-};
 
 type SelectReturn<Original, Statement> = Statement extends `SELECT ${infer PartA} FROM ${infer Anything}`
   ? PartA extends `*`
     ? Original
     : ObjectifyWithOriginal<Original, SelectedColumns<PartA>>
   : never;
-
-// type TESTC = SelectedColumns<"test, test2 ,test3 , test4">;
-// type TEST = SelectReturn<GIDData.user, "SELECT test, user_id ,test3 , test4 FROM users">;
-// type TESTO = SelectReturn<GIDData.user, "SELECT * FROM users">;
 
 export function executeRawStatement(sql_statement: string, ...params: any[]): Responses.Database<Database.RunResult | null> {
   try {

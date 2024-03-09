@@ -162,6 +162,9 @@ type StartsAndEndsWith<T extends string, Start extends string = "", End extends 
 type SplitToParts<Part, Spliter extends string = " ", Blacklisted extends string = ""> = Part extends `${infer PartA}${Spliter}${infer PartB}`
   ? (PartA extends `${Blacklisted}` ? never : PartA) | SplitToParts<PartB, Spliter>
   : Part;
+type ReplaceWith<T extends string, Search extends string = "", Replace extends string = Search> = T extends `${infer PartA}${Search}${infer PartB}`
+  ? `${PartA}${Replace}${ReplaceWith<PartB, Search, Replace>}`
+  : T;
 
 type KeyTypeExtract<T, K> = K extends keyof T ? T[K] : never;
 type KeyExists<T, K> = K extends keyof T ? K : never;
