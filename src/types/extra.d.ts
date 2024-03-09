@@ -155,3 +155,17 @@ interface AuthedUser {
   user_active: boolean;
   user_invited_from: string | null;
 }
+
+type StartsWith<T extends string, Start extends string = ""> = T extends `${Start}${infer Part}` ? Part : never;
+type EndsWith<T extends string, End extends string = ""> = T extends `${infer Part}${End}` ? Part : never;
+type StartsAndEndsWith<T extends string, Start extends string = "", End extends string = ""> = StartsWith<EndsWith<T, End>, Start>;
+type SplitToParts<Part, Spliter extends string = " ", Blacklisted extends string = ""> = Part extends `${infer PartA}${Spliter}${infer PartB}`
+  ? (PartA extends `${Blacklisted}` ? never : PartA) | SplitToParts<PartB, Spliter>
+  : Part;
+
+type KeyTypeExtract<T, K> = K extends keyof T ? T[K] : never;
+type KeyExists<T, K> = K extends keyof T ? K : never;
+
+type ObjectifyWithOriginal<Original, K extends string> = {
+  [Key in KeyExists<Original, K>]: KeyTypeExtract<Original, Key>;
+};
