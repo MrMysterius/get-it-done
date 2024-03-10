@@ -72,6 +72,23 @@ export function createTransactionStatementTyped<TransactionRequiredData>(sql_sta
   };
 }
 
+export function createTransaction<InputDataType>() {
+  return function <T extends string>(sql_statement: T) {
+    const statement = db.prepare(sql_statement);
+    return {
+      run: (data: SQLParameters<InputDataType, T>) => {
+        try {
+          const res = statement.run(data);
+          return { isSuccessful: true, data: res };
+        } catch (err: any) {
+          logger.error(err.message, { stack: err.stack });
+          return { isSuccessful: false, data: null };
+        }
+      },
+    };
+  };
+}
+
 export function createDataQuery<InputDataType = null, ResponseDataType = InputDataType>() {
   return function <T extends string>(sql_statement: T) {
     const statement = db.prepare(sql_statement);
