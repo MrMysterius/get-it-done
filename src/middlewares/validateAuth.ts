@@ -1,9 +1,9 @@
 import Express from "express";
 import JWT from "jsonwebtoken";
-import { getData } from "../functions/databaseFunctions";
+import { createDataQuery } from "../functions/databaseFunctions";
 import { updateLastActionTimestamp } from "../functions/updateLastActionTimestamp";
 
-export function validateAuth(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+export function validateAuth(req: Express.Request, _res: Express.Response, next: Express.NextFunction) {
   const token = req.headers.authorization || req.signedCookies.token || null;
 
   req.isAuthed = false;
@@ -23,7 +23,9 @@ export function validateAuth(req: Express.Request, res: Express.Response, next: 
     return;
   }
 
-  const user = getData<GIDData.user>(`SELECT * FROM users WHERE user_id = ?`, tokenPayload?.user_id || 0);
+  const userQuery = createDataQuery<GIDData.user>()(`SELECT * FROM users WHERE user_id = @user_id`);
+
+  const user = userQuery.get({ user_id: tokenPayload?.user_id || "" });
 
   if (user.isSuccessful && user.data && user.data.user_active) {
     req.isAuthed = true;
