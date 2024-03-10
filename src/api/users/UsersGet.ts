@@ -1,10 +1,9 @@
-import { getAllData, getData } from "../../functions/databaseFunctions";
 import { getAllUsersWithInvitee, getUserWithInvitee } from "@/database-queries/userQueries";
 
 import Express from "express";
-import { generateErrorWithStatus } from "../../functions/generateErrorWithStatus";
+import { generateErrorWithStatus } from "@/functions/generateErrorWithStatus";
 import { param } from "express-validator";
-import { validateData } from "../../middlewares/validateData";
+import { validateData } from "@/middlewares/validateData";
 
 export const UsersGetRouter = Express.Router();
 
