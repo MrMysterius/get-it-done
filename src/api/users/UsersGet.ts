@@ -1,4 +1,4 @@
-import { getAllUsersWithInvitee, getUserWithInvitee } from "@/database-queries/userQueries";
+import { getAllUsersWithInvitee, getUserWithInvitee } from "@/functions/database/queries/userQueries";
 
 import Express from "express";
 import { generateErrorWithStatus } from "@/functions/generateErrorWithStatus";
