@@ -10,7 +10,7 @@ type SelectReturn<Original, Statement> = Statement extends `SELECT ${infer PartA
   ? PartA extends `*`
     ? Original
     : ObjectifyWithOriginal<Original, SelectedColumns<PartA>>
-  : never;
+  : Original | never;
 
 export function executeRawStatement(sql_statement: string, ...params: any[]): Responses.Database<Database.RunResult | null> {
   try {
