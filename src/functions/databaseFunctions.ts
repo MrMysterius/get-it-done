@@ -12,6 +12,9 @@ type SelectReturn<Original, Statement> = Statement extends `SELECT ${infer PartA
     : ObjectifyWithOriginal<Original, SelectedColumns<PartA>>
   : Original | never;
 
+/**
+ * @deprecated Will soon be Removed
+ */
 export function executeRawStatement(sql_statement: string, ...params: any[]): Responses.Database<Database.RunResult | null> {
   try {
     const res = db.prepare(sql_statement).run(...params);
@@ -22,6 +25,9 @@ export function executeRawStatement(sql_statement: string, ...params: any[]): Re
   }
 }
 
+/**
+ * @deprecated Will soon be Removed
+ */
 export function getData<ResponseDataType>(sql_statement: string, ...params: any[]): Responses.Database<ResponseDataType | null> {
   try {
     const data: ResponseDataType = db.prepare(sql_statement).get(...params) as ResponseDataType;
@@ -32,6 +38,9 @@ export function getData<ResponseDataType>(sql_statement: string, ...params: any[
   }
 }
 
+/**
+ * @deprecated Will soon be Removed
+ */
 export function getAllData<ResponseDataType>(sql_statement: string, ...params: any[]): Responses.Database<Array<ResponseDataType> | null> {
   try {
     const data: Array<ResponseDataType> = db.prepare(sql_statement).all(...params) as Array<ResponseDataType>;
@@ -42,6 +51,9 @@ export function getAllData<ResponseDataType>(sql_statement: string, ...params: a
   }
 }
 
+/**
+ * @deprecated Will soon be Removed
+ */
 export function createTransactionStatement(sql_statement: string) {
   const statement = db.prepare(sql_statement);
   return {
@@ -57,6 +69,9 @@ export function createTransactionStatement(sql_statement: string) {
   };
 }
 
+/**
+ * @deprecated Will soon be Removed
+ */
 export function createTransactionStatementTyped<TransactionRequiredData>(sql_statement: string) {
   const statement = db.prepare(sql_statement);
   return {
