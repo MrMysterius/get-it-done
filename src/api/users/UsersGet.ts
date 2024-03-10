@@ -1,4 +1,5 @@
 import { getAllData, getData } from "../../functions/databaseFunctions";
+import { getAllUsersWithInvitee, getUserWithInvitee } from "@/database-queries/userQueries";
 
 import Express from "express";
 import { generateErrorWithStatus } from "../../functions/generateErrorWithStatus";
@@ -12,64 +13,49 @@ const unauthedAccessError = generateErrorWithStatus("Unauthorized Access", 403);
 UsersGetRouter.get("/", (req, res) => {
   if (req.authedUser?.user_role != "admin") throw unauthedAccessError;
 
-  const users = getAllData<GIDData.user & { invitee_user_name: string; invitee_user_displayname: string }>(
-    `SELECT
-      users.*,
-      invite.user_name as invitee_user_name,
-      invite.user_displayname as invitee_user_displayname
-    FROM users
-    LEFT JOIN users as invite
-    ON invite.user_id = users.user_invited_from`
-  );
+  const users = getAllUsersWithInvitee.getAll({});
 
-  if (!users.isSuccessful) throw new Error();
+  if (!users.isSuccessful) throw new Error("Couldn't get users.");
 
-  res.status(200);
-  res.json(
+  const userList =
     users.data?.map((u) => {
-      const invitee = u.user_invited_from
-        ? { user_id: u.user_invited_from, user_name: u.invitee_user_name, user_displayname: u.invitee_user_displayname }
-        : null;
+      const invitee = u.user_invited_from ? { id: u.user_invited_from, name: u.invitee_user_name, displayname: u.invitee_user_displayname } : null;
+
       return {
-        user_id: u.user_id,
-        user_name: u.user_name,
-        user_displayname: u.user_displayname,
-        user_role: u.user_role,
+        id: u.user_id,
+        name: u.user_name,
+        displayname: u.user_displayname,
+        role: u.user_role,
         last_action: u.user_last_action_timestamp,
         user_active: u.user_active,
         invitee,
       };
-    }) || []
-  );
+    }) || [];
+
+  res.status(200);
+  res.json({
+    users: userList,
+  });
 });
 
 UsersGetRouter.get("/:user_id", param("user_id").trim().isNumeric().notEmpty(), validateData, (req, res) => {
   if (req.authedUser?.user_role != "admin") throw unauthedAccessError;
 
-  const user = getData<GIDData.user & { invitee_user_name: string; invitee_user_displayname: string }>(
-    `SELECT
-      users.*,
-      invite.user_name as invitee_user_name,
-      invite.user_displayname as invitee_user_displayname
-    FROM users
-    LEFT JOIN users as invite
-    ON invite.user_id = users.user_invited_from
-    WHERE users.user_id = ?`,
-    req.params.user_id
-  );
+  const user = getUserWithInvitee.get({ user_id: req.params.user_id });
 
-  if (!user.isSuccessful) throw new Error();
+  if (!user.isSuccessful) throw new Error("Couldn't get user.");
   if (!user.data) throw generateErrorWithStatus("This user does not exist", 404);
 
   const invitee = user.data.user_invited_from
-    ? { user_id: user.data.user_invited_from, user_name: user.data.invitee_user_name, user_displayname: user.data.invitee_user_displayname }
+    ? { id: user.data.user_invited_from, name: user.data.invitee_user_name, displayname: user.data.invitee_user_displayname }
     : null;
+
   res.status(200);
   res.json({
-    user_id: user.data.user_id,
-    user_name: user.data.user_name,
-    user_displayname: user.data.user_displayname,
-    user_role: user.data.user_role,
+    id: user.data.user_id,
+    name: user.data.user_name,
+    displayname: user.data.user_displayname,
+    role: user.data.user_role,
     last_action: user.data.user_last_action_timestamp,
     user_active: user.data.user_active,
     invitee,
