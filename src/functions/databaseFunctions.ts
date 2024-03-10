@@ -2,7 +2,10 @@ import { db, logger } from "../main";
 
 import Database from "better-sqlite3";
 
-type SQLParameters<Original, T extends string> = ObjectifyWithOriginal<Original, StartsWith<SplitToParts<ReplaceWith<T, "\n", " ">>, "@">>;
+type SQLParameters<Original, T extends string> = ObjectifyWithOriginal<
+  Original,
+  StartsWith<SplitToParts<ReplaceWith<ReplaceWith<ReplaceWith<ReplaceWith<T, "\n", " ">, ",", " ">, "(", " ">, ")", " ">>, "@">
+>;
 
 type SelectedColumns<T> = SplitToParts<SplitToParts<SplitToParts<SplitToParts<T, " ,">, " , ">, ", ">, " ">;
 
