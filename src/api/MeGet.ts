@@ -1,5 +1,4 @@
 import Express from "express";
-import { validateData } from "@/middlewares/validateData";
 
 export const MeGetRouter = Express.Router();
 
