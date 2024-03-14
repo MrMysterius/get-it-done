@@ -2,6 +2,9 @@ import { db, logger } from "../main";
 
 import Database from "better-sqlite3";
 
+/**
+ * @deprecated Use [`DBTransaction`](./database/Transaction.ts)
+ */
 export function executeRawStatement(sql_statement: string, ...params: any[]): Responses.Database<Database.RunResult | null> {
   try {
     const res = db.prepare(sql_statement).run(...params);
@@ -12,6 +15,9 @@ export function executeRawStatement(sql_statement: string, ...params: any[]): Re
   }
 }
 
+/**
+ * @deprecated Use [`DBTransaction`](./database/Query.ts)
+ */
 export function getData<ResponseDataType>(sql_statement: string, ...params: any[]): Responses.Database<ResponseDataType | null> {
   try {
     const data: ResponseDataType = db.prepare(sql_statement).get(...params) as ResponseDataType;
@@ -22,6 +28,9 @@ export function getData<ResponseDataType>(sql_statement: string, ...params: any[
   }
 }
 
+/**
+ * @deprecated Use [`DBTransaction`](./database/Query.ts)
+ */
 export function getAllData<ResponseDataType>(sql_statement: string, ...params: any[]): Responses.Database<Array<ResponseDataType> | null> {
   try {
     const data: Array<ResponseDataType> = db.prepare(sql_statement).all(...params) as Array<ResponseDataType>;
@@ -32,6 +41,9 @@ export function getAllData<ResponseDataType>(sql_statement: string, ...params: a
   }
 }
 
+/**
+ * @deprecated Use [`DBTransaction`](./database/Transaction.ts)
+ */
 export function createTransactionStatement(sql_statement: string) {
   const statement = db.prepare(sql_statement);
   return {
@@ -47,6 +59,9 @@ export function createTransactionStatement(sql_statement: string) {
   };
 }
 
+/**
+ * @deprecated Use [`DBTransaction`](./database/Transaction.ts)
+ */
 export function createTransactionStatementTyped<TransactionRequiredData>(sql_statement: string) {
   const statement = db.prepare(sql_statement);
   return {
