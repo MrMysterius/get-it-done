@@ -1,8 +1,7 @@
-import { createTransactionStatement } from "./databaseFunctions";
+import { updateUsersLastAction } from "./database/transactions/users";
 
 export function updateLastActionTimestamp(user_id: number) {
-  const statement = createTransactionStatement(`UPDATE users SET user_last_action_timestamp = ? WHERE user_id = ?`);
-  const res = statement.run(Date.now().toString(), user_id);
+  const res = updateUsersLastAction.run({ user_id: user_id, user_last_action_timestamp: Date.now().toString() });
   if (!res.isSuccessful) {
     throw new Error(`Couldn't update user ${user_id}'s last action timestamp`);
   }
