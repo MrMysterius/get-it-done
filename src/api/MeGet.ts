@@ -1,5 +1,4 @@
 import Express from "express";
-import { validateData } from "@/middlewares/validateData";
 
 export const MeGetRouter = Express.Router();
 
@@ -8,9 +7,9 @@ MeGetRouter.get("/", (req, res) => {
 
   res.status(200);
   res.json({
-    user_id,
-    user_name,
-    user_displayname,
-    user_role,
+    id: user_id,
+    name: user_name,
+    displayname: user_displayname,
+    role: user_role,
   });
 });
