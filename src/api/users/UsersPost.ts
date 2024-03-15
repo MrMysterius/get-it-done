@@ -1,7 +1,8 @@
-import { createTransactionStatement, getData } from "../../functions/databaseFunctions";
+import { getUserByID, getUserByName } from "@/functions/database/queries/users";
 
 import Express from "express";
 import { body } from "express-validator";
+import { createNewUser } from "@/functions/database/transactions/users";
 import { generateErrorWithStatus } from "../../functions/generateErrorWithStatus";
 import { generatePasswordHash } from "../../functions/generatePasswordHash";
 import { user_roles } from "../../types/types";
@@ -19,13 +20,13 @@ UsersPostRouter.post(
     .escape()
     .isLength({ min: 1, max: 40 })
     .isAlphanumeric("en-US", { ignore: "._-" })
-    .custom((name: string) => {
-      const user = getData<Pick<GIDData.user, "user_name">>(`SELECT user_name FROM users WHERE user_name = ?`, name);
+    .custom((user_name: string) => {
+      const user = getUserByName.get({ user_name: user_name });
       if (user.data) throw new Error("User with that username allready exists");
       return true;
     }),
 
-  body("password").trim().notEmpty().isAscii().isLength({ max: 128 }),
+  body("user_password").trim().notEmpty().isAscii().isLength({ max: 128 }),
 
   body("user_displayname").trim().escape().notEmpty().isAscii().isLength({ max: 40 }).optional(),
 
@@ -42,7 +43,7 @@ UsersPostRouter.post(
     .default(0)
     .isNumeric()
     .custom((id: number) => {
-      const user = getData<Pick<GIDData.user, "user_id" | "user_name">>(`SELECT user_id, user_name FROM users WHERE user_id = ?`, id);
+      const user = getUserByID.get({ user_id: id });
       if (!user.data && id != 0) throw new Error("Invitee doesn't exist");
       return true;
     }),
@@ -54,26 +55,25 @@ UsersPostRouter.post(
   (req, res) => {
     if (req.authedUser?.user_role != "admin") throw generateErrorWithStatus("Unauthorized Access", 403);
 
-    const statement = createTransactionStatement(
-      `INSERT INTO users (user_name, user_password_hash, user_displayname, user_role, user_invited_from, user_active) VALUES (?, ?, ?, ?, ?, ?)`
-    );
-
-    const result = statement.run(
-      req.body.user_name,
-      generatePasswordHash(req.body.password),
-      req.body.user_displayname || req.body.user_name,
-      req.body.user_role,
-      req.body.invitee_id || null,
-      1
-    );
+    const result = createNewUser.run({
+      user_name: req.body.user_name,
+      user_password_hash: generatePasswordHash(req.body.user_password),
+      user_displayname: req.body.user_displayname || req.body.user_name,
+      user_role: req.body.user_role,
+      user_invited_from: req.body.invitee_id || null,
+      user_active: 1 as unknown as boolean,
+    });
 
     if (!result.isSuccessful || !result.data || result.data.changes != 1) throw generateErrorWithStatus("Internal Server Error", 500);
 
     res.status(200);
     res.json({
-      user_id: result.data.lastInsertRowid,
-      user_name: req.body.user_name,
-      user_role: req.body.user_role,
+      user: {
+        id: result.data.lastInsertRowid,
+        name: req.body.user_name,
+        displayname: req.body.user_displayname || req.body.user_name,
+        role: req.body.user_role,
+      },
     });
   }
 );
