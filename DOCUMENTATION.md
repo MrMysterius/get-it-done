@@ -52,74 +52,101 @@ It also returns JSON data with the token directly for using in the `Authorizatio
 
 ### GET /users
 
-**ADMIN ONLY**
+> ADMIN ONLY
 
-For getting a full list of all users.
+Endpoint for getting a full list of all users.
 
-Returns:
+Parameters:
 
-```json
-[
-  {
-    // USER OBJECT
-  },
-  {
-    // ANOTHER USER OBJECT
-  }
-]
-```
+> Empty
+
+Request Data:
+
+> Empty
+
+Response Data:
+
+| KEY        | DESCRIPTION              | TYPE                               |
+| ---------- | ------------------------ | ---------------------------------- |
+| user_count | The total user count.    | number                             |
+| users      | A list of all the users. | Array<[User Object](#user-object)> |
 
 #### User Object
 
-| KEY              | DESCRIPTION                                      | VALUE TYPE                                |
-| ---------------- | ------------------------------------------------ | ----------------------------------------- |
-| user_id          | The users id                                     | number                                    |
-| user_name        | The users name - unique                          | string                                    |
-| user_displayname | The users display name                           | string                                    |
-| user_role        | The users role                                   | `admin` or `user`                         |
-| last_action      | A timestamp of the users last action on the app  | string                                    |
-| user_active      | If user is activated and can do stuff (soft ban) | `0` or `1`                                |
-| invitee          | An object of who invited this user               | [Invitee Object](#invitee-object) or null |
+| KEY         | DESCRIPTION                                      | VALUE TYPE                                |
+| ----------- | ------------------------------------------------ | ----------------------------------------- |
+| id          | The users id                                     | number                                    |
+| name        | The users name - unique                          | string                                    |
+| displayname | The users display name                           | string                                    |
+| role        | The users role                                   | `admin` or `user`                         |
+| last_action | A timestamp of the users last action on the app  | string                                    |
+| is_active   | If user is activated and can do stuff (soft ban) | `0` or `1`                                |
+| invitee     | An object of who invited this user               | [Invitee Object](#invitee-object) or null |
 
 #### Invitee Object
 
-| KEY              | DESCRIPTION                                  | VALUE TYPE |
-| ---------------- | -------------------------------------------- | ---------- |
-| user_id          | The users id that invited the user           | number     |
-| user_name        | The users name that invited the user         | string     |
-| user_displayname | The users display name that invited the user | string     |
+| KEY         | DESCRIPTION                                  | VALUE TYPE |
+| ----------- | -------------------------------------------- | ---------- |
+| id          | The users id that invited the user           | number     |
+| name        | The users name that invited the user         | string     |
+| displayname | The users display name that invited the user | string     |
 
 ### GET /users/:user_id
 
-For getting a specific user.
+> ADMIN ONLY
+
+Endpoint for getting a specific user.
+
+Parameters:
 
 | Parameter | Description         |
 | --------- | ------------------- |
 | user_id   | The users id to get |
 
-Returns one [User Object](#user-object):
+Request Data:
 
-```json
-{
-  // USER OBJECT
-}
-```
+> Empty
+
+Response Data:
+
+| KEY  | DESCRIPTION         | TYPE                        |
+| ---- | ------------------- | --------------------------- |
+| user | The user requested. | [User Object](#user-object) |
 
 ### POST /users
 
-**ADMIN ONLY**
+> ADMIN ONLY
 
-For creating a new user.
+Endpoint for creating a new User.
 
-Request with a JSON Object in the body:
+Parameters:
 
-| KEY              | Description                     | Value Type         | OPTIONAL                 | LIMITATIONS                            |
-| ---------------- | ------------------------------- | ------------------ | ------------------------ | -------------------------------------- |
-| user_name        | The new users username - unique | string             | NO                       | Min: 1, Max: 40, Alphanumeric + ".\_-" |
-| password         | The new users password          | string             | NO                       | Max: 128, Ascii Chars only             |
-| user_displayname | The new users display name      | string             | YES                      | Max: 40                                |
-| user_role        | The new users role              | `admin` or `users` | YES (Defaults to `user`) | `admin` or `user`                      |
-| invitee_id       | The new users invitee by id     | number             | YES (Defaults to `null`) | ID of a existing user                  |
+> Empty
+
+Request Data:
+
+| KEY              | DESCRIPTION                     | VALUE TYPE         | OPTIONAL                          | LIMITATIONS                                 |
+| ---------------- | ------------------------------- | ------------------ | --------------------------------- | ------------------------------------------- |
+| user_name        | The new users username - unique | string             | NO                                | Min: 1, Max: 40, Alphanumeric + `.`,`_`,`-` |
+| user_password    | The new users password          | string             | NO                                | Max: 128, Ascii Chars only                  |
+| user_displayname | The new users display name      | string             | YES (Defaults to the `user_name`) | Max: 40                                     |
+| user_role        | The new users role              | `admin` or `users` | YES (Defaults to `user`)          | `admin` or `user`                           |
+| invitee_id       | The new users invitee by id     | number             | YES (Defaults to `null`)          | ID of a existing user                       |
+
+Response Data:
+
+| KEY  | DESCRIPTION         | TYPE         |
+| ---- | ------------------- | ------------ |
+| user | The user requested. | Partial User |
+
+Partial User:
+
+| KEY         | DESCRIPTION                | TYPE              |
+| ----------- | -------------------------- | ----------------- |
+| id          | The new users ID.          | number            |
+| name        | The new users name.        | string            |
+| displayname | The new users displayname. | string            |
+| role        | The new users role.        | `admin` or `user` |
 
 ### PUT /users/:user_id
 
