@@ -33,7 +33,7 @@ jobs:
 
       - name: Lowercase Repository
         shell: bash
-        run: echo "repo=${GITHUB_REPOSITORY@L}" >> $GITHUB_OUTPUT
+        run: echo "repo=${GITHUB_REPOSITORY,,}" >> $GITHUB_OUTPUT
         id: lowercase_repository
 
       - name: Build and Push
