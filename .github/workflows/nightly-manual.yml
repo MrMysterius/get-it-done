@@ -2,6 +2,11 @@ name: 'Nightly Build'
 
 on:
   workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'test'
+        required: false
+        default: 'test'
 
 jobs:
   nightly:
