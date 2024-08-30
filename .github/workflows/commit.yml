@@ -1,12 +1,11 @@
 name: 'Nightly Build'
 
 on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'test'
-        required: false
-        default: 'test'
+  push:
+    branches:
+      - 'main'
+      - 'development'
+      - 'rewrite'
 
 jobs:
   nightly:
@@ -27,6 +26,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUBPAT_TOKEN }}
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
       - name: Build and Push
         uses: docker/build-push-action@v2
         with:
@@ -34,4 +38,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/MrMysterius/get-it-done:nightly
+            ghcr.io/MrMysterius/get-it-done:${{ steps.extract_branch.outputs.branch }}
