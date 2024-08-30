@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GetItDone</title>
+
+    <link rel="stylesheet" href="/styles/general.css" />
+    <link rel="stylesheet" href="/styles/frontpage.css" />
+
+    <script type="module" src="/scripts/front.js"></script>
+
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>GetItDone</h1>
+
+      <h2>Login</h2>
+
+      <form action="/auth" method="post" id="login-form">
+        <label for="login-username">Username</label>
+        <input type="text" name="username" id="login-username" autocomplete="username" />
+        <br />
+
+        <label for="login-password">Password</label>
+        <input type="password" name="password" id="login-password" autocomplete="current-password" />
+        <br />
+
+        <button type="submit">Login</button>
+      </form>
+
+      <br />
+      <hr />
+
+      <h2>Sign Up</h2>
+
+      <form action="/signup" method="post" id="signup-form">
+        <label for="signup-username">Username</label>
+        <input type="text" name="username" id="signup-username" autocomplete="username" />
+        <br />
+
+        <label for="signup-password">Password</label>
+        <input type="password" name="password" id="signup-password" autocomplete="new-password" />
+        <br />
+
+        <label for="signup-invitecode">Invite Code</label>
+        <input type="text" name="invite_code" id="signup-invitecode" />
+        <br />
+
+        <button type="submit">Signup</button>
+      </form>
+
+      <h6>GetItDone - v0.2.6</h6>
+
+      <div id="popup-container"></div>
+
+      <div id="notice-container"></div>
+    </div>
+
+    <template id="template-popup">
+      <div class="popup">
+        <div class="popup-content">
+          <div class="popup-close unselectable">X</div>
+        </div>
+      </div>
+    </template>
+
+    <template id="template-notice">
+      <div class="notice">
+        <p class="notice-text"></p>
+      </div>
+    </template>
+  </body>
+</html>

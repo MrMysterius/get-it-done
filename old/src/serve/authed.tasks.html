@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GetItDone | Tasks</title>
+
+    <script src="/libs/authed.showdown.min.js"></script>
+    <script type="module" src="/scripts/authed.tasks.js"></script>
+    <script type="module" src="/scripts/sidebarToggle.js"></script>
+
+    <link rel="stylesheet" href="/styles/general.css" />
+    <link rel="stylesheet" href="/styles/tasks.css" />
+    <link rel="stylesheet" href="/styles/groups.css" />
+    <link rel="stylesheet" href="/styles/filters.css" />
+
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+  </head>
+  <body>
+    <div class="page">
+      <div id="tasks-wrapper">
+        <div id="tasks">
+          <input type="text" id="task-new-title" placeholder="New Task..." />
+          <div class="quick-filters-container">
+            <select class="quick-filter-grouping" disabled>
+              <option value="no-grouping">No Grouping</option>
+              <option value="state-grouping-asc">Group by State Ascending</option>
+              <option value="state-grouping-dec">Group by State Decending</option>
+            </select>
+            <select class="quick-filter-sorting" disabled>
+              <option value="no-sorting">No Sorting</option>
+              <option value="creation-sort-asc">Sort by Creation Ascending</option>
+              <option value="creation-sort-dec">Sort by Creation Decending</option>
+            </select>
+            <input class="quick-filter-tag-search" type="text" placeholder="Tag Search..." disabled />
+          </div>
+        </div>
+      </div>
+
+      <div id="sidebar-menu">
+        <h1>Tasks</h1>
+
+        <select id="group-selection"></select>
+
+        <hr />
+
+        <button id="group-manage" disabled>Manage Group</button><br />
+        <div>
+          <button id="group-tags" disabled>Tags</button>
+          <button id="group-states" disabled>States</button>
+          <button id="group-inboxes" disabled>Inboxes</button>
+        </div>
+
+        <hr />
+
+        <div class="filters">
+          <button class="add-filter" disabled>Add Filter</button>
+          <button class="no-filter" disabled>No Filter</button>
+          <hr />
+          <div class="filter-list"></div>
+        </div>
+
+        <hr />
+
+        <div>
+          <button id="user-settings" disabled>User Settings</button>
+          <a href="/deauth"><button>LOGOUT</button></a>
+        </div>
+
+        <h6>GetItDone - v0.2.6</h6>
+        <br />
+      </div>
+      <div id="sidebar-menu-drawer">
+        <p class="closed">></p>
+        <p class="opened"><</p>
+      </div>
+
+      <div id="popup-container"></div>
+
+      <div id="notice-container"></div>
+    </div>
+
+    <template id="template-task">
+      <div class="task">
+        <h3 class="task-title"></h3>
+        <div class="task-tags"></div>
+      </div>
+    </template>
+
+    <template id="template-popup">
+      <div class="popup">
+        <div class="popup-content">
+          <div class="popup-close unselectable">X</div>
+        </div>
+      </div>
+    </template>
+
+    <template id="template-notice">
+      <div class="notice">
+        <p class="notice-text"></p>
+      </div>
+    </template>
+
+    <div id="preloaded-stuff" style="position: absolute; top: -500px; left: -500px; opacity: 0; z-index: -10000">
+      <object data="/assets/Context.svg" alt="Tag" style="height: 18px; width: 18px; display: inline-block" title="Context"></object>
+      <object data="/assets/Project.svg" alt="Tag" style="height: 18px; width: 18px; display: inline-block" title="Project"></object>
+      <object data="/assets/Tag.svg" alt="Tag" style="height: 18px; width: 18px; display: inline-block" title="Tag"></object>
+    </div>
+  </body>
+</html>

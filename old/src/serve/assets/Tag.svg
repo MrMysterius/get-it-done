@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 67.733332 67.733333"
+   version="1.1"
+   id="svg31685"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="Tag.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview31687"
+     pagecolor="#505050"
+     bordercolor="currentColor"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="1.104894"
+     inkscape:cx="92.316546"
+     inkscape:cy="152.95585"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="39"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs31682" />
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path31689"
+       style="fill:currentColor;stroke-width:0.329547"
+       d="m 49.598601,5.927534 c -6.548853,-0.00878 -12.697883,4.68318 -12.697883,4.68318 L 6.425285,39.398502 27.937279,61.805811 57.14022,30.082989 c 0,0 8.596994,-12.194652 1.096777,-20.3476357 C 55.634904,6.9067969 52.575349,5.931526 49.598601,5.927534 Z m 0.37782,6.475739 a 5.0616701,5.0616701 0 0 1 5.061647,5.061646 5.0616701,5.0616701 0 0 1 -5.061647,5.061646 5.0616701,5.0616701 0 0 1 -5.061645,-5.061646 5.0616701,5.0616701 0 0 1 5.061645,-5.061646 z m -13.757326,13.911159 1.488757,1.516433 -18.85759,18.518388 -1.488757,-1.516433 z m 9.358638,2.422046 1.442415,1.468804 -22.411171,22.008246 -1.442414,-1.468803 z m -10.934931,5.071943 1.349086,1.373545 -14.308933,14.052117 -1.349084,-1.374188 z" />
+  </g>
+</svg>

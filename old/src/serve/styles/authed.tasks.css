@@ -1,0 +1,243 @@
+body {
+  overflow: hidden;
+}
+
+#tasks-wrapper {
+  margin: auto;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-left: 250px;
+
+  max-height: 100vh;
+  overflow-y: scroll;
+}
+
+@media (max-width: 700px) {
+  #tasks-wrapper {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+}
+
+div#tasks {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  max-width: 45vw;
+  /* justify-content: center; */
+  gap: 0.7em;
+  overflow-x: hidden;
+}
+
+.grouping-div {
+  display: none;
+}
+.grouping-div:has(.tasks .task) {
+  display: block;
+}
+
+.grouping-div .grouping-details summary h4 {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.grouping-div .tasks {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  /* justify-content: center; */
+  gap: 0.7em;
+}
+
+div#tasks h1 {
+  text-align: center;
+}
+
+#task-new-title {
+  margin-top: 0.5em;
+  background-color: #36435c;
+  border: #dadada solid 0.1em;
+  border-radius: 2em;
+  padding: 0.3em 0.5em 0.3em 0.5em;
+  font-size: 1.5em;
+  color: #ffffff;
+}
+
+.quick-filters-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+.quick-filters-container > * {
+  height: 2.5em;
+  border-radius: 1em;
+  padding: 0;
+  flex: 1;
+}
+
+#task-new-title:active,
+#task-new-title:focus {
+  border: #ffffff solid 0.1em;
+}
+
+.task {
+  min-width: 0;
+  border-radius: 10px;
+  background-color: #36435c;
+  padding-left: 1em;
+  padding-bottom: 0.5em;
+
+  animation-name: TaskPopin;
+  animation-duration: 500ms;
+
+  cursor: pointer;
+
+  max-width: inherit;
+  word-wrap: break-word;
+}
+
+.task.TaskPopout {
+  animation-name: TaskPopout;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+  cursor: none;
+}
+
+.task .task-title {
+  font-size: 1.25em;
+}
+
+.task .task-tags {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  align-items: center;
+  min-height: 0;
+}
+
+.task .task-tags svg {
+  color: white;
+  fill: white;
+}
+
+.task .task-tag {
+  display: flex;
+  gap: 0.2em;
+  padding: 0.2em 0.4em 0.2em 0.4em;
+  border-radius: 2em;
+  margin: 0;
+}
+
+@media (max-width: 1065px) {
+  div#tasks {
+    max-width: 90vw;
+  }
+
+  .quick-filters-container {
+    flex-direction: column;
+    align-items: unset;
+  }
+}
+
+@keyframes TaskPopin {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes TaskPopout {
+  0% {
+    opacity: 1;
+    max-height: 1000px;
+    cursor: none;
+  }
+  50% {
+    max-height: 1000px;
+    opacity: 0;
+    cursor: none;
+  }
+  99% {
+    opacity: 0;
+    max-height: 0px;
+    cursor: none;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+    max-height: 0px;
+    cursor: none;
+  }
+}
+
+.popup .task-description-display {
+  font-size: 0.9em;
+}
+.popup .task-description-display h1 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  font-size: 1.5em;
+  text-decoration: underline;
+}
+.popup .task-description-display h2 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  font-size: 1.25em;
+  text-decoration: underline;
+}
+.popup .task-description-display h3 {
+  margin-top: 0.15em;
+  margin-bottom: 0.15em;
+  font-size: 1.1em;
+}
+.popup .task-description-display h4 {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  font-size: 1em;
+}
+.popup .task-description-display h5 {
+  margin-top: 0.05em;
+  margin-bottom: 0.05em;
+  font-size: 0.8em;
+}
+.popup .task-description-display h6 {
+  margin-top: 0.05em;
+  margin-bottom: 0.05em;
+  font-size: 0.7em;
+}
+
+.popup .task-description-display em,
+.popup .task-description-display i {
+  color: #c2bb98;
+}
+.popup .task-description-display strong,
+.popup .task-description-display b {
+  font-weight: 900;
+  color: #d9ffdf;
+}
+
+.popup .task-description-display code,
+.popup .task-description-display pre {
+  background-color: #2e2e2e7d;
+}
+.popup .task-description-display blockquote {
+  background-color: #ff7a557e;
+}
+
+.popup .task-description-display a {
+  color: #ff8d8d;
+  background-color: #2525258c;
+}
