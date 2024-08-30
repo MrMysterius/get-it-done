@@ -22,6 +22,3 @@ vite.config.ts.timestamp-*
 
 # Data
 /data
-
-# Old Version
-/old
