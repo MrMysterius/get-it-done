@@ -23,6 +23,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUBPAT_TOKEN }}
 
+      - name: Lowercase Repository
+        shell: bash
+        run: echo "repo=${GITHUB_REPOSITORY@L}" >> $GITHUB_OUTPUT
+        id: lowercase_repository
+
       - name: Build and Push
         uses: docker/build-push-action@v2
         with:
@@ -30,4 +35,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}:nightly
+            ghcr.io/${{ steps.extract_branch.outputs.repo }}:nightly

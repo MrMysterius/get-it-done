@@ -1,4 +1,4 @@
-name: 'Nightly Build'
+name: 'Commit Build'
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   nightly:
-    name: Build Docker Image Nightly
+    name: Build Docker Image
     runs-on: ubuntu-20.04
 
     steps:
@@ -31,6 +31,11 @@ jobs:
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
 
+      - name: Lowercase Repository
+        shell: bash
+        run: echo "repo=${GITHUB_REPOSITORY@L}" >> $GITHUB_OUTPUT
+        id: lowercase_repository
+
       - name: Build and Push
         uses: docker/build-push-action@v2
         with:
@@ -38,4 +43,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}:${{ steps.extract_branch.outputs.branch }}
+            ghcr.io/${{ steps.extract_branch.outputs.repo }}:${{ steps.extract_branch.outputs.branch }}
