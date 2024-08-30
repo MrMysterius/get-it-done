@@ -1,7 +1,10 @@
 {
-	"name": "svelty-appy",
-	"version": "0.0.1",
+	"name": "get-it-done",
+	"version": "0.3.0",
 	"private": true,
+	"description": "Taskmanaging Application with the GTD Principal in Mind",
+	"author": "Mr Mysterius",
+  "license": "LGPL-3.0-or-later",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -13,7 +16,9 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"test:ui": "playwright test --ui"
+		"test:ui": "playwright test --ui",
+		"start": "pnpm prisma:migrate && pnpm preview",
+		"prisma:migrate": "prisma migrate deploy"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
