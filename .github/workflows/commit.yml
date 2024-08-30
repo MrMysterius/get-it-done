@@ -38,4 +38,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/MrMysterius/get-it-done:${{ steps.extract_branch.outputs.branch }}
+            ghcr.io/${{ github.repository }}:${{ steps.extract_branch.outputs.branch }}

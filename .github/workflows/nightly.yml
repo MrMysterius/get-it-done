@@ -30,4 +30,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/MrMysterius/get-it-done:nightly
+            ghcr.io/${{ github.repository }}:nightly
