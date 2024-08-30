@@ -4,7 +4,7 @@
 	"private": true,
 	"description": "Taskmanaging Application with the GTD Principal in Mind",
 	"author": "Mr Mysterius",
-  "license": "LGPL-3.0-or-later",
+	"license": "LGPL-3.0-or-later",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
