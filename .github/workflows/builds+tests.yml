@@ -23,11 +23,11 @@ jobs:
       - name: PNPM Install
         run: 'npm install -g pnpm'
 
-      - name: Playwright Install
-        run: 'pnpm exec playwright install'
-
       - name: Install Dependencies
         run: 'pnpm install --frozen-lockfile'
+
+      - name: Playwright Install
+        run: 'pnpm exec playwright install'
 
       - name: Run Tests
         run: 'pnpm test'
