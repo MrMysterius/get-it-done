@@ -10,15 +10,169 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id                    Int     @id @default(autoincrement())
-  name                  String  @unique
+model gid_info {
+  key   String @id @unique
+  value String
+}
+
+model user {
+  id                    String          @id // usr_***
+  name                  String          @unique
   password_hash         String
   displayname           String
-  role                  String  @default("user")
+  role                  String          @default("user")
   last_action_timestamp String?
   active                Boolean
-  invited_from          Int?
-  invitee               User?   @relation("Invitee", fields: [invited_from], references: [id])
-  User                  User[]  @relation("Invitee")
+  invited_from          String?
+  invitee               user?           @relation("user_invited_from", fields: [invited_from], references: [id])
+  user                  user[]          @relation("user_invited_from")
+  user_event            user_event[]
+  group                 group[]
+  group_members         group_members[]
+  group_event           group_event[]
+  task_asignee          task_asignee[]
+  task_comment          task_comment[]
+  invite                invite[]
+}
+
+model user_event {
+  id         String              @id // ue_****
+  event_name String
+  timestamp  DateTime            @default(now())
+  creator    String
+  user       user                @relation(fields: [creator], references: [id])
+  data       Unsupported("Json") //INFO Json isn't supported by sqlite so it probably needs to be a String that is serialized Json
+}
+
+model group {
+  id            String          @id // grp_****
+  name          String
+  owner         String
+  user          user            @relation(fields: [owner], references: [id])
+  group_members group_members[]
+  group_event   group_event[]
+  filters       filters[]
+  states        state[]
+  tag           tag[]
+  task          task[]
+  inbox_code    inbox_code[]
+}
+
+model group_members {
+  group_id String
+  user_id  String
+
+  group group @relation(fields: [group_id], references: [id])
+  user  user  @relation(fields: [user_id], references: [id])
+
+  @@id([group_id, user_id])
+}
+
+model group_event {
+  id         String              @id // ge_****
+  event_name String
+  timestamp  DateTime            @default(now())
+  origin     String
+  group      group               @relation(fields: [origin], references: [id])
+  creator    String
+  user       user                @relation(fields: [creator], references: [id])
+  data       Unsupported("Json") //INFO Json isn't supported by sqlite so it probably needs to be a String that is serialized Json
+}
+
+model filters {
+  id      String              @id // flt_****
+  creator String
+  group   group               @relation(fields: [creator], references: [id])
+  name    String
+  data    Unsupported("Json") //INFO Json isn't supported by sqlite so it probably needs to be a String that is serialized Json
+}
+
+model state {
+  id               String  @id // st_****
+  creator          String
+  group            group   @relation(fields: [creator], references: [id])
+  name             String
+  description      String  @default("")
+  color_text       String  @default("#000000")
+  color_background String  @default("#262626")
+  is_default       Boolean @default(false)
+  task             task[]
+}
+
+model tag {
+  id               String     @id // tag_****
+  creator          String
+  group            group      @relation(fields: [creator], references: [id])
+  name             String
+  description      String     @default("")
+  type             String
+  color_text       String     @default("#000000")
+  color_background String     @default("#66a3ff")
+  task_tag         task_tag[]
+}
+
+model task {
+  id            String         @id // tsk_****
+  creator       String
+  group         group          @relation(fields: [creator], references: [id])
+  title         String?
+  description   String?
+  date_start    DateTime?
+  date_due      DateTime?
+  time_estimate Int?
+  time_needed   Int?
+  archived      Boolean        @default(false)
+  date_creation DateTime       @default(now())
+  date_updated  DateTime?
+  current_state String
+  state         state          @relation(fields: [current_state], references: [id])
+  task_tag      task_tag[]
+  task_asignee  task_asignee[]
+  task_comment  task_comment[]
+}
+
+model task_tag {
+  task_id String
+  task    task   @relation(fields: [task_id], references: [id])
+  tag_id  String
+  tag     tag    @relation(fields: [tag_id], references: [id])
+
+  @@id([task_id, tag_id])
+}
+
+model task_asignee {
+  task_id String
+  task    task   @relation(fields: [task_id], references: [id])
+  user_id String
+  user    user   @relation(fields: [user_id], references: [id])
+
+  @@id([task_id, user_id])
+}
+
+model task_comment {
+  id            String   @id // cmt_****
+  task_id       String
+  task          task     @relation(fields: [task_id], references: [id])
+  creator       String
+  user          user     @relation(fields: [creator], references: [id])
+  comment       String
+  date_creation DateTime @default(now())
+  date_updated  DateTime
+}
+
+model invite {
+  id      String @id // inv_****
+  creator String
+  user    user   @relation(fields: [creator], references: [id])
+  code    String
+  limit   Int    @default(1)
+  uses    Int    @default(0)
+}
+
+model inbox_code {
+  id         String              @id // inb_****
+  owner      String
+  group      group               @relation(fields: [owner], references: [id])
+  code       String
+  extra_data Unsupported("Json") //INFO Json isn't supported by sqlite so it probably needs to be a String that is serialized Json
 }
