@@ -29,7 +29,7 @@ jobs:
       - run: 'pnpm exec playwright install'
 
       - name: Set env
-        run: echo "DATABASE_URL=file:../data/GetItDone.db TOKEN_SECRET=abc" >> $GITHUB_ENV
+        run: echo "DATABASE_URL=file:../data/GetItDone.db" >> $GITHUB_ENV; echo "TOKEN_SECRET=YippeeHoorayYattah" >> $GITHUB_ENV
       - run: pnpm prisma:generate
       - run: pnpm prisma:migrate
 
