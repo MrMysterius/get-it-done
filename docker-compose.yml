@@ -6,3 +6,4 @@ services:
       - './data:/data:rw'
     ports:
       - '4137:4137'
+    env_file: '.env.example'
