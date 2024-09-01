@@ -8,6 +8,7 @@ node_modules
 .vercel
 /.svelte-kit
 /build
+/test-results
 
 # OS
 .DS_Store

@@ -29,6 +29,9 @@ jobs:
       - name: Playwright Install
         run: 'pnpm exec playwright install'
 
+      - name: Set env
+        run: echo 'DATABASE_URL="file:../data/GetItDone.db"' >> $GITHUB_ENV
+
       - name: Run Tests
         run: 'pnpm test'
 
