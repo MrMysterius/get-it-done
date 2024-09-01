@@ -1,0 +1,33 @@
+{
+	"openapi": "3.0.3",
+	"info": {
+		"title": "GetItDone - API V1",
+		"version": "1.0"
+	},
+	"servers": [
+		{
+			"url": "/api/v1"
+		}
+	],
+	"tags": [
+		{ "name": "No Category", "description": "These paths have no specific category they fit in." }
+	],
+	"paths": {
+		"/test": {
+			"get": {
+				"description": "Test endpoint for checking the API status.",
+				"tags": ["No Category"],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": { "properties": { "version": { "type": "number", "default": 1 } } }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
