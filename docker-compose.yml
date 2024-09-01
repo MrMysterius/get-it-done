@@ -1,0 +1,8 @@
+services:
+  get-it-done:
+    build: .
+    container_name: 'GetItDone'
+    volumes:
+      - './data:/data:rw'
+    ports:
+      - '4137:4137'
