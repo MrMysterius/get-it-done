@@ -7,7 +7,7 @@
 	"license": "LGPL-3.0-or-later",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "pnpm prisma:generate && vite build",
 		"preview": "vite preview",
 		"test": "pnpm test:integration && pnpm test:unit",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -18,7 +18,8 @@
 		"test:unit": "vitest",
 		"test:ui": "playwright test --ui",
 		"start": "pnpm prisma:migrate && pnpm preview",
-		"prisma:migrate": "prisma migrate deploy"
+		"prisma:migrate": "prisma migrate deploy",
+		"prisma:generate": "prisma generate"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
