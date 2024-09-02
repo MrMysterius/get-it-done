@@ -1,9 +1,9 @@
 import JWT from 'jsonwebtoken';
-import { TOKEN_SECRET } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 export function validateJWT(token: string) {
 	try {
-		const payload = JWT.verify(token, TOKEN_SECRET, {
+		const payload = JWT.verify(token, env.TOKEN_SECRET, {
 			issuer: 'GetItDone',
 			ignoreExpiration: true
 		}) as { id: string; exp: number };

@@ -1,6 +1,6 @@
 import { redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
 
-import { TOKEN_SECRET } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { building } from '$app/environment';
 import { databaseSetup } from '$lib/server/database-setup';
 import prisma from '$lib/server/prisma';
@@ -9,7 +9,7 @@ import { validateJWT } from '$lib/server/functions/validateJWT';
 await databaseSetup();
 
 if (!building) {
-	if (TOKEN_SECRET == undefined) {
+	if (env.TOKEN_SECRET == undefined) {
 		console.error(
 			'[ERROR] Environment Variable TOKEN_SECRET is not set. Which has to be in order for the authentication to work.'
 		);
