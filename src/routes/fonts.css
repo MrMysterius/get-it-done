@@ -1,0 +1,34 @@
+@font-face {
+	font-family: 'Monaspace Argon';
+	src:
+		url('/fonts/monaspace/MonaspaceArgon.woff2') format('woff2'),
+		url('/fonts/monaspace/MonaspaceArgon.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Monaspace Krypton';
+	src:
+		url('/fonts/monaspace/MonaspaceKrypton.woff2') format('woff2'),
+		url('/fonts/monaspace/MonaspaceKrypton.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Monaspace Neon';
+	src:
+		url('/fonts/monaspace/MonaspaceNeon.woff2') format('woff2'),
+		url('/fonts/monaspace/MonaspaceNeon.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Monaspace Radon';
+	src:
+		url('/fonts/monaspace/MonaspaceRadon.woff2') format('woff2'),
+		url('/fonts/monaspace/MonaspaceRadon.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Monaspace Xenon';
+	src:
+		url('/fonts/monaspace/MonaspaceXenon.woff2') format('woff2'),
+		url('/fonts/monaspace/MonaspaceXenon.woff') format('woff');
+}
