@@ -49,6 +49,12 @@ async function authenticate(e: RequestEvent) {
 		isRTExpired: vrt.expired
 	};
 
+	if (e.locals.auth.isAuthed) {
+		await prisma.user.update({
+			where: { id: vat.payload.id },
+			data: { last_action_timestamp: Date.now().toString() }
+		});
+	}
 	return;
 }
 
