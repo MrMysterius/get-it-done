@@ -32,3 +32,8 @@
 		url('/fonts/monaspace/MonaspaceXenon.woff2') format('woff2'),
 		url('/fonts/monaspace/MonaspaceXenon.woff') format('woff');
 }
+
+@font-face {
+	font-family: 'SUSE';
+	src: url('/fonts/suse/SUSE.ttf') format('ttf');
+}
