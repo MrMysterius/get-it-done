@@ -9,8 +9,108 @@
 			"url": "/api/v1"
 		}
 	],
+	"components": {
+		"parameters": {
+			"[user_id]": {
+				"in": "path",
+				"name": "user_id",
+				"required": true,
+				"type": "string"
+			}
+		},
+		"schemas": {
+			"userWithoutInvitee": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string", "example": "usr_e6IsDTLWqMrhnqKtSy8K" },
+					"name": { "type": "string", "example": "johnnyb" },
+					"displayname": { "type": "string", "example": "Johnny B" },
+					"role": { "type": "string", "enum": ["admin", "user"], "example": "user" },
+					"last_action_timestamp": {
+						"type": "string",
+						"description": "milliseconds since epoch timestamp",
+						"example": "1725359380873"
+					},
+					"active": {
+						"type": "boolean",
+						"description": "if the user is activated and can login and do stuff",
+						"example": true
+					},
+					"invited_from": {
+						"type": "string",
+						"description": "user_id of another user that invited this user",
+						"example": "usr_vbnrYsDUF5FmNi7x5zKa",
+						"nullable": true
+					}
+				}
+			},
+			"user": {
+				"allOf": [
+					{ "$ref": "#/components/schemas/userWithoutInvitee" },
+					{
+						"properties": {
+							"invitee": {
+								"allOf": [
+									{ "$ref": "#/components/schemas/userWithoutInvitee" },
+									{ "nullable": true }
+								]
+							}
+						}
+					}
+				]
+			},
+			"userData": {
+				"type": "object",
+				"properties": {
+					"username": { "type": "string" },
+					"password": { "type": "string" },
+					"displayname": { "type": "string" },
+					"role": { "type": "string", "enum": ["admin", "user"], "example": "user" },
+					"invitee_id": { "type": "string", "example": "usr_vbnrYsDUF5FmNi7x5zKa" }
+				}
+			}
+		},
+		"requestBodies": {},
+		"responses": {
+			"400": {
+				"description": "BAD REQUEST",
+				"content": {
+					"application/json": {
+						"schema": {
+							"properties": {
+								"message": { "type": "string", "default": "Bad Request" },
+								"errors": { "type": "array", "items": { "type": "object" } }
+							}
+						}
+					}
+				}
+			},
+			"403": {
+				"description": "FORBIDDEN ACCESS",
+				"content": {
+					"application/json": {
+						"schema": {
+							"properties": {
+								"message": {
+									"type": "string",
+									"default": "Forbidden Access"
+								}
+							}
+						}
+					}
+				}
+			},
+			"404": {
+				"description": "NOT FOUND"
+			},
+			"5XX": {
+				"description": "UNEXPECTED ERROR"
+			}
+		}
+	},
 	"tags": [
-		{ "name": "No Category", "description": "These paths have no specific category they fit in." }
+		{ "name": "No Category", "description": "These paths have no specific category they fit in." },
+		{ "name": "Users Management", "description": "Enpoints for managing users." }
 	],
 	"paths": {
 		"/test": {
@@ -26,6 +126,149 @@
 							}
 						}
 					}
+				}
+			}
+		},
+		"/users": {
+			"get": {
+				"description": "Admins can get all registered users here",
+				"tags": ["Users Management"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"users": {
+											"type": "array",
+											"items": { "$ref": "#/components/schemas/user" }
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": { "$ref": "#/components/responses/403" },
+					"5XX": { "$ref": "#/components/responses/5XX" }
+				}
+			},
+			"post": {
+				"description": "Admins can create new users here",
+				"tags": ["Users Management"],
+				"parameters": [],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"allOf": [
+									{ "$ref": "#/components/schemas/userData" },
+									{ "required": ["username", "password"] }
+								]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/userWithoutInvitee" }
+							}
+						}
+					},
+					"400": { "$ref": "#/components/responses/400" },
+					"403": { "$ref": "#/components/responses/403" },
+					"404": { "$ref": "#/components/responses/404" },
+					"5XX": { "$ref": "#/components/responses/5XX" }
+				}
+			}
+		},
+		"/users/[user_id]": {
+			"get": {
+				"description": "Admins can get a registered users here",
+				"tags": ["Users Management"],
+				"parameters": [{ "$ref": "#/components/parameters/[user_id]" }],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"user": { "$ref": "#/components/schemas/user" }
+									}
+								}
+							}
+						}
+					},
+					"403": { "$ref": "#/components/responses/403" },
+					"404": { "$ref": "#/components/responses/404" },
+					"5XX": { "$ref": "#/components/responses/5XX" }
+				}
+			},
+			"put": {
+				"description": "Admins and users themselves can update their user data",
+				"tags": ["Users Management"],
+				"parameters": [{ "$ref": "#/components/parameters/[user_id]" }],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"allOf": [
+									{ "$ref": "#/components/schemas/userData" },
+									{
+										"type": "object",
+										"properties": { "is_active": { "type": "boolean", "example": true } }
+									}
+								]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"message": { "type": "string", "default": "Updated user" },
+										"user": { "$ref": "#/components/schemas/userWithoutInvitee" }
+									}
+								}
+							}
+						}
+					},
+					"400": { "$ref": "#/components/responses/400" },
+					"403": { "$ref": "#/components/responses/403" },
+					"404": { "$ref": "#/components/responses/404" },
+					"5XX": { "$ref": "#/components/responses/5XX" }
+				}
+			},
+			"delete": {
+				"description": "Admins can delete users here",
+				"tags": ["Users Management"],
+				"parameters": [{ "$ref": "#/components/parameters/[user_id]" }],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"message": { "type": "string", "default": "Successfully deleted user" },
+										"user_id": { "type": "string", "example": "usr_V4GIklVAjYY70yenUEYH" }
+									}
+								}
+							}
+						}
+					},
+					"403": { "$ref": "#/components/responses/403" },
+					"404": { "$ref": "#/components/responses/404" },
+					"5XX": { "$ref": "#/components/responses/5XX" }
 				}
 			}
 		}
