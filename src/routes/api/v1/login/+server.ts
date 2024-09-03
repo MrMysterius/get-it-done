@@ -9,8 +9,8 @@ import { z } from 'zod';
 
 const VUserCredentials = z
 	.object({
-		username: z.string(),
-		password: z.string()
+		username: z.string().trim(),
+		password: z.string().trim()
 	})
 	.transform(async (creds) => {
 		const user = await prisma.user.findFirst({ where: { name: creds.username } });
