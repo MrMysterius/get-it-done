@@ -22,6 +22,7 @@ const VUserCredentials = z
 		}
 	});
 
+//TODO Login event on Users Events
 export async function POST(e: RequestEvent) {
 	const jsonBody = await getJsonBody(e);
 	const parsed = await VUserCredentials.safeParseAsync(jsonBody);
@@ -29,12 +30,12 @@ export async function POST(e: RequestEvent) {
 		return json({ message: 'Bad Request', errors: parsed.error.errors }, { status: 400 });
 	}
 
-	if (!parsed.data.user) {
-		return json({ message: 'Internal Server Error' }, { status: 500 });
-	}
-
 	if (!parsed.data.password_match) {
 		return json({ message: 'Incorrect username and password combination' }, { status: 403 });
+	}
+
+	if (!parsed.data.user) {
+		return json({ message: 'Internal Server Error' }, { status: 500 });
 	}
 
 	const at = generateAccessToken(parsed.data.user);
