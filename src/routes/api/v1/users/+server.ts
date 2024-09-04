@@ -58,6 +58,7 @@ const VUserNew = z.object({
 		.optional()
 });
 
+//TODO User created event on User Events
 export async function POST(e: RequestEvent) {
 	isAuthed(e);
 	if (e.locals.auth.user?.role != 'admin')

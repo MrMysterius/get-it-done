@@ -62,6 +62,7 @@ const VUserUpdate = z.object({
 	is_active: z.boolean().optional()
 });
 
+//TODO User Info / Data Updated Event in User Events
 export async function PUT(e: RequestEvent) {
 	isAuthed(e);
 	if (e.locals.auth.user?.role != 'admin' && e.locals.auth.user?.id != e.params.user_id)
