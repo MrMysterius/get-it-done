@@ -41,7 +41,7 @@ model user_event {
   event_name String
   timestamp  DateTime            @default(now())
   creator    String
-  user       user                @relation(fields: [creator], references: [id])
+  user       user                @relation(fields: [creator], references: [id], onDelete: Cascade)
   data       Unsupported("Json") //INFO Json isn't supported by sqlite so it probably needs to be a String that is serialized Json
 }
 
@@ -49,7 +49,7 @@ model group {
   id            String          @id // grp_****
   name          String
   owner         String
-  user          user            @relation(fields: [owner], references: [id])
+  user          user            @relation(fields: [owner], references: [id], onDelete: Cascade)
   group_members group_members[]
   group_event   group_event[]
   filters       filters[]
@@ -63,8 +63,8 @@ model group_members {
   group_id String
   user_id  String
 
-  group group @relation(fields: [group_id], references: [id])
-  user  user  @relation(fields: [user_id], references: [id])
+  group group @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  user  user  @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@id([group_id, user_id])
 }
@@ -74,7 +74,7 @@ model group_event {
   event_name String
   timestamp  DateTime            @default(now())
   origin     String
-  group      group               @relation(fields: [origin], references: [id])
+  group      group               @relation(fields: [origin], references: [id], onDelete: Cascade)
   creator    String
   user       user                @relation(fields: [creator], references: [id])
   data       Unsupported("Json") //INFO Json isn't supported by sqlite so it probably needs to be a String that is serialized Json
@@ -83,7 +83,7 @@ model group_event {
 model filters {
   id      String              @id // flt_****
   creator String
-  group   group               @relation(fields: [creator], references: [id])
+  group   group               @relation(fields: [creator], references: [id], onDelete: Cascade)
   name    String
   data    Unsupported("Json") //INFO Json isn't supported by sqlite so it probably needs to be a String that is serialized Json
 }
@@ -91,7 +91,7 @@ model filters {
 model state {
   id               String  @id // st_****
   creator          String
-  group            group   @relation(fields: [creator], references: [id])
+  group            group   @relation(fields: [creator], references: [id], onDelete: Cascade)
   name             String
   description      String  @default("")
   color_text       String  @default("#000000")
@@ -103,7 +103,7 @@ model state {
 model tag {
   id               String     @id // tag_****
   creator          String
-  group            group      @relation(fields: [creator], references: [id])
+  group            group      @relation(fields: [creator], references: [id], onDelete: Cascade)
   name             String
   description      String     @default("")
   type             String
@@ -115,7 +115,7 @@ model tag {
 model task {
   id            String         @id // tsk_****
   creator       String
-  group         group          @relation(fields: [creator], references: [id])
+  group         group          @relation(fields: [creator], references: [id], onDelete: Cascade)
   title         String?
   description   String?
   date_start    DateTime?
@@ -134,16 +134,16 @@ model task {
 
 model task_tag {
   task_id String
-  task    task   @relation(fields: [task_id], references: [id])
+  task    task   @relation(fields: [task_id], references: [id], onDelete: Cascade)
   tag_id  String
-  tag     tag    @relation(fields: [tag_id], references: [id])
+  tag     tag    @relation(fields: [tag_id], references: [id], onDelete: Cascade)
 
   @@id([task_id, tag_id])
 }
 
 model task_asignee {
   task_id String
-  task    task   @relation(fields: [task_id], references: [id])
+  task    task   @relation(fields: [task_id], references: [id], onDelete: Cascade)
   user_id String
   user    user   @relation(fields: [user_id], references: [id])
 
@@ -153,7 +153,7 @@ model task_asignee {
 model task_comment {
   id            String   @id // cmt_****
   task_id       String
-  task          task     @relation(fields: [task_id], references: [id])
+  task          task     @relation(fields: [task_id], references: [id], onDelete: Cascade)
   creator       String
   user          user     @relation(fields: [creator], references: [id])
   comment       String
@@ -164,7 +164,7 @@ model task_comment {
 model invite {
   id      String @id // inv_****
   creator String
-  user    user   @relation(fields: [creator], references: [id])
+  user    user   @relation(fields: [creator], references: [id], onDelete: Cascade)
   code    String
   limit   Int    @default(1)
   uses    Int    @default(0)
@@ -173,7 +173,7 @@ model invite {
 model inbox_code {
   id         String              @id // inb_****
   owner      String
-  group      group               @relation(fields: [owner], references: [id])
+  group      group               @relation(fields: [owner], references: [id], onDelete: Cascade)
   code       String
   extra_data Unsupported("Json") //INFO Json isn't supported by sqlite so it probably needs to be a String that is serialized Json
 }
