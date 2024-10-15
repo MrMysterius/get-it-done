@@ -8,6 +8,17 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			auth: AuthenticatedUser;
+			group: {
+				data: Prisma.groupGetPayload<{
+					include: {
+						user: { select: { id: true; name: true; displayname: true } };
+						group_members: {
+							include: { user: { select: { id: true; name: true; displayname: true } } };
+						};
+					};
+				}>?;
+				isOwner: boolean;
+			}?;
 		}
 		// interface PageData {}
 		// interface PageState {}

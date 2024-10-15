@@ -91,7 +91,7 @@ export async function PUT(e: RequestEvent) {
 				},
 				omit: { password_hash: true }
 			});
-			return json({ messae: 'Updated user', user }, { status: 200 });
+			return json({ message: 'Updated user', user }, { status: 200 });
 		} catch {
 			return json({ message: 'User not found' }, { status: 404 });
 		}
@@ -116,7 +116,7 @@ export async function PUT(e: RequestEvent) {
 			},
 			omit: { password_hash: true }
 		});
-		return json({ messae: 'Updated user', user }, { status: 200 });
+		return json({ message: 'Updated user', user }, { status: 200 });
 	} catch {
 		return json({ message: 'User not found' }, { status: 404 });
 	}
